@@ -16,7 +16,7 @@ CREATE TABLE Funcionarios
     Fch_Nacimiento DATE               NOT NULL,
     Direccion      VARCHAR(120)       NOT NULL,
     Telefono       INT UNIQUE         NOT NULL,
-    Email          VARCHAR(20) UNIQUE NOT NULL,
+    Email          VARCHAR(50) UNIQUE NOT NULL,
     LogId          INT UNIQUE         NOT NULL,
     FOREIGN KEY (LogID) REFERENCES Logins (LogId)
 );
