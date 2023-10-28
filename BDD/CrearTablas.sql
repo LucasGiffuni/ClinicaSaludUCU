@@ -31,7 +31,7 @@ CREATE TABLE Agenda
 
 CREATE TABLE Carnet_Salud
 (
-    Ci              INT(8) NOT NULL,
+    Ci              INT(8) NOT NULL PRIMARY KEY,
     Fch_Emision     DATE   NOT NULL,
     Fch_Vencimiento DATE   NOT NULL,
     Comprobante     BLOB   NOT NULL,
