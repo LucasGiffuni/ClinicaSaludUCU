@@ -5,7 +5,7 @@ USE ClinicaUCUSalud;
 CREATE TABLE Logins
 (
     LogId    INT PRIMARY KEY NOT NULL,
-    Password VARCHAR(20)     NOT NULL
+    Password VARCHAR(50)     NOT NULL
 );
 
 CREATE TABLE Funcionarios
@@ -41,10 +41,18 @@ CREATE TABLE Carnet_Salud
 CREATE TABLE Periodos_Actualizacion
 (
     Año        YEAR        NOT NULL,
-    Semestre   ENUM (1, 2) NOT NULL,
+    Semestre   ENUM ('1', '2'),
     Fch_Inicio DATE        NOT NULL,
     Fch_Fin    DATE        NOT NULL,
     CONSTRAINT PA_PK PRIMARY KEY (Año, Semestre)
+);
+
+
+
+CREATE TABLE Cupos
+(
+    Fecha DATE PRIMARY KEY NOT NULL,
+    CitasDisponibles INT(5)           NOT NULL
 );
 
 CREATE TRIGGER VerificarFechaAgenda
@@ -61,5 +69,24 @@ BEGIN
     IF vPeriodo = 0 THEN
         SIGNAL SQLSTATE '45000'
             SET MESSAGE_TEXT = 'La fecha de agenda no está dentro de un período de actualización válido.';
+    ELSE
+        UPDATE Cupos C1 SET CitasDisponibles = (SELECT CitasDisponibles FROM Cupos C2 WHERE C1.Fecha = C2.Fecha) - 1
+        WHERE C1.Fecha = NEW.Fch_Agenda;
     END IF;
+END;
+
+CREATE TRIGGER InsertarCuposPorDia
+    AFTER INSERT
+    ON Periodos_Actualizacion
+    FOR EACH ROW
+BEGIN
+    DECLARE currentDate DATE;
+    SET currentDate = NEW.Fch_Inicio;
+
+    WHILE currentDate <= NEW.Fch_Fin
+        DO
+            INSERT INTO Cupos (Fecha, CitasDisponibles)
+            VALUES (currentDate, 5);
+            SET currentDate = DATE_ADD(currentDate, INTERVAL 1 DAY);
+        END WHILE;
 END;
