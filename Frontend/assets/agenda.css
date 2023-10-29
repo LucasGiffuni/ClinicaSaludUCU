@@ -1,0 +1,99 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    background-image: url(img/background.jpeg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+main {
+    width: 100%;
+    padding: 20px;
+    margin: auto;
+    margin-top: 100px;
+}
+
+#main-conteiner {
+    width: 100%;
+    max-width: 800px;
+    margin: auto;
+    position: relative;
+}
+
+#card {
+    width: 100%;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: center;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    background-color: rgb(28, 40, 94, 0.6)
+}
+
+.time-option-label {
+    padding: 10px 40px;
+    border: 2px solid white;
+    font-size: 14px;
+    background: transparent;
+    font-weight: 600;
+    cursor: pointer;
+    color: white;
+    outline: none;
+    transition: all 300ms;
+    display: flex;
+    margin-top: 4px;
+    width: 30%;
+    justify-content: center;
+    justify-content: center;
+
+}
+
+
+/* no funciona */
+.time-option-label:hover,
+.time-option-radio:checked+.time-option-label {
+    color: rgb(28, 40, 94);
+    background-color: white;
+}
+
+#submitButton {
+    padding: 10px 40px;
+    margin-top: 40px;
+    border: none;
+    font-size: 14px;
+    background: rgb(28, 40, 94);
+    font-weight: 600;
+    cursor: pointer;
+    color: white;
+    outline: none;
+}
+
+
+#card div h3,
+#card div p {
+    font-size: 27px;
+    font-weight: 0;
+    color: white;
+}
+
+#card div p {
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+#form {
+    margin-left: 30px;
+}
+
+#card div button {
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
