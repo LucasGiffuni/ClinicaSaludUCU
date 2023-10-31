@@ -8,19 +8,41 @@
     <title>Agenda</title>
 
     <body>
-        <main id="main-conteiner">
-            <div id="card">
-                <div id="calendar">
-                    <div class="time-options" id="timeOptions"></div>
-                </div>
-                <div id="form">
-                    <h3>Agenda una consulta medica</h3>
-                    <p>selecciona una fecha y horario disponible</p>
-                    <button id="submitButton">Enviar</button>
-                </div>
-            </div>
-        </main>
+        <div class="navbar">
+            <div class="nav-item">Agenda</div>
+            <div class="nav-item">Documentación</div>
+            <div class="nav-item">Informacion personal</div>
+        </div>
 
+        <header>
+            Bienvenido Franco!
+        </header>
+        
+        <div id="main-container">
+
+            <div class="calendar-container">
+                <label for="calendar">Selecciona una hora:</label>
+                <input type="text" id="calendar" placeholder="Selecciona una fecha">
+            </div>
+        
+            <div class="agenda-form">
+                <form id="agendaForm">
+                    <label for="hour">Selecciona una hora:</label>
+                    <select id="hour" required>
+                        <option value="12:00">12:00 PM</option>
+                        <option value="13:00">01:00 PM</option>
+                        <option value="14:00">02:00 PM</option>
+                        <option value="16:00">04:00 PM</option>
+                        <option value="17:00">05:00 PM</option>
+                        <option value="18:00">06:00 PM</option>
+                    </select>
+                    <button type="submit">Agendar</button>
+                </form>
+            </div>
+        </div>
+    
+        <div class="footer"></div>
+    
         <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
         <script src="/Frontend/assets/js/agenda.js"></script>
     </body>
