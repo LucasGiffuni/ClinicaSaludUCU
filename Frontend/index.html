@@ -31,15 +31,15 @@
             <!-- formularios de registro e inicio de sesion -->
             <div id="forms-login-register">
                 <!-- inicio de sesion -->
-                <form id="login-form" action="">
+                <form id="login-form" action="/backend/endpoint_de_login" method="POST" >
                     <h2>Iniciar sesion</h2>
                     <input type="text" id="loginId" placeholder="LoginId" required>
                     <input type="text" id="LoginPassword" placeholder="Contraseña" required>
-                    <button>Entrar</button>
+                    <button type="submit" id="loginBtn">Entrar</button>
                 </form>
 
                 <!-- registro -->
-                <form id="register-form" action="" required>
+                <form id="register-form" action="/backend/endpoint_de_registro" method="POST">
                     <h2>Registrarse</h2>
 
                     <div class="gridClass">
@@ -55,8 +55,8 @@
                     <input type="text" id="address" placeholder="Direccion" required>
 
                     <div class="gridClass">
-                        <input type="number" id="phone" placeholder="Telefono" required>
-                        <input type="number" id="ci" placeholder="Cedula" required>
+                        <input type="text" id="phone" placeholder="Telefono" required>
+                        <input type="text" id="ci" placeholder="Cedula" required>
                     </div>
 
                     <input type="email" id="email" placeholder="Correo electronico" required>
@@ -67,7 +67,9 @@
                         </button>
                     </div>
 
-                    <button type="button"  id="registerbtn">Registrarse</button>
+                    <input type="text" placeholder="LoginId" id="loginIdRegister" required>
+
+                    <button type="submit"  id="registerbtn">Registrarse</button>
                 </form>
 
             </div>
