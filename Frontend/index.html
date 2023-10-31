@@ -17,25 +17,25 @@
                 <div>
                     <h3>Ya tienes con una cuenta? </h3>
                     <p>Inicia sesion para continuar</p>
-                    <button id="button-inicio-sesion">Enterar</button>
+                    <button id="background-login-btn">Enterar</button>
                 </div>
     
                 <!-- fondo de inicio de sesion -->
                 <div>
                     <h3>Todavia no tienes una cuenta? </h3>
                     <p>Registrate para continuar</p>
-                    <button id="button-register">registrarse</button>
+                    <button id="background-register-btn">registrarse</button>
                 </div>
             </div>
 
             <!-- formularios de registro e inicio de sesion -->
-            <div id="forms-login-register">
+            <div id="forms">
                 <!-- inicio de sesion -->
                 <form id="login-form" action="/backend/endpoint_de_login" method="POST" >
                     <h2>Iniciar sesion</h2>
-                    <input type="text" id="loginId" placeholder="LoginId" required>
-                    <input type="text" id="LoginPassword" placeholder="Contraseña" required>
-                    <button type="submit" id="loginBtn">Entrar</button>
+                    <input type="text" id="loginId-login" placeholder="LoginId" required>
+                    <input type="text" id="Password-login" placeholder="Contraseña" required>
+                    <button type="submit" id="login-btn">Entrar</button>
                 </form>
 
                 <!-- registro -->
@@ -62,14 +62,14 @@
                     <input type="email" id="email" placeholder="Correo electronico" required>
 
                     <div class="gridClass">
-                        <input type="password" id="password" placeholder="Contraseña" required>
+                        <input type="password" id="password-register" placeholder="Contraseña" required>
                         <button type="button" id="showPasswordBtn">
                         </button>
                     </div>
 
-                    <input type="text" placeholder="LoginId" id="loginIdRegister" required>
+                    <input type="text" placeholder="LoginId" id="loginId-Register" required>
 
-                    <button type="submit"  id="registerbtn">Registrarse</button>
+                    <button type="submit"  id="register-btn">Registrarse</button>
                 </form>
 
             </div>

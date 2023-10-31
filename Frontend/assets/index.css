@@ -73,7 +73,7 @@ main {
 
 /* formularios */
 
-#forms-login-register {
+#forms {
     display: flex;
     align-items: center;
     width: 100%;
@@ -86,7 +86,7 @@ main {
     transition: left 500ms cubic-bezier(0.175, 0.885, 0.320, 1.275);
 }
 
-#forms-login-register form {
+#forms form {
     width: 100%;
     padding: 80px 20px;
     background: white;
@@ -94,14 +94,14 @@ main {
     border-radius: 20px;
 }
 
-#forms-login-register form h2 {
+#forms form h2 {
     font-size: 30px;
     text-align: center;
     margin-bottom: 20px;
     color: rgb(28, 40, 94);
 }
 
-#forms-login-register input,
+#forms input,
 #birthdate p {
     width: 100%;
     margin-top: 20px;
@@ -125,7 +125,7 @@ main {
     width: 50%;
 }
 
-#forms-login-register form button {
+#forms form button {
     padding: 10px 40px;
     margin-top: 40px;
     border: none;
@@ -168,13 +168,13 @@ main {
 
     /*Formularios*/
 
-    #forms-login-register {
+    #forms {
         top: -10px;
         left: -5px;
         margin: auto;
     }
 
-    #forms-login-register form {
+    #forms form {
         position: relative;
     }
 }
