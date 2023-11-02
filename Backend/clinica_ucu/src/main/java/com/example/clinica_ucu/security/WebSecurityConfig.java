@@ -41,9 +41,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // .httpBasic(withDefaults()) // (1)
         .csrf().disable() // (2)
         .authorizeRequests()
-        .antMatchers("/public/**").permitAll()
-        .antMatchers("/**").hasRole("USER")
-
+        // .antMatchers("/public/**").permitAll()
+        // .antMatchers("/swagger-ui/").permitAll()
+        // .antMatchers("/v2/api-docs").permitAll()
+        // .antMatchers("/**").hasRole("USER")
+        .antMatchers("/**").permitAll()
         .anyRequest().authenticated()
         .and().cors()
         .and()
@@ -58,5 +60,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
   }
 
- 
 }

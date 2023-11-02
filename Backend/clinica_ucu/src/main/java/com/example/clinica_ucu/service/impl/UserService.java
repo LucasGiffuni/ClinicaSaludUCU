@@ -35,19 +35,17 @@ public class UserService implements UserDetailsService {
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
     Map<String, String> usuarios = new HashMap<String, String>();
 
-    UserServiceImpl service = new UserServiceImpl();
+    UserServiceImpl service;
+
+    service = new UserServiceImpl();
 
     try {
       for (DatabaseUser user : service.getAllUsers()) {
-
         usuarios.put(user.getUsername(), "USER");
       }
-
     } catch (ClassNotFoundException | SQLException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
-
     var rol = usuarios.get(username);
     System.out.println(rol);
 

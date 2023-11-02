@@ -4,7 +4,6 @@ jwtSecurity:
   users:
     user1: "kleis"
     user2: "admin"
-
 spring:
   datasource:
     driver-class-name: "com.mysql.cj.jdbc.Driver"
