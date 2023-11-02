@@ -1,49 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/Frontend/assets/agenda.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <title>Agenda</title>
+</head>
 
-    <body>
-        <div class="navbar">
-            <div class="nav-item">Agenda</div>
-            <div class="nav-item">Documentación</div>
-            <div class="nav-item">Informacion personal</div>
-        </div>
+<body>
 
-        <header>
-            Bienvenido Franco!
-        </header>
-        
+    <div class="navbar">
+        <div class="nav-item">Agenda</div>
+        <div class="nav-item">Documentación</div>
+        <div class="nav-item">Informacion personal</div>
+    </div>
+
+    <main>
+
         <div id="main-container">
+            <div id="background-card">
 
-            <div class="calendar-container">
-                <label for="calendar">Selecciona una hora:</label>
-                <input type="text" id="calendar" placeholder="Selecciona una fecha">
-            </div>
-        
-            <div class="agenda-form">
+            <div id="forms">
                 <form id="agendaForm">
-                    <label for="hour">Selecciona una hora:</label>
+
+                    <h3 for="calendar">Selecciona una fecha:</h3>
+                    <input type="text" id="calendar" placeholder="Selecciona una fecha" required>
+
+                    <h3 for="hour">Selecciona una hora:</h3>
                     <select id="hour" required>
-                        <option value="12:00">12:00 PM</option>
-                        <option value="13:00">01:00 PM</option>
-                        <option value="14:00">02:00 PM</option>
-                        <option value="16:00">04:00 PM</option>
-                        <option value="17:00">05:00 PM</option>
-                        <option value="18:00">06:00 PM</option>
+                        <option value="12:00">12:00</option>
+                        <option value="13:00">13:00</option>
+                        <option value="14:00">14:00</option>
+                        <option value="15:00">15:00</option>
+                        <option value="16:00">16:00</option>
+                        <option value="17:00">17:00</option>
                     </select>
-                    <button type="submit">Agendar</button>
+                    
+
+                    <button type="submit" id="submitButton" disabled>Agendar</button>
+
                 </form>
             </div>
         </div>
-    
-        <div class="footer"></div>
-    
-        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-        <script src="/Frontend/assets/js/agenda.js"></script>
-    </body>
+        </div>
+
+    </main>
+
+    <div class="footer"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="/Frontend/assets/js/agenda.js"></script>
+</body>
+
 </html>
