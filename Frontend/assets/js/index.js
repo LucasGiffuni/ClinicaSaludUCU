@@ -1,120 +1,104 @@
-const form_css = document.querySelector("#forms");
-const form_login_css = document.querySelector("#login-form");
-const form_register_css = document.querySelector("#register-form");
-const background_login_css = document.querySelector("#background-login-btn");
-const background_register_css = document.querySelector(
+// Selectores de elementos
+const formCss = document.querySelector("#forms");
+const formLoginCss = document.querySelector("#login-form");
+const formRegisterCss = document.querySelector("#register-form");
+const backgroundLoginCss = document.querySelector("#background-login-btn");
+const backgroundRegisterCss = document.querySelector(
   "#background-register-btn"
 );
+const registerForm = document.getElementById("register-form");
+const loginForm = document.getElementById("login-form");
 
-const register_form = document.getElementById("register-form");
-const login_form = document.getElementById("login-form");
+// Campos de formulario de registro
+const nameInput = document.getElementById("name");
+const lastNameInput = document.getElementById("lastName");
+const birthdateInput = document.getElementById("birthdate");
+const addressInput = document.getElementById("address");
+const phoneInput = document.getElementById("phone");
+const ciInput = document.getElementById("ci");
+const passwordInput = document.getElementById("password-register");
+const emailInput = document.getElementById("email");
+const loginIdInput = document.getElementById("loginId-register");
 
-/* register */
-let nameInput = document.getElementById("name");
-let lastNameInput = document.getElementById("lastName");
-let birthdateInput = document.getElementById("birthdate");
-let addressInput = document.getElementById("address");
-let phoneInput = document.getElementById("phone");
-let ciInput = document.getElementById("ci");
-let passwordInput = document.getElementById("password-register");
-let emailInput = document.getElementById("email");
-let loginIdInput = document.getElementById("loginId-Register");
-
-/* login */
-let loginIdInputLogin = document.getElementById("loginId-login");
-let passwordInputLogin = document.getElementById("password-login");
-
+// Campos de formulario de inicio de sesión
+const loginIdInputLogin = document.getElementById("loginId-login");
+const passwordInputLogin = document.getElementById("password-login");
 const showPasswordBtn = document.getElementById("showPasswordBtn");
 
-/* functions */
-register_form.addEventListener("submit", registerForm);
-login_form.addEventListener("submit", loginForm);
+// Event listeners
+registerForm.addEventListener("submit", registerFormHandler);
+loginForm.addEventListener("submit", loginFormHandler);
+backgroundLoginCss.addEventListener("click", showLoginForm);
+backgroundRegisterCss.addEventListener("click", showRegisterForm);
+window.addEventListener("resize", adjustLayout);
+showPasswordBtn.addEventListener("click", togglePasswordVisibility);
 
-background_login_css.addEventListener("click", inicioSesionSwap);
-background_register_css.addEventListener("click", registerSwap);
-window.addEventListener("resize", redimention);
-showPasswordBtn.addEventListener("click", showPassword);
+adjustLayout();
 
-redimention();
+// Funciones
+function showRegisterForm() {
+  formRegisterCss.style.display = "block";
+  formCss.style.left = "410px";
+  formLoginCss.style.display = "none";
+  backgroundRegisterCss.style.opacity = "0";
+  backgroundLoginCss.style.opacity = "1";
+}
 
-/* animations */
-function registerSwap() {
+function showLoginForm() {
+  formLoginCss.style.display = "block";
+  formCss.style.left = "10px";
+  formRegisterCss.style.display = "none";
+  backgroundRegisterCss.style.opacity = "1";
+  backgroundLoginCss.style.opacity = "0";
+}
+
+function adjustLayout() {
   if (window.innerWidth > 850) {
-    form_register_css.style.display = "block";
-    form_css.style.left = "410px";
-    form_login_css.style.display = "none";
-    background_register_css.style.opacity = "0";
-    background_login_css.style.opacity = "1";
+    backgroundRegisterCss.style.display = "block";
+    backgroundLoginCss.style.display = "block";
   } else {
-    form_register_css.style.display = "block";
-    form_css.style.left = "0px";
-    form_login_css.style.display = "none";
-    background_register_css.style.display = "none";
-    background_login_css.style.display = "block";
-    background_login_css.style.opacity = "1";
+    backgroundRegisterCss.style.display = "block";
+    backgroundRegisterCss.style.opacity = "1";
+    backgroundLoginCss.style.display = "none";
+    formLoginCss.style.display = "block";
+    formCss.style.left = "0px";
+    formRegisterCss.style.display = "none";
   }
 }
 
-function inicioSesionSwap() {
-  if (window.innerWidth > 850) {
-    form_login_css.style.display = "block";
-    form_css.style.left = "10px";
-    form_register_css.style.display = "none";
-    background_register_css.style.opacity = "1";
-    background_login_css.style.opacity = "0";
-  } else {
-    form_login_css.style.display = "block";
-    form_css.style.left = "0px";
-    form_register_css.style.display = "none";
-    background_login_css.style.display = "none";
-  }
-}
-
-function redimention() {
-  if (window.innerWidth > 850) {
-    background_register_css.style.display = "block";
-    background_login_css.style.display = "block";
-  } else {
-    background_register_css.style.display = "block";
-    background_register_css.style.opacity = "1";
-    background_login_css.style.display = "none";
-    form_login_css.style.display = "block";
-    form_css.style.left = "0px";
-    form_register_css.style.display = "none";
-  }
-}
-
-/* password show */
-function showPassword() {
+function togglePasswordVisibility() {
   passwordInput.type = passwordInput.type === "password" ? "text" : "password";
 }
 
-/* validations */
 function isValidEmail(email) {
   const regexEmail =
     /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g;
-  alert("el email " + regexEmail.test(email));
   return regexEmail.test(email);
 }
 
 function isValidPassword(password) {
   const regexPassword = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm;
-  alert("la contrasena " + regexPassword.test(password));
   return regexPassword.test(password);
 }
 
 function isValidNumeric(value) {
   const regexNumeric = /^[0-9]+$/;
-  alert("el numero " + regexNumeric.test(value));
   return regexNumeric.test(value);
 }
 
-function verifyData(value) {
-  if (value === "register") {
+function validateCi(ci) {
+  ci = cleanCi(ci);
+  const dig = ci[ci.length - 1];
+  ci = ci.replace(/[0-9]$/, "");
+  return dig == validationDigit(ci);
+}
+
+function validateData(formType) {
+  if (formType === "register") {
     const isValidEmailInput = isValidEmail(emailInput.value);
     const isValidPasswordInput = isValidPassword(passwordInput.value);
     const isValidLoginIdInput = isValidNumeric(loginIdInput.value);
-    const isValidCiInput = isValidNumeric(ciInput.value);
+    const isValidCiInput = validateCi(ciInput.value);
     const isValidPhone = isValidNumeric(phoneInput.value);
 
     if (
@@ -155,28 +139,26 @@ function verifyData(value) {
   }
 }
 
-function registerForm() {
-  if (verifyData("register")) {
-    fetch("/backend/endpoint_de_registro", {
+function registerFormHandler(event) {
+  event.preventDefault();
+  if (validateData("register")) {
+    fetch("/funcionario/" + ciInput.value + "/createFuncionario", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        name: nameInput.value.trim(),
-        lastName: lastNameInput.value.trim(),
-        birthdate: birthdateInput.value,
-        address: addressInput.value,
-        phone: parseInt(phoneInput.value.trim()),
-        ci: parseInt(ciInput.value.trim()),
-        email: emailInput.value.trim(),
-        password: passwordInput.value.trim(),
-        loginId: parseInt(loginIdInput.value.trim()),
+        Nombre: nameInput.value.trim(),
+        Apellido: lastNameInput.value.trim(),
+        Fch_Nacimineto: birthdateInput.value,
+        Direccion: addressInput.value,
+        Telefono: phoneInput.value.trim(),
+        Mail: emailInput.value.trim(),
       }),
     })
       .then((response) => response.json())
       .then((data) => {
-        // registro existoso
+        // Registro exitoso
         console.log(data);
       })
       .catch((error) => {
@@ -185,21 +167,25 @@ function registerForm() {
   }
 }
 
-function loginForm() {
-  if (verifyData("login")) {
-    fetch("/backend/endpoint_de_login", {
+function loginFormHandler(event) {
+  event.preventDefault();
+  if (validateData("login")) {
+    fetch("/public/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        loginId: parseInt(loginIdInputLogin.value.trim()),
+        loginId: loginIdInputLogin.value.trim(),
         password: passwordInputLogin.value.trim(),
       }),
     })
       .then((response) => response.json())
       .then((data) => {
-        // Manejar la respuesta del backend si es necesario
+        data.response.defaultResponse.code = "200";
+        // Datos de inicio de sesión válidos
+        /* data.jwt  ver manana*/
+
         console.log(data);
       })
       .catch((error) => {

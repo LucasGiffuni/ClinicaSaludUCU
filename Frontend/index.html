@@ -31,7 +31,7 @@
             <!-- formularios de registro e inicio de sesion -->
             <div id="forms">
                 <!-- inicio de sesion -->
-                <form id="login-form" action="/backend/endpoint_de_login" method="POST" >
+                <form id="login-form" action="/public/login" method="POST" >
                     <h2>Iniciar sesion</h2>
                     <input type="text" id="loginId-login" placeholder="LoginId" required>
                     <input type="text" id="Password-login" placeholder="Contraseña" required>
@@ -39,7 +39,7 @@
                 </form>
 
                 <!-- registro -->
-                <form id="register-form" action="/backend/endpoint_de_registro" method="POST">
+                <form id="register-form" action="/funcionario/${iInput.value}/createFuncionario" method="POST">
                     <h2>Registrarse</h2>
 
                     <div class="gridClass">
@@ -67,7 +67,7 @@
                         </button>
                     </div>
 
-                    <input type="text" placeholder="LoginId" id="loginId-Register" required>
+                    <input type="text" placeholder="LoginId" id="loginId-register" required>
 
                     <button type="submit"  id="register-btn">Registrarse</button>
                 </form>

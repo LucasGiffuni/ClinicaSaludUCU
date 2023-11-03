@@ -1,30 +1,74 @@
 document.addEventListener("DOMContentLoaded", function () {
-  let agendaForm = document.getElementById("agendaForm");
-  let submitButton = document.getElementById("submitButton");
+  const agendaForm = document.getElementById("agendaForm");
+  const submitButton = document.getElementById("submitButton");
   let formularioEnviado = false;
-
-  const bookedSlots = {}; // Objeto para realizar un seguimiento de las fechas y horas agendadas
+  const bookedSlots = {};
 
   agendaForm.addEventListener("submit", function (event) {
     event.preventDefault();
 
     if (!formularioEnviado) {
-      schedule();
-      formAlreadySent();
+      const selectedDate = document.getElementById("calendar").value;
+      const selectedHour = document.getElementById("hour").value;
+      const ci = "cedula que no se de donde saco";
+
+      if (selectedDate && selectedHour) {
+        crearAgenda(ci, selectedDate, selectedHour)
+          .then(() => {
+            scheduleAppointment(selectedDate, selectedHour);
+            disableFormSubmission();
+          })
+          .catch((error) => {
+            alert(
+              "Error al crear la agenda. Por favor, inténtalo de nuevo más tarde."
+            );
+            console.error("Error al crear la agenda:", error);
+          });
+      }
     } else {
-      alert("¡Ya te haz agendado!");
+      alert("¡Ya tienes una cita agendada!");
     }
   });
 
-  function formAlreadySent() {
+  // Función para crear la agenda en el backend
+  async function crearAgenda(ci, selectedDate, selectedHour) {
+    const agenda = {
+      hora: selectedHour,
+      dia: selectedDate,
+    };
+
+    return fetch(`/agenda/${ci}/crearAgenda`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(agenda),
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error("Error al crear la agenda");
+      })
+      .then((responseData) => {
+        console.log("Agenda creada exitosamente:", responseData);
+        return responseData;
+      })
+      .catch((error) => {
+        console.error("Error al crear la agenda:", error);
+        throw error;
+      });
+  }
+
+  function disableFormSubmission() {
     formularioEnviado = true;
-    submitButton.disabled = true; // Deshabilitar el botón después de enviar el formulario
+    submitButton.disabled = true;
   }
 
   flatpickr("#calendar", {
-    minDate: "2023/11/01",
-    maxDate: "2023/11/18",
-    dateFormat: "d/m/y",
+    minDate: "2023-11-01",
+    maxDate: "2023-11-18",
+    dateFormat: "d/m/Y",
     disable: [
       function (date) {
         const dateString = date.toISOString().split("T")[0];
@@ -33,18 +77,35 @@ document.addEventListener("DOMContentLoaded", function () {
     ],
   });
 
-  // Agrega event listeners para detectar cambios en la fecha y la hora
+  function fetchUpdatePeriod() {
+    fetch("/agenda/obtenerPeriodoDeActualizacion", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        const nuevaFechaInicio = data.fch_inicio;
+        const nuevaFechaFinal = data.fch_fin;
+
+        document.getElementById("fechaInicio").innerText = nuevaFechaInicio;
+        document.getElementById("fechaFinal").innerText = nuevaFechaFinal;
+      })
+      .catch((error) => {
+        console.error("Error al obtener el período de actualización:", error);
+      });
+  }
+
   document
     .getElementById("calendar")
-    .addEventListener("change", enableSubmitButton);
-  document
-    .getElementById("hour")
-    .addEventListener("change", enableSubmitButton);
+    .addEventListener("change", checkFormValidity);
+  document.getElementById("hour").addEventListener("change", checkFormValidity);
 
-  function enableSubmitButton() {
-    // Habilita el botón de submit si se ha seleccionado una fecha y una hora
+  function checkFormValidity() {
     const selectedDate = document.getElementById("calendar").value;
     const selectedHour = document.getElementById("hour").value;
+
     if (selectedDate && selectedHour) {
       submitButton.disabled = false;
     } else {
@@ -52,11 +113,10 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  function schedule() {
+  function scheduleAppointment() {
     const selectedDate = document.getElementById("calendar").value;
     const selectedHour = document.getElementById("hour").value;
 
-    // Verificar si la hora está disponible
     if (!bookedSlots[selectedDate]) {
       bookedSlots[selectedDate] = [];
     }
@@ -64,21 +124,17 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!bookedSlots[selectedDate].includes(selectedHour)) {
       bookedSlots[selectedDate].push(selectedHour);
 
-      // Eliminar la opción del campo de selección de hora
       const hourSelect = document.getElementById("hour");
       const optionToRemove = hourSelect.querySelector(
         `option[value="${selectedHour}"]`
       );
       hourSelect.removeChild(optionToRemove);
 
-      alert(
-        "Fecha seleccionada: " +
-          selectedDate +
-          " Hora seleccionada: " +
-          selectedHour
-      );
+      alert("Cita agendada para el " + selectedDate + " a las " + selectedHour);
     } else {
-      alert("¡Lo siento! Esta hora ya está agendada.");
+      alert("¡Lo siento! Esta hora ya está ocupada.");
     }
   }
+
+  fetchUpdatePeriod();
 });
