@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link id="icon" rel="icon" href="assets/img/icon.png">
+    <link rel="stylesheet" href="/assets/index.css">
+</head>
+<body>
+    
+    <main>
+        <!-- fondos del formulario -->
+        <div id="main-conteiner">
+            <div id="background-card">
+                <!-- fondo de registro -->
+                <div>
+                    <h3>Ya tienes con una cuenta? </h3>
+                    <p>Inicia sesion para continuar</p>
+                    <button id="button-inicio-sesion">Enterar</button>
+                </div>
+    
+                <!-- fondo de inicio de sesion -->
+                <div>
+                    <h3>Todavia no tienes una cuenta? </h3>
+                    <p>Registrate para continuar</p>
+                    <button id="button-register">registrarse</button>
+                </div>
+            </div>
+
+            <!-- formularios de registro e inicio de sesion -->
+            <div id="forms-login-register">
+                <!-- inicio de sesion -->
+                <form id="login-form" action="">
+                    <h2>Iniciar sesion</h2>
+                    <input type="text" id="loginId" placeholder="LoginId" required>
+                    <input type="text" id="LoginPassword" placeholder="Contraseña" required>
+                    <button>Entrar</button>
+                </form>
+
+                <!-- registro -->
+                <form id="register-form" action="" required>
+                    <h2>Registrarse</h2>
+
+                    <div class="gridClass">
+                        <input type="text" id="name" placeholder="Nombre" required>
+                        <input type="text" id="lastName" placeholder="Apellido" required>
+                    </div>
+
+                    <div id="birthdate-div">
+                        <p>Fecha de nacimiento</p>
+                        <input type="date" id="birthdate" name="" required>
+                    </div>
+
+                    <input type="text" id="address" placeholder="Direccion" required>
+
+                    <div class="gridClass">
+                        <input type="number" id="phone" placeholder="Telefono" required>
+                        <input type="number" id="ci" placeholder="Cedula" required>
+                    </div>
+
+                    <input type="email" id="email" placeholder="Correo electronico" required>
+
+                    <div class="gridClass">
+                        <input type="password" id="password" placeholder="Contraseña" required>
+                        <button type="button" id="showPasswordBtn">
+                        </button>
+                    </div>
+
+                    <button type="button"  id="registerbtn">Registrarse</button>
+                </form>
+
+            </div>
+        </div>
+    </main>
+    <script src="assets/js/index.js"></script>
+</body>
+</html>
