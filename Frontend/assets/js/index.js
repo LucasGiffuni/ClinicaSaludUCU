@@ -93,6 +93,24 @@ function validateCi(ci) {
   return dig == validationDigit(ci);
 }
 
+function validationDigit(ci) {
+  var a = 0;
+  var i = 0;
+  if (ci.length <= 6) {
+    for (i = ci.length; i < 7; i++) {
+      ci = "0" + ci;
+    }
+  }
+  for (i = 0; i < 7; i++) {
+    a += (parseInt("2987634"[i]) * parseInt(ci[i])) % 10;
+  }
+  if (a % 10 === 0) {
+    return 0;
+  } else {
+    return 10 - (a % 10);
+  }
+}
+
 function validateData(formType) {
   if (formType === "register") {
     const isValidEmailInput = isValidEmail(emailInput.value);
@@ -185,6 +203,7 @@ function loginFormHandler(event) {
         data.response.defaultResponse.code = "200";
         // Datos de inicio de sesión válidos
         /* data.jwt  ver manana*/
+        //por cada llamda a un endpoint ver envertoken en cache
 
         console.log(data);
       })

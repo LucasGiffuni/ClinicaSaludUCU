@@ -1,0 +1,153 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    background-image: url(img/background.jpeg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.navbar {
+    background-color: #1e3264;
+    color: white;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    height: 50px;
+}
+
+.navbar div {
+    padding: 14px 40px;
+    font-size: 14px;
+    background: transparent;
+    font-weight: 600;
+    cursor: pointer;
+    color: white;
+    outline: none;
+    transition: all 300ms;
+    box-sizing: border-box;
+}
+
+.navbar div:hover {
+    background-color: #132552;
+    padding: 16px 40px;
+}
+
+main {
+    width: 30%;
+    padding: 20px;
+    margin: auto;
+    margin-top: 100px;
+}
+
+
+#main-conteiner {
+    width: 100%;
+    max-width: 800px;
+    margin: auto;
+    position: relative;
+}
+
+#background-card {
+    width: 100%;
+    height: 400px;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: center;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    background-color: rgb(28, 40, 94, 0.6)
+}
+
+#background-card div {
+    margin: 100px 40px;
+    color: white;
+}
+
+/* formularios */
+
+#forms {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 380px;
+    position: relative;
+    top: -10px;
+
+}
+
+#forms form {
+    width: 100%;
+    padding: 80px 20px;
+    background: white;
+    position: absolute;
+    border-radius: 20px;
+
+}
+
+#forms form h3 {
+    font-size: 25px;
+    text-align: left;
+    margin: 10px;
+    color: rgb(28, 40, 94);
+}
+
+#forms input {
+    width: 100%;
+    margin-top: 20px;
+    padding: 10px;
+    border: none;
+    background: #F2F2F2;
+    font-size: 16px;
+    outline: none;
+}
+
+#forms form button {
+    padding: 10px 40px;
+    margin-top: 40px;
+    border: none;
+    font-size: 14px;
+    background: rgb(28, 40, 94);
+    font-weight: 600;
+    cursor: pointer;
+    color: white;
+    outline: none;
+}
+
+
+#documentationForm button {
+    padding: 10px 40px;
+    margin-top: 40px;
+    border: none;
+    font-size: 14px;
+    background: rgb(28, 40, 94);
+    font-weight: 600;
+    cursor: pointer;
+    color: white;
+    outline: none;
+}
+
+button:hover {
+    color: rgb(28, 40, 94);
+    background-color: white;
+}
+
+#documentationForm {
+    align-items: center;
+    align-items: center;
+    max-width: 380px;
+    margin-top: 30px;
+
+}
+
+#documentationForm h3 {
+    margin-bottom: 15px;
+    color: white;
+}
