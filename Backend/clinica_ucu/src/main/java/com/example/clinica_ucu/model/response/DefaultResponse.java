@@ -2,17 +2,28 @@ package com.example.clinica_ucu.model.response;
 
 public class DefaultResponse {
 
-    DefaultResponseData Response;
+    String code;
+    String description;
 
-    public DefaultResponseData getDefaultResponse() {
-        return Response;
+    public DefaultResponse(String code, String description) {
+        this.code = code;
+        this.description = description;
     }
 
-    public void setDefaultResponse(String code, String message) {
-        DefaultResponseData df = new DefaultResponseData();
-        df.setCode(code);
-        df.setMessage(message);
-        this.Response = df;
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
 }
