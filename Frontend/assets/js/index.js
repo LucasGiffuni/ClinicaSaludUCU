@@ -200,15 +200,38 @@ function loginFormHandler(event) {
     })
       .then((response) => response.json())
       .then((data) => {
-        data.response.defaultResponse.code = "200";
-        // Datos de inicio de sesión válidos
-        /* data.jwt  ver manana*/
-        //por cada llamda a un endpoint ver envertoken en cache
+        if (data && data.jwt) {
+          // Almacena el token JWT en el almacenamiento local del navegador
+          localStorage.setItem("token", data.jwt);
 
-        console.log(data);
+          // Decodifica el token JWT
+          const userData = parseJwt(data.jwt);
+          localStorage.setItem("userData", JSON.stringify(userData));
+
+          // Redirige a la página de agenda con la cédula en la URL
+          window.location.href = `/Frontend/${userData.cedula}/agenda.html`;
+        } else {
+          console.error("Error: Token JWT no válido.");
+        }
       })
       .catch((error) => {
         console.error("Error:", error);
       });
   }
+}
+
+/* revisar si esto es correcto */
+function parseJwt(token) {
+  var base64Url = token.split(".")[1];
+  var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+  var jsonPayload = decodeURIComponent(
+    atob(base64)
+      .split("")
+      .map(function (c) {
+        return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+      })
+      .join("")
+  );
+
+  return JSON.parse(jsonPayload);
 }
