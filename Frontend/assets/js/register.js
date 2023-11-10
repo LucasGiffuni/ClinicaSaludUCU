@@ -13,9 +13,12 @@ const passwordInput = document.getElementById("password");
 const emailInput = document.getElementById("email");
 const loginIdInput = document.getElementById("loginId");
 
+//cache
+const logIdCache = localStorage.getItem("logId");
+const tokenCache = localStorage.getItem("token");
+
 /* llamados */
 registerForm.addEventListener("submit", registerFormHandler);
-showPassword.addEventListener("click", togglePasswordVisibility);
 
 /* funciones */
 function togglePasswordVisibility() {
@@ -28,21 +31,20 @@ function isValidEmail(email) {
   return regexEmail.test(email);
 }
 
-function isValidPassword(password) {
-  const regexPassword = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm;
-  return regexPassword.test(password);
-}
-
 function isValidNumeric(value) {
   const regexNumeric = /^[0-9]+$/;
   return regexNumeric.test(value);
 }
 
 function validateCi(ci) {
-  ci = cleanCi(ci);
+  ci = clean_ci(ci);
   const dig = ci[ci.length - 1];
   ci = ci.replace(/[0-9]$/, "");
   return dig == validationDigit(ci);
+}
+
+function clean_ci(ci) {
+  return ci.replace(/\D/g, "");
 }
 
 function validationDigit(ci) {
@@ -65,18 +67,10 @@ function validationDigit(ci) {
 
 function validateData() {
   const isValidEmailInput = isValidEmail(emailInput.value);
-  const isValidPasswordInput = isValidPassword(passwordInput.value);
-  const isValidLoginIdInput = isValidNumeric(loginIdInput.value);
   const isValidCiInput = validateCi(ciInput.value);
   const isValidPhone = isValidNumeric(phoneInput.value);
 
-  if (
-    isValidEmailInput &&
-    isValidPasswordInput &&
-    isValidLoginIdInput &&
-    isValidCiInput &&
-    isValidPhone
-  ) {
+  if (isValidEmailInput && isValidCiInput && isValidPhone) {
     return true;
   } else {
     alert("Por favor, completa todos los campos correctamente.");
@@ -86,28 +80,46 @@ function validateData() {
 
 function registerFormHandler(event) {
   event.preventDefault();
+
   if (validateData()) {
-    fetch("/funcionario/" + ciInput.value + "/createFuncionario", {
+    const url =
+      "http://127.0.0.1:8080/funcionario/" +
+      ciInput.value +
+      "/createFuncionario";
+
+    fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: "Bearer " + tokenCache,
       },
       body: JSON.stringify({
         Nombre: nameInput.value.trim(),
         Apellido: lastNameInput.value.trim(),
-        Fch_Nacimineto: birthdateInput.value,
+        Fch_Nacimiento: birthdateInput.value,
         Direccion: addressInput.value,
         Telefono: phoneInput.value.trim(),
-        Mail: emailInput.value.trim(),
+        Email: emailInput.value.trim(),
+        LogId: logIdCache,
       }),
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Error en la solicitud");
+        }
+        return response.json();
+      })
       .then((data) => {
-        // Registro exitoso
-        console.log(data);
+        // Aquí puedes manejar la respuesta del backend
+        console.log("Respuesta del backend:", data);
+
+        // Si todo va bien, redirigir a la página deseada
+        window.location.href = "/login.html";
       })
       .catch((error) => {
         console.error("Error:", error);
       });
+  } else {
+    alert("datos malos");
   }
 }

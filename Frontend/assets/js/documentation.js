@@ -7,19 +7,34 @@ const documentationBtn = document.getElementById("documentation-navbar-btn");
 const agendaBtn = document.getElementById("agenda-navbar-btn");
 
 //cache
-const userData = JSON.parse(localStorage.getItem("userData"));
-const cedulaUsuario = userData.cedula;
+const cedulaUsuario = localStorage.getItem("userData");
+const token = localStorage.getItem("token");
 
 /* llamadas */
 documentationBtn.addEventListener("click", function () {
-  window.location.href = `/Frontend/${dataUser}/documentation.html`;
+  window.location.href = `/Frontend/${cedulaUsuario}/documentation.html`;
 });
 
 agendaBtn.addEventListener("click", function () {
-  window.location.href = `/Frontend/${dataUser}/agenda.html`;
+  window.location.href = `/Frontend/${cedulaUsuario}/agenda.html`;
 });
 
 submitButton.addEventListener("submit", sendFile);
+
+/* seguridad */
+
+if (cedulaUsuario && token) {
+  fetchUpdatePeriod();
+} else {
+  window.location.href = "/logIn.html";
+}
+
+document
+  .getElementById("documentationFile")
+  .addEventListener("change", function (event) {
+    const fileName = event.target.files[0].name;
+    document.getElementById("nameFile").textContent = `${fileName}`;
+  });
 
 /* funciones */
 

@@ -1,0 +1,98 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    background-image: url(img/background.jpeg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.main-conteiner {
+    width: 400px;
+    background-color: rgb(28, 40, 94, 0.6);
+    padding: 30px;
+    margin: auto;
+    margin-top: 100px;
+    border-radius: 4px;
+    font-family: 'calibri';
+    color: white;
+}
+
+.main-conteiner a {
+    display: flex;
+    color: white;
+    text-decoration: none;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.main-conteiner h2 {
+    display: flex;
+    color: white;
+    text-decoration: none;
+    justify-content: center;
+    margin-bottom: 20px;
+    font-size: 25px;
+}
+
+
+#register-form p {
+    margin-top: 8px;
+}
+
+
+#register-form form h2 {
+    font-size: 30px;
+    text-align: center;
+    margin-bottom: 20px;
+    color: rgb(28, 40, 94);
+}
+
+#register-form input {
+    width: 100%;
+    margin-top: 20px;
+    padding: 10px;
+    border: none;
+    font-size: 16px;
+    outline: none;
+}
+
+#register-form button {
+    padding: 10px 40px;
+    margin-top: 40px;
+    border: none;
+    font-size: 14px;
+    background: rgb(28, 40, 94);
+    font-weight: 600;
+    cursor: pointer;
+    color: white;
+    outline: none;
+}
+
+.gridClass {
+    display: flex;
+    gap: 10px;
+}
+
+.gridClass input {
+    width: 50%;
+}
+
+.flexClass {
+    display: flex;
+    align-items: center;
+
+}
+
+.flexClass img {
+    width: 40px;
+    transform: translate(300px, 10px);
+    position: absolute;
+}

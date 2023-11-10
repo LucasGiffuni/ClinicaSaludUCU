@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link id="icon" rel="icon" href="/Frontend/assets/img/icon.png">
-  <link rel="stylesheet" href="/Frontend/assets/register.css">
+  <link id="icon" rel="icon" href="./assets/img/icon.png">
+  <link rel="stylesheet" href="./assets/register.css">
   <title>Registro</title>
 </head>
 <body>
   <main class="main-conteiner">
 
     <h2>Registrarse</h2>
-    <form id="register-form" action="/funcionario/#ci.value/createFuncionario" method="POST">
+    <form id="register-form">
         <div class="gridClass">
             <input type="text" id="name" placeholder="Nombre" required>
             <input type="text" id="lastName" placeholder="Apellido" required>
@@ -31,18 +31,9 @@
 
         <input type="email" id="email" placeholder="Correo electronico" required>
 
-        <div class="flexClass">
-            <input type="password" id="password" placeholder="Contraseña" required>
-            <img src="/Frontend/assets/img/show.png" class="icon" id="showPassword">
-            </img>
-        </div>
-
-        <input type="text" placeholder="LoginId" id="loginId" required>
-
         <button type="submit"  id="register-btn">Registrarse</button>
     </form>
-    <p><a href="/Frontend/index.html">¿Ya tienes una cuenta?</a></p>
   </main>
-  <script src="/Frontend/assets/js/register.js"></script>
+  <script src="./assets/js/register.js"></script>
 </body>
 </html>
