@@ -7,12 +7,14 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.stereotype.Service;
 
 import com.example.clinica_ucu.model.CarnetSalud;
 import com.example.clinica_ucu.model.Funcionario;
 import com.example.clinica_ucu.model.response.DefaultResponse;
+import com.example.clinica_ucu.model.response.NewFuncionarioResponse;
 import com.example.clinica_ucu.security.JwtUtilService;
 
 @Service
@@ -20,13 +22,22 @@ public class FuncionarioServiceImpl {
 
     private Connection con;
 
+    @Value("${spring.datasource.connectionString}")
+    private String connectionString;
+    @Value("${spring.datasource.databaseName}")
+    private String databaseName;
+    @Value("${spring.datasource.databaseUsername}")
+    private String databaseUser;
+    @Value("${spring.datasource.databasePassword}")
+    private String databasePassword;
+
     private void createConection() throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.cj.jdbc.Driver");
         this.con = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/CLINICA", "root", "bernardo");
+                connectionString + databaseName, databaseUser, databasePassword);
     }
 
-    public DefaultResponse createFuncionario(Funcionario funcionario) {
+    public NewFuncionarioResponse createFuncionario(Funcionario funcionario) {
 
         try {
             createConection();
@@ -41,22 +52,23 @@ public class FuncionarioServiceImpl {
             preparedStmt.setString(5, funcionario.getDireccion());
             preparedStmt.setInt(6, Integer.parseInt(funcionario.getTelefono()));
             preparedStmt.setString(7, funcionario.getEmail());
-            preparedStmt.setInt(8, Integer.parseInt(funcionario.getLogId()));
+            preparedStmt.setString(8, funcionario.getLogId());
 
             preparedStmt.execute();
 
-            DefaultResponse response = new DefaultResponse();
-            response.setDefaultResponse("200", "Funcionario Creado");
-
+            DefaultResponse defaultResponse = new DefaultResponse("200", "OK");
+            NewFuncionarioResponse response = new NewFuncionarioResponse(defaultResponse, "Funcionario Creado");
             con.close();
             return response;
 
         } catch (Exception e) {
             e.printStackTrace();
+            DefaultResponse defaultResponse = new DefaultResponse("400", "Error");
+            NewFuncionarioResponse response = new NewFuncionarioResponse(defaultResponse, "Funcionario ya creado");
+            return response;
+
         }
-        DefaultResponse response = new DefaultResponse();
-        response.setDefaultResponse("400", "Error");
-        return response;
+
     }
 
     public DefaultResponse cargarCarnetSalud(CarnetSalud carnetSalud) {
@@ -73,8 +85,7 @@ public class FuncionarioServiceImpl {
 
             preparedStmt.execute();
 
-            DefaultResponse response = new DefaultResponse();
-            response.setDefaultResponse("200", "Carnet de salud cargado Correctamente.");
+            DefaultResponse response = new DefaultResponse("200", "Carnet de salud cargado Correctamente.");
 
             con.close();
             return response;
@@ -82,8 +93,7 @@ public class FuncionarioServiceImpl {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        DefaultResponse response = new DefaultResponse();
-        response.setDefaultResponse("400", "Error");
+        DefaultResponse response = new DefaultResponse("400", "Error");
         return response;
     }
 }

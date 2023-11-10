@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.clinica_ucu.model.Agenda;
 import com.example.clinica_ucu.model.PeriodosActualizacion;
 import com.example.clinica_ucu.model.response.DefaultResponse;
+import com.example.clinica_ucu.model.response.InitCuposResponse;
+import com.example.clinica_ucu.model.response.NewAgendaResponse;
 import com.example.clinica_ucu.service.impl.AgendaServiceImpl;
 import com.example.clinica_ucu.service.impl.FuncionarioServiceImpl;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
@@ -45,9 +47,8 @@ public class AgendaController {
     }
 
     @PostMapping(value = "/agenda/{CI}/crearAgenda", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<DefaultResponse> agendar(@RequestBody String agenda,
-            @PathVariable(value = "CI") String CI)
-            throws JsonMappingException, JsonProcessingException {
+    public ResponseEntity<NewAgendaResponse> agendar(@RequestBody String agenda,
+            @PathVariable(value = "CI") String CI) throws JsonMappingException, JsonProcessingException {
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
@@ -56,8 +57,27 @@ public class AgendaController {
         Agenda data = mapper.readValue(agenda, Agenda.class);
 
         data.setCi(CI);
+        NewAgendaResponse response = agendaService.crearAgenda(data);
+        if (response.getResponse().getCode().equals("400")) {
+            return ResponseEntity.status(400).body(response);
+        } else {
+            return ResponseEntity.ok(agendaService.crearAgenda(data));
 
-        return ResponseEntity.ok(agendaService.crearAgenda(data));
+        }
+
+    }
+
+    @PostMapping(value = "/agenda/cargarPeriodoActualizacion", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<InitCuposResponse> cargarPeriodoActualizacion(@RequestBody String periodo)
+            throws JsonMappingException, JsonProcessingException, ClassNotFoundException, SQLException {
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+        mapper.setVisibility(
+                VisibilityChecker.Std.defaultInstance().withFieldVisibility(JsonAutoDetect.Visibility.ANY));
+        PeriodosActualizacion data = mapper.readValue(periodo, PeriodosActualizacion.class);
+
+        return ResponseEntity.ok(agendaService.inicializarPeriodo(data));
     }
 
 }
