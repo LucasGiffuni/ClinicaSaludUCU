@@ -20,15 +20,16 @@
 
         <form id="documentationForm" action="" method="POST">            
             
-            <p>Seleccione su archivo:</p>
+            <h4>Seleccione su archivo:</h4>
             
             <div id="file-div">
-                <h2 id="nameFile"></h2>
+                <p id="nameFile"></p>
                 <label for="documentationFile">
                     Archivo (PDF, JPG):
                 </label>
                 <input accept=".pdf, .jpg" type="file" id="documentationFile">
             </div>
+            
     
             <button type="submit" id="documentation-btn" disabled>Enviar</button>
 
@@ -36,6 +37,12 @@
         
 
     </main>
+    <script>
+        document.getElementById('documentationFile').addEventListener('change', function(event) {
+            const fileName = event.target.files[0].name;
+            document.getElementById('nameFile').textContent = `${fileName}`;
+        });
+    </script>
     <script src="/Frontend/assets/js/documentation.js"></script>
 </body>
 </html>

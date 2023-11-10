@@ -1,7 +1,6 @@
 /* variables */
 
 let carnetSaludFile = document.getElementById("documentationFile").files[0];
-let carnetSaludFileCSS = document.querySelector("documentationFile");
 const submitButton = document.getElementById("documentation-btn");
 
 const documentationBtn = document.getElementById("documentation-navbar-btn");
@@ -12,16 +11,6 @@ const userData = JSON.parse(localStorage.getItem("userData"));
 const cedulaUsuario = userData.cedula;
 
 /* llamadas */
-carnetSaludFileCSS.addEventListener("change", editFileName);
-
-/* funciones */
-
-/* no funciona */
-function editFileName() {
-  document.querySelector("nameFile").innerHTML =
-    carnetSaludFileCSS.files[0].name;
-}
-
 documentationBtn.addEventListener("click", function () {
   window.location.href = `/Frontend/${dataUser}/documentation.html`;
 });
@@ -31,6 +20,8 @@ agendaBtn.addEventListener("click", function () {
 });
 
 submitButton.addEventListener("submit", sendFile);
+
+/* funciones */
 
 function sendFile() {
   if (validarArchivo(carnetSaludFile)) {
