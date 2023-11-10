@@ -191,10 +191,15 @@ public class UserServiceImpl {
             System.out.println("Plain-text password: " + password);
             System.out.println("Encrypted password using MD5: " + encryptedpassword);
             con.close();
+
+            final String token = jwtUtilService
+                    .generateToken(new User(username, encryptedpassword, new ArrayList<>()));
+
             RegisterResponse response = new RegisterResponse();
             DefaultResponse defaultResponse = new DefaultResponse("200", "OK");
             response.setResponse(defaultResponse);
             response.setMessage("Usuario " + username + " creado!");
+            response.setJWT(token);
             return response;
 
         } catch (Exception e) {
