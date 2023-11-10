@@ -3,21 +3,11 @@
 let carnetSaludFile = document.getElementById("documentationFile").files[0];
 const submitButton = document.getElementById("documentation-btn");
 
-const documentationBtn = document.getElementById("documentation-navbar-btn");
-const agendaBtn = document.getElementById("agenda-navbar-btn");
-
 //cache
 const cedulaUsuario = localStorage.getItem("userData");
 const token = localStorage.getItem("token");
 
 /* llamadas */
-documentationBtn.addEventListener("click", function () {
-  window.location.href = `/Frontend/${cedulaUsuario}/documentation.html`;
-});
-
-agendaBtn.addEventListener("click", function () {
-  window.location.href = `/Frontend/${cedulaUsuario}/agenda.html`;
-});
 
 submitButton.addEventListener("submit", sendFile);
 
@@ -29,6 +19,7 @@ if (cedulaUsuario && token) {
   window.location.href = "/logIn.html";
 }
 
+/* name file */
 document
   .getElementById("documentationFile")
   .addEventListener("change", function (event) {
@@ -41,24 +32,36 @@ document
 function sendFile() {
   if (validarArchivo(carnetSaludFile)) {
     convertirABase64(carnetSaludFile, function (base64String) {
-      // Realizar la solicitud POST con la cadena base64 en el cuerpo de la solicitud
-      fetch(`/funcionario/${cedulaUsuario}/cargarCarnetSalud`, {
+      const url =
+        "http://127.0.0.1:8080/funcionario/" +
+        cedulaUsuario +
+        "/cargarCarnetSalud";
+
+      fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
         },
         body: JSON.stringify({
           carnetSalud: base64String,
         }),
       })
-        .then((response) => response.json())
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Error en la solicitud");
+          }
+          return response.json();
+        })
         .then((data) => {
-          console.log("Respuesta del servidor:", data);
-          data.response.defaultResponse.code = "200";
-          alert("datos enviados corectamente");
+          // Aquí puedes manejar la respuesta del backend
+          console.log("Respuesta del backend:", data);
+          alert("DATOS ENVIADOS CORRECTAMENTE");
+
+          // Si todo va bien, redirigir a la página deseada
         })
         .catch((error) => {
-          console.error("Error al enviar la solicitud:", error);
+          console.error("Error:", error);
         });
     });
   } else {

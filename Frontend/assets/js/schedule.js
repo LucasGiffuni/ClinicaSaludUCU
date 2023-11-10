@@ -85,18 +85,6 @@ function disableFormSubmission() {
   submitButton.disabled = true;
 }
 
-flatpickr("#schedule", {
-  minDate: "2023-11-01",
-  maxDate: "2023-11-18",
-  dateFormat: "d/m/Y",
-  disable: [
-    function (date) {
-      const dateString = date.toISOString().split("T")[0];
-      return bookedSlots[dateString];
-    },
-  ],
-});
-
 function scheduleAppointment(selectedDate, selectedHour) {
   if (!bookedSlots[selectedDate]) {
     bookedSlots[selectedDate] = [];
@@ -119,29 +107,54 @@ function scheduleAppointment(selectedDate, selectedHour) {
 
 // Función para obtener y mostrar el período de actualización desde el backend
 function fetchUpdatePeriod() {
-  fetch("/agenda/obtenerPeriodoDeActualizacion", {
+  const url = "http://127.0.0.1:8080/agenda/obtenerPeriodoDeActualizacion";
+
+  fetch(url, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
+      Authorization: "Bearer " + tokenCache, //no se si se es necesario
     },
   })
     .then((response) => response.json())
     .then((data) => {
       const nuevaFechaInicio = data.fch_inicio;
       const nuevaFechaFinal = data.fch_fin;
+      const nuevoPeriodo = data.periodo; //cambiar luego, no se donde integrar
 
-      document.getElementById("fechaInicio").innerText = nuevaFechaInicio;
-      document.getElementById("fechaFinal").innerText = nuevaFechaFinal;
+      flatpickr("#schedule", {
+        minDate: nuevaFechaInicio,
+        maxDate: nuevaFechaFinal,
+        dateFormat: "d/m/Y",
+        disable: [
+          function (date) {
+            const dateString = date.toISOString().split("T")[0];
+            return bookedSlots[dateString];
+          },
+        ],
+      });
     })
     .catch((error) => {
       console.error("Error al obtener el período de actualización:", error);
     });
 }
 
+/* no se si es necesario */
+
+flatpickr("#schedule", {
+  minDate: "2023-11-01",
+  maxDate: "2023-11-18",
+  dateFormat: "d/m/Y",
+  disable: [
+    function (date) {
+      const dateString = date.toISOString().split("T")[0];
+      return bookedSlots[dateString];
+    },
+  ],
+});
+
 // Controladores de eventos para cambios en el calendario y la hora
-document
-  .getElementById("calendar")
-  .addEventListener("change", checkFormValidity);
+document.getElementById("calendar").addEventListener("change", checkFormValidity);
 document.getElementById("hour").addEventListener("change", checkFormValidity);
 
 // Función para habilitar o deshabilitar el botón de envío del formulario según la validez del formulario
