@@ -1,80 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link id="icon" rel="icon" href="/Frontend/assets/img/icon.png">
-    <link rel="stylesheet" href="/Frontend/assets/index.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link id="icon" rel="icon" href="/Frontend/assets/img/icon.png">
+  <link rel="stylesheet" href="/Frontend/assets/index.css">
+  <title>Login</title>
 </head>
+
 <body>
-    
-    <main>
-        <!-- fondos del formulario -->
-        <div id="main-conteiner">
-            <div id="background-card">
-                <!-- fondo de registro -->
-                <div>
-                    <h3>Ya tienes con una cuenta? </h3>
-                    <p>Inicia sesion para continuar</p>
-                    <button id="background-login-btn">Enterar</button>
-                </div>
-    
-                <!-- fondo de inicio de sesion -->
-                <div>
-                    <h3>Todavia no tienes una cuenta? </h3>
-                    <p>Registrate para continuar</p>
-                    <button id="background-register-btn">registrarse</button>
-                </div>
-            </div>
 
-            <!-- formularios de registro e inicio de sesion -->
-            <div id="forms">
-                <!-- inicio de sesion -->
-                <form id="login-form" action="/public/login" method="POST" >
-                    <h2>Iniciar sesion</h2>
-                    <input type="text" id="loginId-login" placeholder="LoginId" required>
-                    <input type="text" id="Password-login" placeholder="Contraseña" required>
-                    <button type="submit" id="login-btn">Entrar</button>
-                </form>
+  <main class="main-conteiner">
 
-                <!-- registro -->
-                <form id="register-form" action="/funcionario/${iInput.value}/createFuncionario" method="POST">
-                    <h2>Registrarse</h2>
+    <h2>Iniciar sesion</h2>
 
-                    <div class="gridClass">
-                        <input type="text" id="name" placeholder="Nombre" required>
-                        <input type="text" id="lastName" placeholder="Apellido" required>
-                    </div>
+    <form id="login-form" action="/public/login" method="POST" >
 
-                    <div id="birthdate-div">
-                        <p>Fecha de nacimiento</p>
-                        <input type="date" id="birthdate" name="" required>
-                    </div>
+        <input type="text" id="loginId" placeholder="LoginId" required>
 
-                    <input type="text" id="address" placeholder="Direccion" required>
-
-                    <div class="gridClass">
-                        <input type="text" id="phone" placeholder="Telefono" required>
-                        <input type="text" id="ci" placeholder="Cedula" required>
-                    </div>
-
-                    <input type="email" id="email" placeholder="Correo electronico" required>
-
-                    <div class="gridClass">
-                        <input type="password" id="password-register" placeholder="Contraseña" required>
-                        <button type="button" id="showPasswordBtn">
-                        </button>
-                    </div>
-
-                    <input type="text" placeholder="LoginId" id="loginId-register" required>
-
-                    <button type="submit"  id="register-btn">Registrarse</button>
-                </form>
-
-            </div>
+        <div class="flexClass">
+          <input type="password" id="password" placeholder="Contraseña" required>
+          <img src="/Frontend/assets/img/show.png" class="icon" id="showPassword">
+          </img>
         </div>
-    </main>
-    <script src="/Frontend/assets/js/index.js"></script>
+
+        <button type="submit" id="login-btn">Entrar</button>
+
+    </form>
+
+    <p><a href="/Frontend/register.html">¿Todavia no tiene una cuenta?</a></p>
+
+  </main>
+
+  <script src="/Frontend/assets/js/index.js"></script>
+
 </body>
 </html>

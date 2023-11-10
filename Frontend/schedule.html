@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link id="icon" rel="icon" href="/Frontend/assets/img/icon.png">
+    <link rel="stylesheet" href="/Frontend/assets/schedule.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <title>Agenda</title>
+</head>
+
+<body>
+
+    <div class="navbar">
+        <div class="nav-item" id="schedule-navbar-btn">Agenda</div>
+        <div class="nav-item" id="documentation-navbar-btn">Documentación</div>
+    </div>
+
+    <main class="main-conteiner">
+
+        <h2>Agenda</h2>
+
+        <form id="scheduleForm" action="" method="POST">
+
+            <p for="schedule">Selecciona una fecha:</p>
+            <input type="text" id="schedule" placeholder="Selecciona una fecha" required>
+
+            <p for="hour">Selecciona una hora:</p>
+            <select id="hour" required>
+                <option value="12:00">12:00</option>
+                <option value="13:00">13:00</option>
+                <option value="14:00">14:00</option>
+                <option value="15:00">15:00</option>
+                <option value="16:00">16:00</option>
+                <option value="17:00">17:00</option>
+            </select>
+            
+
+            <button type="submit" id="schedule-btn" disabled>Agendar</button>
+
+        </form>
+
+    </main>
+
+    <div class="footer"></div>
+
+    <script src="/Frontend/assets/js/schedule.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+</body>
+
+</html>

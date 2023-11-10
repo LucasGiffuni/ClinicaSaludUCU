@@ -1,18 +1,33 @@
+/* variables */
+
 let carnetSaludFile = document.getElementById("documentationFile").files[0];
+let carnetSaludFileCSS = document.querySelector("documentationFile");
+const submitButton = document.getElementById("documentation-btn");
 
-const submitButton = document.getElementById("submitButton");
+const documentationBtn = document.getElementById("documentation-navbar-btn");
+const agendaBtn = document.getElementById("agenda-navbar-btn");
 
-const documentationBtn = document.getElementById("documentation-btn");
-const agendaBtn = document.getElementById("agenda-btn");
-
+//cache
 const userData = JSON.parse(localStorage.getItem("userData"));
+const cedulaUsuario = userData.cedula;
+
+/* llamadas */
+carnetSaludFileCSS.addEventListener("change", editFileName);
+
+/* funciones */
+
+/* no funciona */
+function editFileName() {
+  document.querySelector("nameFile").innerHTML =
+    carnetSaludFileCSS.files[0].name;
+}
 
 documentationBtn.addEventListener("click", function () {
-  window.location.href = `http://127.0.0.1:5500/Frontend/${dataUser}/documentation.html`;
+  window.location.href = `/Frontend/${dataUser}/documentation.html`;
 });
 
 agendaBtn.addEventListener("click", function () {
-  window.location.href = `http://127.0.0.1:5500/Frontend/${dataUser}/agenda.html`;
+  window.location.href = `/Frontend/${dataUser}/agenda.html`;
 });
 
 submitButton.addEventListener("submit", sendFile);
@@ -21,7 +36,7 @@ function sendFile() {
   if (validarArchivo(carnetSaludFile)) {
     convertirABase64(carnetSaludFile, function (base64String) {
       // Realizar la solicitud POST con la cadena base64 en el cuerpo de la solicitud
-      fetch(`/funcionario/${userData.cedula}/cargarCarnetSalud`, {
+      fetch(`/funcionario/${cedulaUsuario}/cargarCarnetSalud`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -41,8 +56,8 @@ function sendFile() {
         });
     });
   } else {
-    console.error(
-      "Tipo de archivo no permitido. Por favor, elige una imagen (JPEG o PNG) o un archivo PDF."
+    alert(
+      "Tipo de archivo no permitido. Por favor, elige una imagen JPG o un archivo PDF."
     );
   }
 }

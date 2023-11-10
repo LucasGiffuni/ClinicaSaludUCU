@@ -14,118 +14,57 @@ body {
     background-attachment: fixed;
 }
 
-main {
-    width: 100%;
-    padding: 20px;
+.main-conteiner {
+    width: 400px;
+    background-color: rgb(28, 40, 94, 0.6);
+    padding: 30px;
     margin: auto;
     margin-top: 100px;
+    border-radius: 4px;
+    font-family: 'calibri';
+    color: white;
 }
 
-#main-conteiner {
-    width: 100%;
-    max-width: 800px;
-    margin: auto;
-    position: relative;
-}
-
-#background-card {
-    width: 100%;
-    padding: 10px 20px;
+.main-conteiner a {
     display: flex;
+    color: white;
+    text-decoration: none;
     justify-content: center;
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-    background-color: rgb(28, 40, 94, 0.6)
+    margin-top: 20px;
 }
 
-#background-card div {
-    margin: 100px 40px;
-    color: white;
-    transition: all 500ms;
-}
-
-#background-card div h3 {
-    font-size: 27px;
-    font-weight: 0;
-}
-
-#background-card div p,
-#background-card div button {
-    margin-top: 30px;
-}
-
-#background-card div button {
-    padding: 10px 40px;
-    border: 2px solid white;
-    font-size: 14px;
-    background: transparent;
-    font-weight: 600;
-    cursor: pointer;
-    color: white;
-    outline: none;
-    transition: all 300ms;
-}
-
-#background-card div button:hover {
-    color: rgb(28, 40, 94);
-    background-color: white;
-}
-
-/* formularios */
-
-#forms {
+.main-conteiner h2 {
     display: flex;
-    align-items: center;
-    width: 100%;
-    max-width: 380px;
-    position: relative;
-    top: -200px;
-    left: 10px;
-
-    /*La transicion va despues del codigo JS*/
-    transition: left 500ms cubic-bezier(0.175, 0.885, 0.320, 1.275);
+    color: white;
+    text-decoration: none;
+    justify-content: center;
+    margin-bottom: 20px;
+    font-size: 25px;
 }
 
-#forms form {
-    width: 100%;
-    padding: 80px 20px;
-    background: white;
-    position: absolute;
-    border-radius: 20px;
+
+#login-form p {
+    margin-top: 8px;
 }
 
-#forms form h2 {
+
+#login-form form h2 {
     font-size: 30px;
     text-align: center;
     margin-bottom: 20px;
     color: rgb(28, 40, 94);
 }
 
-#forms input,
-#birthdate p {
+#login-form input {
     width: 100%;
     margin-top: 20px;
     padding: 10px;
     border: none;
-    background: #F2F2F2;
     font-size: 16px;
     outline: none;
 }
 
-#birthdate-div input {
-    margin-top: 8px;
-}
-
-.gridClass {
-    display: flex;
-    gap: 10px;
-}
-
-.gridClass input {
-    width: 50%;
-}
-
-#forms form button {
+#login-form button {
     padding: 10px 40px;
     margin-top: 40px;
     border: none;
@@ -137,44 +76,23 @@ main {
     outline: none;
 }
 
-#login-form {
-    opacity: 1;
-    display: block;
+.gridClass {
+    display: flex;
+    gap: 10px;
 }
 
-#register-form {
-    display: none;
+.gridClass input {
+    width: 50%;
 }
 
+.flexClass {
+    display: flex;
+    align-items: center;
 
-@media screen and (max-width: 850px) {
+}
 
-    main {
-        margin-top: 50px;
-    }
-
-    #background-card {
-        max-width: 350px;
-        height: 300px;
-        flex-direction: column;
-        margin: auto;
-    }
-
-    #background-card div {
-        margin: 0px;
-        position: absolute;
-    }
-
-
-    /*Formularios*/
-
-    #forms {
-        top: -10px;
-        left: -5px;
-        margin: auto;
-    }
-
-    #forms form {
-        position: relative;
-    }
+.flexClass img {
+    width: 40px;
+    transform: translate(300px, 10px);
+    position: absolute;
 }

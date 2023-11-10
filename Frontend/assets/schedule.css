@@ -69,33 +69,28 @@ body {
 }
 
 
-#documentationForm p {
+#scheduleForm p {
     margin-top: 8px;
-    margin-bottom: 10px;
 }
 
 
-#documentationForm form h2 {
+#scheduleForm form h2 {
     font-size: 30px;
     text-align: center;
     margin-bottom: 20px;
     color: rgb(28, 40, 94);
 }
 
-#file-div input{
-    display: none;
+#scheduleForm input, select {
+    width: 100%;
+    margin-top: 20px;
+    padding: 10px;
+    border: none;
+    font-size: 16px;
+    outline: none;
 }
 
-#file-div label{
-    display: block;
-    padding: 8px 21px;
-    border: 1px solid #132552;
-    border-radius: 6px;
-    border-color: #eee;
-    cursor: pointer;
-}
-
-#documentationForm button {
+#scheduleForm button {
     padding: 10px 40px;
     margin-top: 40px;
     border: none;

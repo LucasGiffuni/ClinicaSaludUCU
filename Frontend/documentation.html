@@ -9,24 +9,32 @@
 <body>
 
     <div class="navbar">
-        <div class="nav-item" id="agenda-btn">Agenda</div>
-        <div class="nav-item" id="documentation-btn">Documentación</div>
+        <div class="nav-item" id="agenda-navbar-btn">Agenda</div>
+        <div class="nav-item" id="documentation-navbar-btn">Documentación</div>
     </div>
 
 
-    <main>
-        <div id="main-container">
-            <div id="background-card">
-                <div id="forms">
-                    <form id="documentationForm" action="">
-                        <h3 for="documentationFile">Documentación</h3>
-                        <input type="file" name="documentation" id="documentationFile">
-                    
-                        <button type="submit" id="submitButton" disabled>Entregar Documentación</button>
-                    </form>
-                </div>
+    <main class="main-conteiner">
+
+        <h2>Entrega de Documentación</h2>
+
+        <form id="documentationForm" action="" method="POST">            
+            
+            <p>Seleccione su archivo:</p>
+            
+            <div id="file-div">
+                <h2 id="nameFile"></h2>
+                <label for="documentationFile">
+                    Archivo (PDF, JPG):
+                </label>
+                <input accept=".pdf, .jpg" type="file" id="documentationFile">
             </div>
-        </div>
+    
+            <button type="submit" id="documentation-btn" disabled>Enviar</button>
+
+        </form>
+        
+
     </main>
     <script src="/Frontend/assets/js/documentation.js"></script>
 </body>
