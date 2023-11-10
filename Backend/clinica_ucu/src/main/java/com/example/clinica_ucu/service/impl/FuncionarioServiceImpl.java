@@ -52,7 +52,7 @@ public class FuncionarioServiceImpl {
             preparedStmt.setString(5, funcionario.getDireccion());
             preparedStmt.setInt(6, Integer.parseInt(funcionario.getTelefono()));
             preparedStmt.setString(7, funcionario.getEmail());
-            preparedStmt.setInt(8, Integer.parseInt(funcionario.getLogId()));
+            preparedStmt.setString(8, funcionario.getLogId());
 
             preparedStmt.execute();
 
@@ -62,6 +62,7 @@ public class FuncionarioServiceImpl {
             return response;
 
         } catch (Exception e) {
+            e.printStackTrace();
             DefaultResponse defaultResponse = new DefaultResponse("400", "Error");
             NewFuncionarioResponse response = new NewFuncionarioResponse(defaultResponse, "Funcionario ya creado");
             return response;

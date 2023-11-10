@@ -4,12 +4,12 @@ public class LoginResponse {
 
     DefaultResponse Response;
     String JWT;
+    String Cedula;
 
-    public LoginResponse(){
+    public LoginResponse() {
 
     }
 
-  
     public DefaultResponse getResponse() {
         return Response;
     }
@@ -26,6 +26,12 @@ public class LoginResponse {
         JWT = jWT;
     }
 
-    
-    
+    public String getCedula() {
+        return Cedula;
+    }
+
+    public void setCedula(String cedula) {
+        Cedula = cedula;
+    }
+
 }

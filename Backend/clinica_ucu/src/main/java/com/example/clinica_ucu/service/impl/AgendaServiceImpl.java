@@ -89,11 +89,7 @@ public class AgendaServiceImpl {
         PreparedStatement preparedStmt = con.prepareStatement(sql);
         ResultSet rs = preparedStmt.executeQuery();
         while (rs.next()) {
-            // PeriodosActualizacion u = new
-            // PeriodosActualizacion(Integer.toString(rs.getInt(1)), rs.getString(2),
-            // rs.getDate(3).toString(),
-            // rs.getDate(4).toString());
-            // periodos.add(u);
+
         }
 
         return periodos;

@@ -48,18 +48,15 @@ import com.google.common.hash.Hashing;
 public class UserServiceImpl {
     private final Logger logger = LoggerFactory.getLogger(ClinicaUcuApplication.class);
 
-    
     public UserServiceImpl(String connectionString, String databaseName, String databaseUser, String databasePassword) {
         this.connectionString = connectionString;
         this.databaseName = databaseName;
         this.databaseUser = databaseUser;
         this.databasePassword = databasePassword;
     }
-    
 
     public UserServiceImpl() {
     }
-
 
     @Autowired
     private JwtUtilService jwtUtilService;
@@ -132,18 +129,29 @@ public class UserServiceImpl {
 
             if (resultSet.getString(1).equals(encryptedpassword)) {
 
+                sql = "Select Ci from Funcionarios f where f.LogId = ?";
+
+                PreparedStatement preparedStmt2 = con.prepareStatement(sql);
+                preparedStmt2.setString(1, username);
+                ResultSet resultSet2 = preparedStmt2.executeQuery();
+                resultSet2.absolute(1); // Go directly to 2nd row
+
+                System.out.println("DATA: " + resultSet.getString(1));
+                String CI = resultSet2.getString(1);
+
                 final String token = jwtUtilService
                         .generateToken(new User(username, encryptedpassword, new ArrayList<>()));
 
                 DefaultResponse dR = new DefaultResponse("200", "OK");
                 response.setResponse(dR);
                 response.setJWT(token);
-
+                response.setCedula(CI);
                 return response;
             }
 
             con.close();
         } catch (Exception e) {
+            e.printStackTrace();
             DefaultResponse dR = new DefaultResponse("500", "Error");
             response.setResponse(dR);
             return response;

@@ -39,8 +39,6 @@ public class FuncionarioController {
         mapper.setVisibility(
                 VisibilityChecker.Std.defaultInstance().withFieldVisibility(JsonAutoDetect.Visibility.ANY));
         Funcionario data = mapper.readValue(funcionario, Funcionario.class);
-
-        data.setLogId(CI);
         data.setCI(CI);
 
         return ResponseEntity.ok(funcionarioService.createFuncionario(data));
