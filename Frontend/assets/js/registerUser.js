@@ -12,7 +12,13 @@ showPassword.addEventListener("click", togglePasswordVisibility);
 
 /* funciones */
 function togglePasswordVisibility() {
-  passwordInput.type = passwordInput.type === "password" ? "text" : "password";
+  if (passwordInput.type === "password") {
+    passwordInput.type = "text";
+    showPassword.src = "assets/img/hide.png";
+  } else {
+    passwordInput.type = "password";
+    showPassword.src = "assets/img/show.png";
+  }
 }
 
 function isValidPassword(password) {

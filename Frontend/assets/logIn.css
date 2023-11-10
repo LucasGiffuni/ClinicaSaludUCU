@@ -59,14 +59,21 @@ body {
 
 .flexClass img {
     width: 100%;
-    max-width: 40px;
-    height: auto;
+    max-width: 38px;
+    height: 100%;
+    max-height: 38px;
     position: absolute;
-    top: 17.5px;
-    right: 0px;
+    top: 19px;
+    right: 5px;
+    cursor: pointer;
 }
 
 #login-form button {
+
+    display: flex;
+    align-items: center;
+    margin: auto;
+    
     padding: 10px 40px;
     margin-top: 20px;
     border: none;

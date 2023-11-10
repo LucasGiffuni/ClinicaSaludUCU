@@ -7,7 +7,8 @@
 }
 
 body {
-    background-color: #f0f0f0; /* Color de respaldo */
+    background-color: #f0f0f0;
+    /* Color de respaldo */
     background-image: url(img/background.jpeg);
     background-size: cover;
     background-repeat: no-repeat;
@@ -32,6 +33,7 @@ body {
     justify-content: center;
     margin-bottom: 20px;
     font-size: 25px;
+    margin-top: 20px;
 }
 
 #register-form p {
@@ -62,6 +64,10 @@ body {
 }
 
 #register-form button {
+    display: flex;
+    align-items: center;
+    margin: auto;
+
     padding: 10px 40px;
     margin-top: 20px;
     border: none;
@@ -76,10 +82,12 @@ body {
 /* Media Queries for responsiveness */
 @media screen and (max-width: 600px) {
     .main-conteiner {
-        width: 90%; /* Adjusted width for smaller screens */
+        width: 90%;
+        /* Adjusted width for smaller screens */
     }
 
     #register-form button {
-        margin-top: 20px; /* Adjusted margin for smaller screens */
+        margin-top: 20px;
+        /* Adjusted margin for smaller screens */
     }
 }
