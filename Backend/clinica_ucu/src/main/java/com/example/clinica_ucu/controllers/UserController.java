@@ -65,7 +65,7 @@ public class UserController {
 
     private static final Logger logger = LoggerFactory.getLogger(ClinicaUcuApplication.class);
 
-    @GetMapping("/public/login")
+    @PostMapping("/public/login")
     public ResponseEntity<LoginResponse> validateUser(@RequestParam String user, @RequestParam String clave)
             throws NoSuchAlgorithmException {
 

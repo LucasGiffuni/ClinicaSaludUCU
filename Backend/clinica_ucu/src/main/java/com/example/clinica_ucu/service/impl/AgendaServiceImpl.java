@@ -26,6 +26,7 @@ import org.springframework.stereotype.Service;
 import com.example.clinica_ucu.ClinicaUcuApplication;
 import com.example.clinica_ucu.model.Agenda;
 import com.example.clinica_ucu.model.PeriodosActualizacion;
+import com.example.clinica_ucu.model.User.DatabaseUser;
 import com.example.clinica_ucu.model.response.DefaultResponse;
 import com.example.clinica_ucu.model.response.InitCuposResponse;
 import com.example.clinica_ucu.model.response.NewAgendaResponse;
@@ -89,7 +90,9 @@ public class AgendaServiceImpl {
         PreparedStatement preparedStmt = con.prepareStatement(sql);
         ResultSet rs = preparedStmt.executeQuery();
         while (rs.next()) {
-
+            PeriodosActualizacion u = new PeriodosActualizacion(rs.getInt(1), rs.getString(2), rs.getDate(3).toString(),
+                    rs.getDate(4).toString());
+            periodos.add(u);
         }
 
         return periodos;
@@ -101,7 +104,7 @@ public class AgendaServiceImpl {
 
             String sql = "insert into Periodos_Actualizacion (Año, Semestre, Fch_Inicio,Fch_Fin) values (?, ?, ?, ?)";
             PreparedStatement preparedStmt = con.prepareStatement(sql);
-            preparedStmt.setInt(1, Integer.parseInt(periodo.getAnio()));
+            preparedStmt.setInt(1, periodo.getAnio());
 
             preparedStmt.setString(2, periodo.getSemestre());
 

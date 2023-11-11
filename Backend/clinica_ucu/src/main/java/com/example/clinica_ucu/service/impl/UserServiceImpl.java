@@ -158,7 +158,6 @@ public class UserServiceImpl {
         }
 
         return null;
-
     }
 
     public RegisterResponse register(String username, String password) throws NoSuchAlgorithmException {
