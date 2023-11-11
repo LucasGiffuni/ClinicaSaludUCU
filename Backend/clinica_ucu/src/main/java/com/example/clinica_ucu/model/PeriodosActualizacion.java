@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class PeriodosActualizacion {
     @JsonProperty(value = "Year")
-    private String Year;
+    private Integer Year;
 
     @JsonProperty(value = "Semestre")
     private String Semestre;
@@ -15,13 +15,18 @@ public class PeriodosActualizacion {
     @JsonProperty(value = "Fch_Fin")
     private String Fch_Fin;
 
-  
+    public PeriodosActualizacion(Integer year, String semestre, String fch_Inicio, String fch_Fin) {
+        Year = year;
+        Semestre = semestre;
+        Fch_Inicio = fch_Inicio;
+        Fch_Fin = fch_Fin;
+    }
 
-    public String getAnio() {
+    public Integer getAnio() {
         return Year;
     }
 
-    public void setAnio(String anio) {
+    public void setAnio(Integer anio) {
         Year = anio;
     }
 
