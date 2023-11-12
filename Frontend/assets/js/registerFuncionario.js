@@ -20,6 +20,14 @@ const tokenCache = localStorage.getItem("token");
 /* llamados */
 registerForm.addEventListener("submit", registerFormHandler);
 
+/* seguridad */
+if (logIdCache && tokenCache) {
+  //nice to meet you
+} else {
+  // Si no hay userData en el almacenamiento local, redirige al usuario al inicio de sesión
+  window.location.href = "/registerUser.html";
+}
+
 /* funciones */
 function togglePasswordVisibility() {
   passwordInput.type = passwordInput.type === "password" ? "text" : "password";
@@ -114,7 +122,7 @@ function registerFormHandler(event) {
         console.log("Respuesta del backend:", data);
 
         // Si todo va bien, redirigir a la página deseada
-        window.location.href = "/login.html";
+        window.location.href = "/index.html";
       })
       .catch((error) => {
         console.error("Error:", error);

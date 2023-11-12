@@ -43,6 +43,9 @@ function loginFormHandler(event) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers":
+          "Origin, X-Requested-With, Content-Type, Accept",
       },
     })
       .then((response) => {
@@ -54,7 +57,7 @@ function loginFormHandler(event) {
       .then((data) => {
         if (data && data.jwt) {
           localStorage.setItem("token", data.jwt);
-          localStorage.setItem("usarData", data.cedula);
+          localStorage.setItem("userData", data.cedula);
         } else {
           console.error("Error: Token JWT no válido.");
         }

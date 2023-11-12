@@ -26,10 +26,20 @@ function isValidPassword(password) {
   return regexPassword.test(password);
 }
 
+function isValidLogId(logId) {
+  const regexLogIn = /^[A-Z]+$/i;
+  return regexLogIn.test(logId);
+}
+
 function validateData() {
   const isValidPasswordInput = isValidPassword(passwordInput.value);
+  const isValidLogIdInput = isValidLogId(loginIdInput.value);
 
-  if (loginIdInput.value.trim() != "" && isValidPasswordInput) {
+  if (
+    loginIdInput.value.trim() != "" &&
+    isValidPasswordInput &&
+    isValidLogIdInput
+  ) {
     return true;
   } else {
     alert("Por favor, completa todos los campos correctamente.");
@@ -70,7 +80,7 @@ function RegisterFormHandler(event) {
         console.log("Respuesta del backend:", data);
 
         // Si todo va bien, redirigir a la página deseada
-        window.location.href = "/register.html";
+        window.location.href = "/registerFuncionario.html";
       })
       .catch((error) => {
         console.error("Error:", error);

@@ -14,9 +14,9 @@ submitButton.addEventListener("submit", sendFile);
 /* seguridad */
 
 if (cedulaUsuario && token) {
-  fetchUpdatePeriod();
+  //todo bien maestro
 } else {
-  window.location.href = "/logIn.html";
+  window.location.href = "/index.html";
 }
 
 /* name file */

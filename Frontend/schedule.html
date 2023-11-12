@@ -7,7 +7,6 @@
     <link id="icon" rel="icon" href="assets/img/icon.png">
     <link rel="stylesheet" href="assets/schedule.css">
     <link rel="stylesheet" href="assets/navbar.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <title>Clinica UCU | Agenda consulta medica</title>
 </head>
 
@@ -15,34 +14,33 @@
 
     <header class="header">
         <nav>
-          <ul class="nav-links">
-               <li><a href="#">Consulta medica</a></li>
-               <li><a href="/documentation.html">Carnet de salud</a></li>
-               <li><a href="/about.html">Sobre nosotros</a></li>
-          </ul>            
-       </nav>
+            <ul class="nav-links">
+                 <li><a href="#">Agenda Consulta</a></li>
+                 <li><a href="/documentation.html">Carnet de salud</a></li>
+                 <li><a href="/about.html">Sobre nosotros</a></li>
+            </ul>            
+         </nav>
     </header>
 
+    
     <main class="main-conteiner">
-
+        
         <h2>Agenda</h2>
-
+        
         <form id="scheduleForm" action="" method="POST">
+            
+            <p for="periodo">Selecciona un periodo:</p>
+            <select id="periodo" required>
+                <!-- options-->
+            </select>
 
             <p for="schedule">Selecciona una fecha:</p>
-            <input type="text" id="schedule" placeholder="Selecciona una fecha" required>
+            <select id="schedule" required>
+                <!-- options-->
 
-            <p for="hour">Selecciona una hora:</p>
-            <select id="hour" required>
-                <option value="13:00">13:00</option>
-                <option value="14:00">14:00</option>
-                <option value="15:00">15:00</option>
-                <option value="16:00">16:00</option>
-                <option value="17:00">17:00</option>
             </select>
-            
 
-            <button type="submit" id="schedule-btn" disabled>Agendar</button>
+            <button type="submit" id="schedule-btn">Agendar</button>
 
         </form>
 
@@ -51,7 +49,6 @@
     <div class="footer"></div>
 
     <script src="assets/js/schedule.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 </body>
 
 </html>
