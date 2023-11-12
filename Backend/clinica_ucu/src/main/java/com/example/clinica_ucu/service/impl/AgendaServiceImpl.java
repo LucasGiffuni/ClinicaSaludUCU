@@ -25,6 +25,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.clinica_ucu.ClinicaUcuApplication;
 import com.example.clinica_ucu.model.Agenda;
+import com.example.clinica_ucu.model.Cupos;
 import com.example.clinica_ucu.model.PeriodosActualizacion;
 import com.example.clinica_ucu.model.User.DatabaseUser;
 import com.example.clinica_ucu.model.response.DefaultResponse;
@@ -90,8 +91,12 @@ public class AgendaServiceImpl {
         PreparedStatement preparedStmt = con.prepareStatement(sql);
         ResultSet rs = preparedStmt.executeQuery();
         while (rs.next()) {
-            PeriodosActualizacion u = new PeriodosActualizacion(rs.getInt(1), rs.getString(2), rs.getDate(3).toString(),
-                    rs.getDate(4).toString());
+            PeriodosActualizacion u = new PeriodosActualizacion();
+            u.setYear(Integer.toString(rs.getInt(1)));
+            u.setSemestre(rs.getString(2));
+            u.setFch_Inicio(rs.getDate(3).toString());
+            u.setFch_Fin(rs.getDate(4).toString());
+
             periodos.add(u);
         }
 
@@ -104,10 +109,8 @@ public class AgendaServiceImpl {
 
             String sql = "insert into Periodos_Actualizacion (Año, Semestre, Fch_Inicio,Fch_Fin) values (?, ?, ?, ?)";
             PreparedStatement preparedStmt = con.prepareStatement(sql);
-            preparedStmt.setInt(1, periodo.getAnio());
-
+            preparedStmt.setInt(1, Integer.parseInt(periodo.getYear()));
             preparedStmt.setString(2, periodo.getSemestre());
-
             preparedStmt.setDate(3, Date.valueOf(periodo.getFch_Inicio()));
             preparedStmt.setDate(4, Date.valueOf(periodo.getFch_Fin()));
             preparedStmt.execute();
@@ -143,15 +146,40 @@ public class AgendaServiceImpl {
         List<LocalDate> dates = initialDate.datesUntil(finalDate).toList();
         for (LocalDate localDate : dates) {
             createConection();
-            String sql = "insert into Cupos (Fecha, CitasDisponibles) values (?, ?)";
+            String sql = "insert into Cupos (Fecha, CitasDisponibles,Año, Semestre) values (?, ?, ?, ?)";
             PreparedStatement preparedStmt = con.prepareStatement(sql);
             preparedStmt.setDate(1, Date.valueOf(localDate));
             preparedStmt.setInt(2, 5);
-
+            preparedStmt.setInt(3, Integer.parseInt(periodo.getYear()));
+            preparedStmt.setString(4, periodo.getSemestre());
             preparedStmt.execute();
             con.close();
         }
 
+    }
+
+    public List<Cupos> obtenerFechasAgenda(String anio, String semestre) throws ClassNotFoundException, SQLException {
+
+        createConection();
+        List<Cupos> cupos = new ArrayList<>();
+
+        String sql = "select * from Cupos where Año = ? and Semestre = ?";
+        PreparedStatement preparedStmt = con.prepareStatement(sql);
+        preparedStmt.setInt(1, Integer.parseInt(anio));
+        preparedStmt.setString(2, semestre);
+
+        ResultSet rs = preparedStmt.executeQuery();
+        while (rs.next()) {
+            Cupos c = new Cupos();
+            c.setFecha(rs.getDate(1).toString());
+            c.setCitasDisponibles(rs.getInt(2));
+            c.setAnio(rs.getInt(3));
+            c.setSemestre(rs.getString(4));
+
+            cupos.add(c);
+        }
+
+        return cupos;
     }
 
 }
