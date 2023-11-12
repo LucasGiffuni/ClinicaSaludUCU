@@ -53,7 +53,7 @@ public class AgendaServiceImpl {
                 connectionString + databaseName, databaseUser, databasePassword);
     }
 
-    public NewAgendaResponse crearAgenda(Agenda agenda) {
+    public NewAgendaResponse crearAgenda(String CI, String Fecha) throws NumberFormatException, SQLException {
 
         try {
             createConection();
@@ -62,18 +62,34 @@ public class AgendaServiceImpl {
 
             PreparedStatement preparedStmt = con.prepareStatement(sql);
 
-            preparedStmt.setInt(1, Integer.parseInt(agenda.getCi()));
-            preparedStmt.setDate(2, Date.valueOf(agenda.getFch_Agenda()));
+            preparedStmt.setInt(1, Integer.parseInt(CI));
+            preparedStmt.setDate(2, Date.valueOf(Fecha));
 
             preparedStmt.execute();
 
             DefaultResponse defaultResponse = new DefaultResponse("200", "OK");
             NewAgendaResponse response = new NewAgendaResponse(defaultResponse, "Cita Agendada Correctamente");
 
+            sql = "Update Cupos set CitasDisponibles = ((Select CitasDisponibles where Fecha = ?) - 1) where Fecha = ? ";
+
+            PreparedStatement preparedStmt2 = con.prepareStatement(sql);
+
+            preparedStmt2.setDate(1, Date.valueOf(Fecha));
+            preparedStmt2.setDate(2, Date.valueOf(Fecha));
+
+            preparedStmt2.execute();
+
             con.close();
             return response;
 
         } catch (ClassNotFoundException | NumberFormatException | SQLException e) {
+            e.printStackTrace();
+
+            String sql = " DELETE FROM Agenda where Fch_Agenda = ?";
+            PreparedStatement preparedStmt3 = con.prepareStatement(sql);
+            preparedStmt3.setDate(1, Date.valueOf(Fecha));
+            preparedStmt3.execute();
+
             DefaultResponse defaultResponse = new DefaultResponse("400", "ERROR");
             NewAgendaResponse response = new NewAgendaResponse(defaultResponse,
                     "Funcionario ya agendado para esta fecha");
@@ -101,6 +117,32 @@ public class AgendaServiceImpl {
         }
 
         return periodos;
+    }
+
+    public List<Cupos> obtenerFechasAgenda(String anio, String semestre) throws ClassNotFoundException, SQLException {
+
+        createConection();
+        List<Cupos> cupos = new ArrayList<>();
+
+        String sql = "select * from Cupos where Año = ? and Semestre = ?";
+        PreparedStatement preparedStmt = con.prepareStatement(sql);
+        preparedStmt.setInt(1, Integer.parseInt(anio));
+        preparedStmt.setString(2, semestre);
+
+        ResultSet rs = preparedStmt.executeQuery();
+        while (rs.next()) {
+            Cupos c = new Cupos();
+            c.setFecha(rs.getDate(1).toString());
+            c.setCitasDisponibles(rs.getInt(2));
+            c.setAnio(rs.getInt(3));
+            c.setSemestre(rs.getString(4));
+            if (c.getCitasDisponibles() > 0) {
+                cupos.add(c);
+            }
+
+        }
+
+        return cupos;
     }
 
     public InitCuposResponse inicializarPeriodo(PeriodosActualizacion periodo) {
@@ -156,30 +198,6 @@ public class AgendaServiceImpl {
             con.close();
         }
 
-    }
-
-    public List<Cupos> obtenerFechasAgenda(String anio, String semestre) throws ClassNotFoundException, SQLException {
-
-        createConection();
-        List<Cupos> cupos = new ArrayList<>();
-
-        String sql = "select * from Cupos where Año = ? and Semestre = ?";
-        PreparedStatement preparedStmt = con.prepareStatement(sql);
-        preparedStmt.setInt(1, Integer.parseInt(anio));
-        preparedStmt.setString(2, semestre);
-
-        ResultSet rs = preparedStmt.executeQuery();
-        while (rs.next()) {
-            Cupos c = new Cupos();
-            c.setFecha(rs.getDate(1).toString());
-            c.setCitasDisponibles(rs.getInt(2));
-            c.setAnio(rs.getInt(3));
-            c.setSemestre(rs.getString(4));
-
-            cupos.add(c);
-        }
-
-        return cupos;
     }
 
 }

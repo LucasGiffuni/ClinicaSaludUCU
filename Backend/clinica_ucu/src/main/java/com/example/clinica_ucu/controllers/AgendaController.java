@@ -62,22 +62,14 @@ public class AgendaController {
     }
 
     @PostMapping(value = "/agenda/{CI}/crearAgenda", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<NewAgendaResponse> agendar(@RequestBody String agenda,
-            @PathVariable(value = "CI") String CI) throws JsonMappingException, JsonProcessingException {
+    public ResponseEntity<NewAgendaResponse> agendar(@RequestParam String fecha,
+            @PathVariable(value = "CI") String CI) throws JsonMappingException, JsonProcessingException, NumberFormatException, SQLException {
 
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-        mapper.setVisibility(
-                VisibilityChecker.Std.defaultInstance().withFieldVisibility(JsonAutoDetect.Visibility.ANY));
-        Agenda data = mapper.readValue(agenda, Agenda.class);
-
-        data.setCi(CI);
-        NewAgendaResponse response = agendaService.crearAgenda(data);
+        NewAgendaResponse response = agendaService.crearAgenda(CI, fecha);
         if (response.getResponse().getCode().equals("400")) {
             return ResponseEntity.status(400).body(response);
         } else {
-            return ResponseEntity.ok(agendaService.crearAgenda(data));
-
+            return null;
         }
 
     }
