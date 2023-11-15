@@ -6,10 +6,10 @@ document.addEventListener("DOMContentLoaded", function () {
   const cedulaUsuario = localStorage.getItem("userData");
   const token = localStorage.getItem("token");
 
-  if (cedulaUsuario && token) {
-    fetchUpdatePeriod();
-  } else {
+  if (!cedulaUsuario || !token) {
     window.location.href = "/index.html";
+  }else{
+    fetchUpdatePeriod()
   }
 
   function fetchUpdatePeriod() {
@@ -32,7 +32,6 @@ document.addEventListener("DOMContentLoaded", function () {
         return response.json();
       })
       .then((data) => {
-        console.log(data);
         setPeriodo(data);
       })
       .catch((error) => {
@@ -86,11 +85,11 @@ document.addEventListener("DOMContentLoaded", function () {
       console.log(selectedPeriodoIndex);
       const selectedPeriodo = data[selectedPeriodoIndex];
       console.log(selectedPeriodo);
-      const cupos = fetchObtenerCupones(
+/*       const cupos = fetchObtenerCupones(
         selectedPeriodo.year,
         selectedPeriodo.semestre
-      );
-      console.log(cupos);
+      ); */
+      /* console.log(cupos); */
 
       // Limpiar las opciones anteriores
       scheduleSelect.innerHTML = "";
