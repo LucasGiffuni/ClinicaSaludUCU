@@ -1,10 +1,8 @@
 package com.example.clinica_ucu.model;
 
-import java.sql.Date;
-
 public class PeriodosActualizacion {
     @JsonProperty(value = "Year")
-    private Integer Year;
+    private String Year;
 
     @JsonProperty(value = "Semestre")
     private String Semestre;
@@ -15,19 +13,15 @@ public class PeriodosActualizacion {
     @JsonProperty(value = "Fch_Fin")
     private String Fch_Fin;
 
-    public PeriodosActualizacion(Integer year, String semestre, String fch_Inicio, String fch_Fin) {
-        Year = year;
-        Semestre = semestre;
-        Fch_Inicio = fch_Inicio;
-        Fch_Fin = fch_Fin;
+    public PeriodosActualizacion() {
     }
 
-    public Integer getAnio() {
+    public String getYear() {
         return Year;
     }
 
-    public void setAnio(Integer anio) {
-        Year = anio;
+    public void setYear(String year) {
+        Year = year;
     }
 
     public String getSemestre() {
