@@ -1,65 +1,116 @@
-const agendaForm = document.getElementById("scheduleForm");
-const submitButton = document.getElementById("schedule-btn");
+document.addEventListener("DOMContentLoaded", function () {
+  const agendaForm = document.getElementById("scheduleForm");
+  const submitButton = document.getElementById("schedule-btn");
 
-//cache
-const cedulaUsuario = localStorage.getItem("userData");
-const token = localStorage.getItem("token");
+  //cache
+  const cedulaUsuario = localStorage.getItem("userData");
+  const token = localStorage.getItem("token");
 
-if (cedulaUsuario && token) {
-  fetchUpdatePeriod();
-} else {
-  window.location.href = "/index.html";
-}
+  if (cedulaUsuario && token) {
+    fetchUpdatePeriod();
+  } else {
+    window.location.href = "/index.html";
+  }
 
-// Función para obtener y mostrar el período de actualización desde el backend
-function fetchUpdatePeriod() {
-  const url = "http://127.0.0.1:8080/agenda/obtenerPeriodosActualizacion";
+  function fetchUpdatePeriod() {
+    const url = "http://127.0.0.1:8080/agenda/obtenerPeriodosActualizacion";
 
-  fetch(url, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Headers":
-        "Origin, X-Requested-With, Content-Type, Accept",
-      Authorization: "Bearer " + token,
-    },
-  })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Error en la solicitud");
-      }
-      return response.json();
+    fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers":
+          "Origin, X-Requested-With, Content-Type, Accept",
+        Authorization: "Bearer " + token,
+      },
     })
-    .then((data) => {
-/*       const semestre = data.semestre;
-      const year = data.anio;
-      const nuevaFechaInicio = data.fch_inicio;
-      const nuevaFechaFinal = data.fch_fin; */
-      // Supongamos que data es la respuesta del fetch
-      const listaDeObjetos = data; // Asigna la lista de objetos JSON
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Error en la solicitud");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+        setPeriodo(data);
+      })
+      .catch((error) => {
+        console.error("Error al obtener el período de actualización:", error);
+      });
+  }
 
-      // Obtener los elementos select del formulario
-      const periodoSelect = document.getElementById("periodo");
-      const scheduleSelect = document.getElementById("schedule");
+  function fetchObtenerCupones(year, semestre) {
+    const url =
+      "http://127.0.0.1:8080/agenda/obtenerFechasAgendas?anio=" +
+      year +
+      "&semestre=" +
+      semestre;
 
-      // Función para agregar opciones a un elemento select
-      function llenarSelect(selectElement, lista, propiedad) {
-        lista.forEach((item) => {
-          const option = document.createElement("option");
-          option.value = item; // Solo un ejemplo, ajusta esto según la estructura real de tu respuesta
-          option.text = item; // Igual que arriba, ajusta según la estructura real
-          selectElement.add(option);
-        });
-      }
-
-      // Llenar las opciones del periodo con la propiedad 'semestre'
-      llenarSelect(periodoSelect, listaDeObjetos, "semestre");
-
-      // Llenar las opciones del schedule con la propiedad 'FechaInicio'
-      llenarSelect(scheduleSelect, listaDeObjetos, "FechaInicio");
+    fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers":
+          "Origin, X-Requested-With, Content-Type, Accept",
+        Authorization: "Bearer " + token,
+      },
     })
-    .catch((error) => {
-      console.error("Error al obtener el período de actualización:", error);
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Error en la solicitud");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.error("Error al obtener el período de actualización:", error);
+      });
+  }
+
+  function setPeriodo(data) {
+    const periodoSelect = document.getElementById("periodo");
+    const scheduleSelect = document.getElementById("schedule");
+
+    data.forEach((periodo) => {
+      let option = document.createElement("option");
+      option.text = `Semestre ${periodo.semestre}, Año ${periodo.year}`;
+      periodoSelect.appendChild(option);
     });
-}
+
+    periodoSelect.addEventListener("change", function () {
+      const selectedPeriodoIndex = periodoSelect.selectedIndex;
+      console.log(selectedPeriodoIndex);
+      const selectedPeriodo = data[selectedPeriodoIndex];
+      console.log(selectedPeriodo);
+      const cupos = fetchObtenerCupones(
+        selectedPeriodo.year,
+        selectedPeriodo.semestre
+      );
+      console.log(cupos);
+
+      // Limpiar las opciones anteriores
+      scheduleSelect.innerHTML = "";
+
+      if (selectedPeriodo) {
+        const fechaInicio = new Date(selectedPeriodo.fch_Inicio);
+        const fechaFin = new Date(selectedPeriodo.fch_Fin);
+
+        let option = document.createElement("option");
+        option.text = "Fecha";
+        scheduleSelect.appendChild(option);
+
+        while (fechaInicio <= fechaFin) {
+          let option = document.createElement("option");
+          option.text = fechaInicio.toLocaleDateString("es-ES");
+          scheduleSelect.appendChild(option);
+
+          fechaInicio.setDate(fechaInicio.getDate() + 1);
+        }
+      }
+    });
+  }
+});

@@ -1,20 +1,22 @@
 /* variables */
-
 let carnetSaludFile = document.getElementById("documentationFile").files[0];
-const submitButton = document.getElementById("documentation-btn");
+const documentationForm = document.getElementById("documentationForm");
 
-//cache
+// cache
 const cedulaUsuario = localStorage.getItem("userData");
 const token = localStorage.getItem("token");
 
-/* llamadas */
+// Definir tipos permitidos
+const tiposPermitidos = ["image/jpeg", "application/pdf"];
 
-submitButton.addEventListener("submit", sendFile);
+/* llamadas */
+documentationForm.addEventListener("submit", function (event) {
+  sendFile();
+});
 
 /* seguridad */
-
 if (cedulaUsuario && token) {
-  //todo bien maestro
+  // todo bien maestro
 } else {
   window.location.href = "/index.html";
 }
@@ -28,42 +30,43 @@ document
   });
 
 /* funciones */
-
 function sendFile() {
-  if (validarArchivo(carnetSaludFile)) {
-    convertirABase64(carnetSaludFile, function (base64String) {
-      const url =
-        "http://127.0.0.1:8080/funcionario/" +
-        cedulaUsuario +
-        "/cargarCarnetSalud";
+  if (true /* validarArchivo(carnetSaludFile) */) {
+    const url =
+      "http://127.0.0.1:8080/funcionario/" +
+      cedulaUsuario +
+      "/cargarCarnetSalud";
 
-      fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + token,
-        },
-        body: JSON.stringify({
-          carnetSalud: base64String,
-        }),
+    let formData = new FormData();
+    formData.append("carnetSalud", carnetSaludFile);
+
+    fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers":
+          "Origin, X-Requested-With, Content-Type, Accept",
+        Authorization: "Bearer " + token,
+      },
+      body: { carnetSalud: formData },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Error en la solicitud");
+        }
+        return response.json();
       })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error("Error en la solicitud");
-          }
-          return response.json();
-        })
-        .then((data) => {
-          // Aquí puedes manejar la respuesta del backend
-          console.log("Respuesta del backend:", data);
-          alert("DATOS ENVIADOS CORRECTAMENTE");
+      .then((data) => {
+        // Aquí puedes manejar la respuesta del backend
+        console.log("Respuesta del backend:", data);
+        alert("DATOS ENVIADOS CORRECTAMENTE");
 
-          // Si todo va bien, redirigir a la página deseada
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-        });
-    });
+        // Si todo va bien, redirigir a la página deseada
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   } else {
     alert(
       "Tipo de archivo no permitido. Por favor, elige una imagen JPG o un archivo PDF."
@@ -73,15 +76,6 @@ function sendFile() {
 
 // Función para verificar el tipo de archivo
 function validarArchivo(archivo) {
-  const tiposPermitidos = ["image/jpg", "application/pdf"];
-  return tiposPermitidos.includes(archivo.type);
-}
-
-// Función para convertir el archivo en una cadena base64
-function convertirABase64(archivo, callback) {
-  const reader = new FileReader();
-  reader.onloadend = function () {
-    callback(reader.result);
-  };
-  reader.readAsDataURL(archivo);
+  // Verificar si el archivo está definido y tiene la propiedad 'type'
+  return archivo && archivo.type && tiposPermitidos.includes(archivo.type);
 }
