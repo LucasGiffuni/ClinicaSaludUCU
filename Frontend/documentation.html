@@ -32,12 +32,14 @@
                 <p id="nameFile"></p>
                 <label for="documentationFile">
                     Archivo (PDF, JPEG):
+                    <input accept=".pdf, .jpg" type="file" id="documentationFile">
                 </label>
-                <input accept=".pdf, .jpg" type="file" id="documentationFile">
             </div>
             
-    
-            <button type="submit" id="documentation-btn">Enviar</button>
+            <input type="date" id="fechaVencimiento" required>
+            <input type="date" id="fechaEmision" required>
+            
+            <button rype="submit" id="documentation-btn">Enviar</button>
 
         </form>
         

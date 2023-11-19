@@ -85,11 +85,11 @@ document.addEventListener("DOMContentLoaded", function () {
       console.log(selectedPeriodoIndex);
       const selectedPeriodo = data[selectedPeriodoIndex];
       console.log(selectedPeriodo);
-/*       const cupos = fetchObtenerCupones(
+      const cupos = fetchObtenerCupones(
         selectedPeriodo.year,
         selectedPeriodo.semestre
-      ); */
-      /* console.log(cupos); */
+      ); 
+      console.log(cupos);
 
       // Limpiar las opciones anteriores
       scheduleSelect.innerHTML = "";
