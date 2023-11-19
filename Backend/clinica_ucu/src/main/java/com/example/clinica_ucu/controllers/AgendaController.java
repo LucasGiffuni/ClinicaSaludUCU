@@ -63,13 +63,14 @@ public class AgendaController {
 
     @PostMapping(value = "/agenda/{CI}/crearAgenda", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<NewAgendaResponse> agendar(@RequestParam String fecha,
-            @PathVariable(value = "CI") String CI) throws JsonMappingException, JsonProcessingException, NumberFormatException, SQLException {
+            @PathVariable(value = "CI") String CI)
+            throws JsonMappingException, JsonProcessingException, NumberFormatException, SQLException {
 
         NewAgendaResponse response = agendaService.crearAgenda(CI, fecha);
         if (response.getResponse().getCode().equals("400")) {
             return ResponseEntity.status(400).body(response);
         } else {
-            return null;
+            return ResponseEntity.ok(response);
         }
 
     }

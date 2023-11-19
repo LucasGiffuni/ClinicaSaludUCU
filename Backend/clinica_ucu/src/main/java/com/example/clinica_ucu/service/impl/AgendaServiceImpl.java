@@ -67,9 +67,6 @@ public class AgendaServiceImpl {
 
             preparedStmt.execute();
 
-            DefaultResponse defaultResponse = new DefaultResponse("200", "OK");
-            NewAgendaResponse response = new NewAgendaResponse(defaultResponse, "Cita Agendada Correctamente");
-
             sql = "Update Cupos set CitasDisponibles = ((Select CitasDisponibles where Fecha = ?) - 1) where Fecha = ? ";
 
             PreparedStatement preparedStmt2 = con.prepareStatement(sql);
@@ -80,6 +77,8 @@ public class AgendaServiceImpl {
             preparedStmt2.execute();
 
             con.close();
+            DefaultResponse defaultResponse = new DefaultResponse("200", "OK");
+            NewAgendaResponse response = new NewAgendaResponse(defaultResponse, "Cita Agendada Correctamente");
             return response;
 
         } catch (ClassNotFoundException | NumberFormatException | SQLException e) {
