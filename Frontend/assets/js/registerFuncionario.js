@@ -122,7 +122,7 @@ function registerFormHandler(event) {
         console.log("Respuesta del backend:", data);
 
         // Si todo va bien, redirigir a la página deseada
-        window.location.href = "/index.html";
+        window.location.href = "index.html";
       })
       .catch((error) => {
         console.error("Error:", error);

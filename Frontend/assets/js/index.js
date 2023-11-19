@@ -63,7 +63,7 @@ function loginFormHandler(event) {
         }
         console.log("Respuesta del backend:", data);
         // Si todo va bien, redirigir a la página deseada
-        window.location.href = "/schedule.html";
+        window.location.href = "schedule.html";
       })
       .catch((error) => {
         console.error("Error:", error);

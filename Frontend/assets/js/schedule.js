@@ -1,16 +1,20 @@
 document.addEventListener("DOMContentLoaded", function () {
   const agendaForm = document.getElementById("scheduleForm");
-  const submitButton = document.getElementById("schedule-btn");
 
-  //cache
+  // Cache
   const cedulaUsuario = localStorage.getItem("userData");
   const token = localStorage.getItem("token");
 
   if (!cedulaUsuario || !token) {
-    window.location.href = "/index.html";
-  }else{
-    fetchUpdatePeriod()
+    window.location.href = "index.html";
+  } else {
+    fetchUpdatePeriod();
   }
+
+  agendaForm.addEventListener("submit", function (event) {
+    event.preventDefault();
+    agendarConsulta();
+  });
 
   function fetchUpdatePeriod() {
     const url = "http://127.0.0.1:8080/agenda/obtenerPeriodosActualizacion";
@@ -39,37 +43,6 @@ document.addEventListener("DOMContentLoaded", function () {
       });
   }
 
-  function fetchObtenerCupones(year, semestre) {
-    const url =
-      "http://127.0.0.1:8080/agenda/obtenerFechasAgendas?anio=" +
-      year +
-      "&semestre=" +
-      semestre;
-
-    fetch(url, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers":
-          "Origin, X-Requested-With, Content-Type, Accept",
-        Authorization: "Bearer " + token,
-      },
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Error en la solicitud");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((error) => {
-        console.error("Error al obtener el período de actualización:", error);
-      });
-  }
-
   function setPeriodo(data) {
     const periodoSelect = document.getElementById("periodo");
     const scheduleSelect = document.getElementById("schedule");
@@ -82,14 +55,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     periodoSelect.addEventListener("change", function () {
       const selectedPeriodoIndex = periodoSelect.selectedIndex;
-      console.log(selectedPeriodoIndex);
       const selectedPeriodo = data[selectedPeriodoIndex];
-      console.log(selectedPeriodo);
-      const cupos = fetchObtenerCupones(
-        selectedPeriodo.year,
-        selectedPeriodo.semestre
-      ); 
-      console.log(cupos);
 
       // Limpiar las opciones anteriores
       scheduleSelect.innerHTML = "";
@@ -111,5 +77,39 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       }
     });
+  }
+
+  // Función para agendar la consulta
+  function agendarConsulta() {
+    const scheduleSelect = document.getElementById("schedule");
+    const selectedScheduleIndex = scheduleSelect.selectedIndex;
+    const selectedSchedule = scheduleSelect.options[selectedScheduleIndex].text;
+
+    const url =
+      "http://127.0.0.1:8080/agenda/" + cedulaUsuario + "/crearAgenda";
+
+    fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+      body: JSON.stringify({
+        fecha: selectedSchedule,
+        
+      }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Error en la solicitud: " + response.statusText);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        alert("Agenda realizada para el " + selectedSchedule);
+      })
+      .catch((error) => {
+        console.error("Error al agendar la consulta:", error);
+      });
   }
 });

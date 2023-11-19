@@ -8,7 +8,7 @@ documentationForm.addEventListener("submit", sendFile);
 
 /* seguridad */
 if (!cedulaUsuario || !token) {
-  window.location.href = "/index.html";
+  window.location.href = "index.html";
 }
 
 /* name file */
@@ -72,8 +72,7 @@ function sendFile(event) {
         if (!response.ok) {
           throw new Error("Error en la solicitud");
         }
-        /*         return response.json();
-         */
+        return response.json();
       })
       .then((data) => {
         console.log("Respuesta del backend:", data);
@@ -83,7 +82,6 @@ function sendFile(event) {
         console.error("Error:", error);
       });
   }
-  return false;
 }
 
 // Función para verificar el tipo de archivo
