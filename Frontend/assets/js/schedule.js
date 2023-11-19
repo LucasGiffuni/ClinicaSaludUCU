@@ -70,7 +70,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
         while (fechaInicio <= fechaFin) {
           let option = document.createElement("option");
-          option.text = fechaInicio.toLocaleDateString("es-ES");
+          option.text = fechaInicio
+            .toLocaleDateString("es-ES")
+            .replace(/\//g, "-");
           scheduleSelect.appendChild(option);
 
           fechaInicio.setDate(fechaInicio.getDate() + 1);
@@ -86,7 +88,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const selectedSchedule = scheduleSelect.options[selectedScheduleIndex].text;
 
     const url =
-      "http://127.0.0.1:8080/agenda/" + cedulaUsuario + "/crearAgenda";
+      "http://127.0.0.1:5500/agenda/" +
+      cedulaUsuario +
+      "/crearAgenda" +
+      "?fecha=" +
+      selectedSchedule;
 
     fetch(url, {
       method: "POST",
@@ -94,10 +100,6 @@ document.addEventListener("DOMContentLoaded", function () {
         "Content-Type": "application/json",
         Authorization: "Bearer " + token,
       },
-      body: JSON.stringify({
-        fecha: selectedSchedule,
-        
-      }),
     })
       .then((response) => {
         if (!response.ok) {
