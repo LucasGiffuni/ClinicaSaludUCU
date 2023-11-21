@@ -1,4 +1,5 @@
 const documentationForm = document.getElementById("documentationForm");
+
 // cache
 const cedulaUsuario = localStorage.getItem("userData");
 const token = localStorage.getItem("token");
@@ -28,7 +29,7 @@ function sendFile(event) {
   event.preventDefault();
   // Obtener el elemento de input de archivo
   let fileInput = document.getElementById("documentationFile");
-  let fechaVencimiento = document.getElementById("FechaVencimiento");
+  let fechaVencimiento = document.getElementById("fechaVencimiento");
   let fechaEmision = document.getElementById("fechaEmision");
   // Obtener el archivo seleccionado
   const carnetSaludFile = fileInput.files[0];
@@ -64,8 +65,8 @@ function sendFile(event) {
       },
       body: JSON.stringify({
         Comprobante: carnetSaludBlob,
-        Fch_Emision: fechaEmision,
-        Fch_Vencimiento: fechaVencimiento,
+        Fch_Emision: fechaEmision.value,
+        Fch_Vencimiento: fechaVencimiento.value,
       }),
     })
       .then((response) => {

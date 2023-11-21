@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link id="icon" rel="icon" href="assets/img/icon.png">
     <link rel="stylesheet" href="assets/documentation.css">
     <link rel="stylesheet" href="assets/navbar.css">
     <title>Clinica UCU | Entrega carnet de salud</title>
@@ -37,9 +38,16 @@
                 </label>
             </div>
             
-            <input type="date" id="fechaVencimiento" required>
-            <input type="date" id="fechaEmision" required>
-            
+            <div class="gridClass">
+                <ul><p for="fechaVencimiento">Fecha de vencimiento:</p>
+                    <li><input type="date" id="fechaVencimiento" required></li>
+                </ul>
+
+                <ul><p for="fechaEmision">Fecha de emision:</p>
+                    <li><input type="date" id="fechaEmision" required></li>
+                </ul>
+            </div>
+
             <button rype="submit" id="documentation-btn">Enviar</button>
 
         </form>

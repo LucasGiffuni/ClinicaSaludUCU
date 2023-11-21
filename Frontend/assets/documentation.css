@@ -41,13 +41,12 @@ body {
 }
 
 .main-conteiner {
-    width: 400px;
+    width: 450px;
     background-color: rgb(28, 40, 94, 0.6);
     padding: 30px;
     margin: auto;
     margin-top: 100px;
     border-radius: 4px;
-    font-family: 'calibri';
     color: white;
 }
 
@@ -71,7 +70,6 @@ body {
 
 #documentationForm p {
     margin-top: 8px;
-    margin-bottom: 10px;
 }
 
 
@@ -82,17 +80,26 @@ body {
     color: rgb(28, 40, 94);
 }
 
-#file-div input{
+#file-div input {
     display: none;
 }
 
-#file-div label{
+#file-div label {
     display: block;
     padding: 8px 21px;
     border: 1px solid #132552;
     border-radius: 6px;
     border-color: #eee;
     cursor: pointer;
+}
+
+#documentationForm input {
+    width: 100%;
+    margin-top: 20px;
+    padding: 10px;
+    border: none;
+    font-size: 16px;
+    outline: none;
 }
 
 #documentationForm button {
@@ -105,4 +112,18 @@ body {
     cursor: pointer;
     color: white;
     outline: none;
+}
+
+.gridClass {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 5px;
+    
+}
+
+.gridClass input {
+    width: 50%;
 }
