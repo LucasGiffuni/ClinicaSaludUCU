@@ -22,29 +22,43 @@ body {
     margin: auto;
     margin-top: 100px;
     color: white;
-
-    overflow: hidden;
+    overflow-y: scroll;
 
     position: relative;
-    width: 80%;
-    height: 500px;
+    width: 60%;
+    height: 100%;
     max-width: 100%;
-    min-height: 30px;
+    min-height: 30%;
 
     display: flex;
 
-    border-radius: 30px;
+    border-radius: 0px;
 
 }
 
 section {
     flex: 1;
-    width: 700px;
     margin: 0px;
 }
 
-#map {
-	height: 100%;
-	width: 100%;
+#text {
+    margin: 50px 100px 50px 100px;
+
 }
 
+
+
+#map {
+    height: 50%;
+    width: 80%;
+
+    margin-top: 10%;
+}
+
+section div img {
+    max-width: 80%;
+    height: auto;
+
+    margin-top: 2%;
+    margin-bottom: 20px;
+}
