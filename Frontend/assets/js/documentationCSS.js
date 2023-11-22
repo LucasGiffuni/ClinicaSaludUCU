@@ -6,7 +6,5 @@ document
     // Verificar el tipo de archivo al cambio
     isValidFileType(event.target.files[0].type)
       ? console.log("Tipo de archivo válido.")
-      : alert("Por favor, seleccione un archivo PDF o JPEG.");
+      : swal("Error", "Por favor, seleccione un archivo PDF o JPEG.", "error");
   });
-
-

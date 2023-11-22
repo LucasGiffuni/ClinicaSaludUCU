@@ -1,12 +1,32 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const agendaForm = document
+  document
     .getElementById("scheduleForm")
     .addEventListener("submit", function (event) {
       event.preventDefault();
-      agendarConsulta();
+      if (validateForm()) {
+        agendarConsulta();
+      }
     });
 
   security();
+
+  function validateForm() {
+    const periodoSelect = document.getElementById("periodo");
+    const scheduleSelect = document.getElementById("schedule");
+    const selectedScheduleIndex = scheduleSelect.selectedIndex;
+    const selectedPeriodIndex = periodoSelect.selectedIndex;
+
+    if (selectedPeriodIndex <= 0) {
+      swal("Error", "Por favor, seleccione un periodo", "error");
+      return false;
+    }
+    if (selectedScheduleIndex <= 0) {
+      swal("Error", "Por favor, seleccione una fecha.", "error");
+      return false;
+    }
+
+    return true;
+  }
 
   function security() {
     const cedulaUsuario = localStorage.getItem("userData");
@@ -45,6 +65,11 @@ document.addEventListener("DOMContentLoaded", function () {
       })
       .catch((error) => {
         console.error("Error al obtener el período de actualización:", error);
+        swal(
+          "No se pudo obtener el periodo de actualizacion",
+          "Pida ayuda a soporte",
+          "info"
+        );
       });
   }
 
@@ -123,10 +148,15 @@ document.addEventListener("DOMContentLoaded", function () {
         return response.json();
       })
       .then((data) => {
-        alert("Agenda realizada para el " + selectedSchedule);
+        swal(
+          "Agenda realizada",
+          "Usted quedo agendado para el: " + selectedSchedule,
+          "success"
+        );
       })
       .catch((error) => {
         console.error("Error al agendar la consulta:", error);
+        swal("Fallo al agendar", "Usted ya tiene una agenda", "info");
       });
   }
 });

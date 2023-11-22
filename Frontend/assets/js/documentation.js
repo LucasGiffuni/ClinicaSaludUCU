@@ -33,7 +33,7 @@ async function sendFileHandler(event) {
 
   // Verifica la existencia del archivo y su tipo
   if (!carnetSaludFile || !isValidFileType(carnetSaludFile.type)) {
-    alert("Por favor, seleccione un archivo PDF o JPEG");
+    swal("Error", "Por favor, seleccione un archivo PDF o JPEG.", "error");
     return;
   } else {
     // Realiza llamadas asincrónicas para enviar datos y archivos al servidor
@@ -70,7 +70,11 @@ async function fetchData(cedulaUsuario, token) {
     })
     .then((data) => {
       console.log("Respuesta del backend:", data);
-      alert("data enviada bien");
+      swal(
+        "",
+        "Su Fch_Emision y Fch_Vencimiento han sido ingresadas con exito",
+        "success"
+      );
     })
     .catch((error) => {
       console.error("Error:", error);
@@ -108,7 +112,7 @@ async function fetchComprobante(comprobante, cedulaUsuario, token) {
     })
     .then((data) => {
       console.log("Respuesta del backend:", data);
-      alert("comprobante enviado bien");
+      swal("Su documentacion ha sido ingresa con exito", "success");
     })
     .catch((error) => {
       console.error("Error:", error);

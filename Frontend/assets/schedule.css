@@ -90,8 +90,13 @@ body {
 }
 
 #scheduleForm button {
+
+    display: flex;
+    align-items: center;
+    margin: auto;
+    
     padding: 10px 40px;
-    margin-top: 40px;
+    margin-top: 20px;
     border: none;
     font-size: 14px;
     background: rgb(28, 40, 94);
@@ -100,3 +105,4 @@ body {
     color: white;
     outline: none;
 }
+

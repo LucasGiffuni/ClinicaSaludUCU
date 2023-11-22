@@ -36,11 +36,17 @@ function togglePasswordVisibility() {
 function isValidEmail(email) {
   const regexEmail =
     /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g;
+  if (regexEmail.test(email)) {
+    swal("Email invalido", "Ingrese un email valido", "error");
+  }
   return regexEmail.test(email);
 }
 
 function isValidNumeric(value) {
   const regexNumeric = /^[0-9]+$/;
+  if (regexNumeric.test(value)) {
+    swal("Numero invalido", "Ingrese un numero valido", "error");
+  }
   return regexNumeric.test(value);
 }
 
@@ -48,7 +54,15 @@ function validateCi(ci) {
   ci = clean_ci(ci);
   const dig = ci[ci.length - 1];
   ci = ci.replace(/[0-9]$/, "");
-  return dig == validationDigit(ci);
+  let valid = dig == validationDigit(ci);
+  if (valid) {
+    swal(
+      "Cedula invalida",
+      "Ingrese una cedula valida (sin puntos ni guiones)",
+      "error"
+    );
+  }
+  return valid;
 }
 
 function clean_ci(ci) {
@@ -81,7 +95,7 @@ function validateData() {
   if (isValidEmailInput && isValidCiInput && isValidPhone) {
     return true;
   } else {
-    alert("Por favor, completa todos los campos correctamente.");
+    swal("Error", "Complete los campos correctamente", "error");
     return false;
   }
 }
@@ -118,16 +132,16 @@ function registerFormHandler(event) {
         return response.json();
       })
       .then((data) => {
-        // Aquí puedes manejar la respuesta del backend
         console.log("Respuesta del backend:", data);
-
-        // Si todo va bien, redirigir a la página deseada
+        swal(
+          "Registro existoso",
+          "presione aceptar para iniciar sesion",
+          "success"
+        );
         window.location.href = "index.html";
       })
       .catch((error) => {
         console.error("Error:", error);
       });
-  } else {
-    alert("datos malos");
   }
 }

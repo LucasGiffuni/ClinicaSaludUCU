@@ -23,11 +23,23 @@ function togglePasswordVisibility() {
 
 function isValidPassword(password) {
   const regexPassword = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm;
+
+  if (regexPassword.test(password)) {
+    swal(
+      "Contraseña invalida",
+      "Ingrese una contraseña con 8 caracteres, una mayuscula y un numero como minimo",
+      "error"
+    );
+  }
   return regexPassword.test(password);
 }
 
 function isValidLogId(logId) {
   const regexLogIn = /^[A-Z]+$/i;
+  
+  if (regexLogIn.test(logId)) {
+    swal("Login ID invalido", "Ingrese un Login ID solo con letras", "error");
+  }
   return regexLogIn.test(logId);
 }
 
@@ -42,7 +54,6 @@ function validateData() {
   ) {
     return true;
   } else {
-    alert("Por favor, completa todos los campos correctamente.");
     return false;
   }
 }
@@ -76,10 +87,7 @@ function RegisterFormHandler(event) {
         } else {
           console.error("Error: Token JWT no válido.");
         }
-        // Aquí puedes manejar la respuesta del backend
         console.log("Respuesta del backend:", data);
-
-        // Si todo va bien, redirigir a la página deseada
         window.location.href = "registerFuncionario.html";
       })
       .catch((error) => {
