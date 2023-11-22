@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.clinica_ucu.model.CarnetSalud;
 import com.example.clinica_ucu.model.Funcionario;
@@ -42,6 +44,16 @@ public class FuncionarioController {
         data.setCI(CI);
 
         return ResponseEntity.ok(funcionarioService.createFuncionario(data));
+    }
+
+    @PostMapping(value = "/funcionario/{CI}/cargarCarnetSalud", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<DefaultResponse> subirComprobante(@RequestParam MultipartFile  file,
+            @PathVariable(value = "CI") String CI)
+            throws JsonMappingException, JsonProcessingException {
+
+  
+
+        return ResponseEntity.ok(funcionarioService.cargarComprobante(CI,file));
     }
 
     @PostMapping(value = "/funcionario/{CI}/cargarCarnetSalud", produces = MediaType.APPLICATION_JSON_VALUE)
