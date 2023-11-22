@@ -40,40 +40,13 @@ function sendFile(event) {
     const urlBlob =
       "http://127.0.0.1:8080/funcionario/" +
       cedulaUsuario +
-      "/cargarCarnetSalud";
+      "/cargarComprobante";
 
     const carnetSaludBlob = new Blob([carnetSaludFile]);
 
     console.log(carnetSaludBlob);
     console.log(fechaVencimiento.value);
     console.log(fechaEmision.value);
-
-    fetch(urlBlob, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers":
-          "Origin, X-Requested-With, Content-Type, Accept",
-        Authorization: "Bearer " + token,
-      },
-      body: JSON.stringify({
-        Comprobante: carnetSaludBlob,
-      }),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Error en la solicitud");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        console.log("Respuesta del backend:", data);
-        alert("comprobante enviado bien");
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
 
     fetch(urlData, {
       method: "POST",
@@ -98,6 +71,31 @@ function sendFile(event) {
       .then((data) => {
         console.log("Respuesta del backend:", data);
         alert("data enviada bien");
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+
+    fetch(urlBlob, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/blob",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers":
+          "Origin, X-Requested-With, Content-Type, Accept",
+        Authorization: "Bearer " + token,
+      },
+      body: { Comprobante: carnetSaludBlob },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Error en la solicitud");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("Respuesta del backend:", data);
+        alert("comprobante enviado bien");
       })
       .catch((error) => {
         console.error("Error:", error);

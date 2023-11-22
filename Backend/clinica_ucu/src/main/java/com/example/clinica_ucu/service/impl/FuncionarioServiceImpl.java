@@ -76,7 +76,7 @@ public class FuncionarioServiceImpl {
     public DefaultResponse cargarCarnetSalud(CarnetSalud carnetSalud) {
         try {
             createConection();
-            String sql = " insert into Carnet_Salud (Ci, Fch_Emision, Fch_Vencimiento,  )"
+            String sql = " insert into Carnet_Salud (Ci, Fch_Emision, Fch_Vencimiento)"
                     + " values (?, ?, ?)";
 
             PreparedStatement preparedStmt = con.prepareStatement(sql);
