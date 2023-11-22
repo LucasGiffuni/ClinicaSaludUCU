@@ -1,7 +1,9 @@
+// Obtiene el formulario de documentación y agrega un listener para el evento de envío
 const documentationForm = document
   .getElementById("documentationForm")
   .addEventListener("submit", sendFile);
 
+// Verifica la seguridad del usuario basándose en la existencia de datos en el almacenamiento local
 security();
 
 function security() {
@@ -13,28 +15,34 @@ function security() {
   }
 }
 
+// Función que verifica si el tipo de archivo es válido (PDF o JPEG)
 function isValidFileType(fileType) {
   const allowedTypes = ["application/pdf", "image/jpeg"];
   return allowedTypes.includes(fileType);
 }
 
+// Maneja el evento de envío del formulario, procesa los archivos y realiza llamadas asincrónicas al servidor
 async function sendFile(event) {
   event.preventDefault();
   const cedulaUsuario = localStorage.getItem("userData");
   const token = localStorage.getItem("token");
 
+  //Toma el primer elemento de los archivos subidos
   let fileInput = document.getElementById("documentationFile");
   const carnetSaludFile = fileInput.files[0];
 
+  // Verifica la existencia del archivo y su tipo
   if (!carnetSaludFile || !isValidFileType(carnetSaludFile.type)) {
     alert("Por favor, seleccione un archivo PDF o JPEG");
     return;
   } else {
+    // Realiza llamadas asincrónicas para enviar datos y archivos al servidor
     await fetchData(cedulaUsuario, token);
     await fetchComprobante(carnetSaludFile, cedulaUsuario, token);
   }
 }
 
+// Realiza una llamada al servidor para enviar datos relacionados con la Fch_Emision y Fch_Vencimiento
 async function fetchData(cedulaUsuario, token) {
   let fechaVencimiento = document.getElementById("fechaVencimiento");
   let fechaEmision = document.getElementById("fechaEmision");
@@ -69,9 +77,13 @@ async function fetchData(cedulaUsuario, token) {
     });
 }
 
+// Realiza una llamada al servidor para enviar datos relacionados con la documentacion blob
 async function fetchComprobante(comprobante, cedulaUsuario, token) {
+  // Convierte el archivo a un objeto Blob y luego a un array de bytes
   const carnetSaludBlob = new Blob([comprobante]);
   const carnetSaludbytes = new Uint8Array(carnetSaludBlob);
+
+  //logs
   console.log(carnetSaludBlob);
   console.log(carnetSaludbytes);
 

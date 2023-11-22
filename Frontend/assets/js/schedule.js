@@ -1,5 +1,10 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const agendaForm = document.getElementById("scheduleForm");
+  const agendaForm = document
+    .getElementById("scheduleForm")
+    .addEventListener("submit", function (event) {
+      event.preventDefault();
+      agendarConsulta();
+    });
 
   security();
 
@@ -13,11 +18,6 @@ document.addEventListener("DOMContentLoaded", function () {
       fetchUpdatePeriod();
     }
   }
-
-  agendaForm.addEventListener("submit", function (event) {
-    event.preventDefault();
-    agendarConsulta();
-  });
 
   function fetchUpdatePeriod() {
     const token = localStorage.getItem("token");
