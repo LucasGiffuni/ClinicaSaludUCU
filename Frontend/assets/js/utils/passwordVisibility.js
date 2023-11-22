@@ -1,14 +1,16 @@
-const showPassword = document.getElementById("showPassword");
-const passwordInput = document.getElementById("password");
+document.addEventListener("DOMContentLoaded", function () {
+  const showPassword = document.getElementById("showPassword");
+  showPassword.addEventListener("click", togglePasswordVisibility);
 
-showPassword.addEventListener("click", togglePasswordVisibility);
+  function togglePasswordVisibility() {
+    const passwordInput = document.getElementById("password");
 
-function togglePasswordVisibility() {
-  if (passwordInput.type === "password") {
-    passwordInput.type = "text";
-    showPassword.src = "assets/img/hide.png";
-  } else {
-    passwordInput.type = "password";
-    showPassword.src = "assets/img/show.png";
+    if (passwordInput.type === "password") {
+      passwordInput.type = "text";
+      showPassword.src = "assets/img/hide.png";
+    } else {
+      passwordInput.type = "password";
+      showPassword.src = "assets/img/show.png";
+    }
   }
-}
+});

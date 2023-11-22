@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const loginForm = document
+  document
     .getElementById("login-form")
     .addEventListener("submit", loginFormHandler);
 
