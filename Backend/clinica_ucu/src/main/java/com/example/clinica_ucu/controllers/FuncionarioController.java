@@ -49,8 +49,8 @@ public class FuncionarioController {
     }
 
     @PostMapping(value = "/funcionario/{CI}/cargarComprobante", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<DefaultResponse> subirComprobante(@RequestParam MultipartFile file,
-            @PathVariable(value = "CI") String CI)
+    public ResponseEntity<DefaultResponse> subirComprobante(@RequestParam MultipartFile file)
+
             throws JsonMappingException, JsonProcessingException, ClassNotFoundException, SQLException {
 
         return ResponseEntity.ok(funcionarioService.cargarComprobante(CI, file));
