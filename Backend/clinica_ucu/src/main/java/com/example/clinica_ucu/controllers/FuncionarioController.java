@@ -48,12 +48,14 @@ public class FuncionarioController {
         return ResponseEntity.ok(funcionarioService.createFuncionario(data));
     }
 
-    @PostMapping(value = "/funcionario/{CI}/cargarComprobante", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<DefaultResponse> subirComprobante(@RequestParam MultipartFile file)
-
+    @PostMapping(value = "/funcionario/{CI}/cargarComprobante", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+    public ResponseEntity<DefaultResponse> subirComprobante(@RequestParam byte[] blob,
+            @PathVariable(value = "CI") String CI)
             throws JsonMappingException, JsonProcessingException, ClassNotFoundException, SQLException {
 
-        return ResponseEntity.ok(funcionarioService.cargarComprobante(CI, file));
+  
+
+        return ResponseEntity.ok(funcionarioService.cargarComprobante(CI,blob));
     }
 
     @PostMapping(value = "/funcionario/{CI}/cargarCarnetSalud", produces = MediaType.APPLICATION_JSON_VALUE)

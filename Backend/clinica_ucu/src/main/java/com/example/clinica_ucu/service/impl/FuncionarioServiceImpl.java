@@ -7,6 +7,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import javax.sql.rowset.serial.SerialBlob;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -76,10 +78,11 @@ public class FuncionarioServiceImpl {
     public DefaultResponse cargarCarnetSalud(CarnetSalud carnetSalud) {
         try {
             createConection();
-            String sql = " insert into Carnet_Salud (Ci, Fch_Emision, Fch_Vencimiento)"
+            String sql = " insert into Carnet_Salud (Ci, Fch_Emision, Fch_Vencimiento  )"
                     + " values (?, ?, ?)";
 
             PreparedStatement preparedStmt = con.prepareStatement(sql);
+
             preparedStmt.setInt(1, Integer.parseInt(carnetSalud.getCi()));
             preparedStmt.setDate(2, Date.valueOf(carnetSalud.getFch_Emision()));
             preparedStmt.setDate(3, Date.valueOf(carnetSalud.getFch_Vencimiento()));
@@ -98,14 +101,16 @@ public class FuncionarioServiceImpl {
         return response;
     }
 
-    public DefaultResponse cargarComprobante(String cI, MultipartFile file)
+    public DefaultResponse cargarComprobante(String cI, byte[] file)
             throws ClassNotFoundException, SQLException {
         createConection();
         String sql = " UPDATE Carnet_Salud set Comprobante = ? where Ci = ?";
+        Blob blob = new SerialBlob(file);
+        System.out.println(blob);
 
         PreparedStatement preparedStmt = con.prepareStatement(sql);
         preparedStmt.setInt(1, Integer.parseInt(cI));
-        preparedStmt.setBlob(2, (Blob) file);
+        preparedStmt.setBlob(2, blob);
 
         preparedStmt.execute();
 
