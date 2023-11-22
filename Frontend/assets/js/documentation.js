@@ -1,7 +1,7 @@
 // Obtiene el formulario de documentación y agrega un listener para el evento de envío
 const documentationForm = document
   .getElementById("documentationForm")
-  .addEventListener("submit", sendFile);
+  .addEventListener("submit", sendFileHandler);
 
 // Verifica la seguridad del usuario basándose en la existencia de datos en el almacenamiento local
 security();
@@ -22,7 +22,7 @@ function isValidFileType(fileType) {
 }
 
 // Maneja el evento de envío del formulario, procesa los archivos y realiza llamadas asincrónicas al servidor
-async function sendFile(event) {
+async function sendFileHandler(event) {
   event.preventDefault();
   const cedulaUsuario = localStorage.getItem("userData");
   const token = localStorage.getItem("token");
