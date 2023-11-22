@@ -1,5 +1,7 @@
 package com.example.clinica_ucu.controllers;
 
+import java.sql.SQLException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -49,7 +51,7 @@ public class FuncionarioController {
     @PostMapping(value = "/funcionario/{CI}/cargarCarnetSalud", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<DefaultResponse> subirComprobante(@RequestParam MultipartFile  file,
             @PathVariable(value = "CI") String CI)
-            throws JsonMappingException, JsonProcessingException {
+            throws JsonMappingException, JsonProcessingException, ClassNotFoundException, SQLException {
 
   
 
