@@ -1,5 +1,6 @@
 package com.example.clinica_ucu.service.impl;
 
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.clinica_ucu.model.CarnetSalud;
 import com.example.clinica_ucu.model.Funcionario;
@@ -74,14 +76,13 @@ public class FuncionarioServiceImpl {
     public DefaultResponse cargarCarnetSalud(CarnetSalud carnetSalud) {
         try {
             createConection();
-            String sql = " insert into Carnet_Salud (Ci, Fch_Emision, Fch_Vencimiento, Comprobante )"
-                    + " values (?, ?, ?, ?)";
+            String sql = " insert into Carnet_Salud (Ci, Fch_Emision, Fch_Vencimiento,  )"
+                    + " values (?, ?, ?)";
 
             PreparedStatement preparedStmt = con.prepareStatement(sql);
             preparedStmt.setInt(1, Integer.parseInt(carnetSalud.getCi()));
             preparedStmt.setDate(2, Date.valueOf(carnetSalud.getFch_Emision()));
             preparedStmt.setDate(3, Date.valueOf(carnetSalud.getFch_Vencimiento()));
-            preparedStmt.setBlob(4, carnetSalud.getComprobante());
 
             preparedStmt.execute();
 
@@ -94,6 +95,23 @@ public class FuncionarioServiceImpl {
             e.printStackTrace();
         }
         DefaultResponse response = new DefaultResponse("400", "Error");
+        return response;
+    }
+
+    public DefaultResponse cargarComprobante(String cI, MultipartFile file)
+            throws ClassNotFoundException, SQLException {
+        createConection();
+        String sql = " UPDATE Carnet_Salud set Comprobante = ? where Ci = ?";
+
+        PreparedStatement preparedStmt = con.prepareStatement(sql);
+        preparedStmt.setInt(1, Integer.parseInt(cI));
+        preparedStmt.setBlob(2, (Blob) file);
+
+        preparedStmt.execute();
+
+        DefaultResponse response = new DefaultResponse("200", "Carnet de salud cargado Correctamente.");
+
+        con.close();
         return response;
     }
 }
