@@ -9,7 +9,7 @@
 body {
     background-color: #f0f0f0;
     /* Color de respaldo */
-    background-image: url(img/background.jpeg);
+    background-image: url(/assets/img/background.jpeg);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;

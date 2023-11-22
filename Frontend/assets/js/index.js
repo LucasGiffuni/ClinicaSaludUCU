@@ -1,38 +1,14 @@
-/* variables */
-const loginForm = document.getElementById("login-form");
-const showPassword = document.getElementById("showPassword");
+document.addEventListener("DOMContentLoaded", function () {
+  const loginForm = document
+    .getElementById("login-form")
+    .addEventListener("submit", loginFormHandler);
 
-// Campos de formulario de login
-const loginIdInput = document.getElementById("loginId");
-const passwordInput = document.getElementById("password");
+  function loginFormHandler(event) {
+    event.preventDefault();
 
-/* llamados */
-loginForm.addEventListener("submit", loginFormHandler);
-showPassword.addEventListener("click", togglePasswordVisibility);
+    const loginIdInput = document.getElementById("loginId");
+    const passwordInput = document.getElementById("password");
 
-/* funciones */
-function togglePasswordVisibility() {
-  if (passwordInput.type === "password") {
-    passwordInput.type = "text";
-    showPassword.src = "assets/img/hide.png";
-  } else {
-    passwordInput.type = "password";
-    showPassword.src = "assets/img/show.png";
-  }
-}
-
-function validateData() {
-  if (loginIdInput.value.trim() != "" && passwordInput.value.trim != "") {
-    return true;
-  } else {
-    alert("Por favor, completa todos los campos correctamente.");
-    return false;
-  }
-}
-
-function loginFormHandler(event) {
-  event.preventDefault();
-  if (validateData()) {
     const url =
       "http://127.0.0.1:8080/public/login?user=" +
       loginIdInput.value.trim() +
@@ -58,17 +34,24 @@ function loginFormHandler(event) {
         if (data && data.jwt) {
           localStorage.setItem("token", data.jwt);
           localStorage.setItem("userData", data.cedula);
+          console.log("Respuesta del backend:", data);
+          window.location.href = "schedule.html";
         } else {
           console.error("Error: Token JWT no válido.");
+          swal(
+            "Datos invalidos",
+            "Ingrese un Login id y contraseña valida",
+            "error"
+          );
         }
-        console.log("Respuesta del backend:", data);
-        // Si todo va bien, redirigir a la página deseada
-        window.location.href = "schedule.html";
       })
       .catch((error) => {
         console.error("Error:", error);
+        swal(
+          "Datos invalidos",
+          "Ingrese un Login id y contraseña valida",
+          "error"
+        );
       });
-  } else {
-    alert("datos malos");
   }
-}
+});

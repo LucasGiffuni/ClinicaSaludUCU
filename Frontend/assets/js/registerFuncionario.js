@@ -1,52 +1,28 @@
-/* variables */
-const registerForm = document.getElementById("register-form");
+const registerForm = document
+  .getElementById("register-form")
+  .addEventListener("submit", registerFormHandler);
 const showPassword = document.getElementById("showPassword");
 
-// Campos de formulario de registro
-const nameInput = document.getElementById("name");
-const lastNameInput = document.getElementById("lastName");
-const birthdateInput = document.getElementById("birthdate");
-const addressInput = document.getElementById("address");
-const phoneInput = document.getElementById("phone");
-const ciInput = document.getElementById("ci");
-const passwordInput = document.getElementById("password");
-const emailInput = document.getElementById("email");
-const loginIdInput = document.getElementById("loginId");
+// Verifica la seguridad del usuario basándose en la existencia de datos en el almacenamiento local
+security();
 
-//cache
-const logIdCache = localStorage.getItem("logId");
-const tokenCache = localStorage.getItem("token");
+function security() {
+  const logIdCache = localStorage.getItem("logId");
+  const token = localStorage.getItem("token");
 
-/* llamados */
-registerForm.addEventListener("submit", registerFormHandler);
-
-/* seguridad */
-if (logIdCache && tokenCache) {
-  //nice to meet you
-} else {
-  // Si no hay userData en el almacenamiento local, redirige al usuario al inicio de sesión
-  window.location.href = "/registerUser.html";
-}
-
-/* funciones */
-function togglePasswordVisibility() {
-  passwordInput.type = passwordInput.type === "password" ? "text" : "password";
+  if (!logIdCache || !token) {
+    window.location.href = "/registerUser.html";
+  }
 }
 
 function isValidEmail(email) {
   const regexEmail =
     /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g;
-  if (regexEmail.test(email)) {
-    swal("Email invalido", "Ingrese un email valido", "error");
-  }
   return regexEmail.test(email);
 }
 
 function isValidNumeric(value) {
   const regexNumeric = /^[0-9]+$/;
-  if (regexNumeric.test(value)) {
-    swal("Numero invalido", "Ingrese un numero valido", "error");
-  }
   return regexNumeric.test(value);
 }
 
@@ -54,15 +30,7 @@ function validateCi(ci) {
   ci = clean_ci(ci);
   const dig = ci[ci.length - 1];
   ci = ci.replace(/[0-9]$/, "");
-  let valid = dig == validationDigit(ci);
-  if (valid) {
-    swal(
-      "Cedula invalida",
-      "Ingrese una cedula valida (sin puntos ni guiones)",
-      "error"
-    );
-  }
-  return valid;
+  return dig == validationDigit(ci);
 }
 
 function clean_ci(ci) {
@@ -87,23 +55,89 @@ function validationDigit(ci) {
   }
 }
 
-function validateData() {
-  const isValidEmailInput = isValidEmail(emailInput.value);
-  const isValidCiInput = validateCi(ciInput.value);
-  const isValidPhone = isValidNumeric(phoneInput.value);
+function isValidString(value) {
+  return typeof value === "string" && /^[a-zA-Z]+$/.test(value);
+}
 
-  if (isValidEmailInput && isValidCiInput && isValidPhone) {
-    return true;
-  } else {
-    swal("Error", "Complete los campos correctamente", "error");
-    return false;
+function isValidBirtAge(value) {
+  const birthdate = new Date(value);
+  const ageDifference = Date.now() - birthdate.getTime();
+  const ageInYears = ageDifference / (1000 * 60 * 60 * 24 * 365.25);
+  return ageInYears >= 18;
+}
+
+function validateData(email, ci, phone, name, lastname, birthdate) {
+  const isValidEmailInput = isValidEmail(email.value);
+  const isValidCiInput = validateCi(ci.value);
+  const isValidPhone = isValidNumeric(phone.value);
+  const isValidName = isValidString(name.value);
+  const isValidLastName = isValidString(lastname.value);
+  const isValidBirthdate = isValidBirtAge(birthdate.value);
+
+  switch (true) {
+    case !isValidEmailInput:
+      swal("Email invalido", "Ingrese un email valido", "error");
+      return;
+
+    case !isValidCiInput:
+      swal("Cedula invalida", "Ingrese una cedula valido", "error");
+      return;
+
+    case !isValidPhone:
+      swal("Numero invalido", "Ingrese un celular valido", "error");
+      return;
+
+    case !isValidName:
+      swal("Nombre invalido", "Ingrese solo letras", "error");
+      return;
+
+    case !isValidLastName:
+      swal("Apellido invalido", "Ingrese solo letras", "error");
+      return;
+
+    case !isValidBirthdate:
+      swal(
+        "Edad invalido",
+        "La diferencia de edad es menor a 18 años",
+        "error"
+      );
+      return;
+
+    default: {
+      swal(
+        "Registro existoso",
+        "presione aceptar para iniciar sesion",
+        "success"
+      );
+      return true;
+    }
   }
 }
 
 function registerFormHandler(event) {
   event.preventDefault();
 
-  if (validateData()) {
+  const logIdCache = localStorage.getItem("logId");
+  const token = localStorage.getItem("token");
+
+  const nameInput = document.getElementById("name");
+  const lastNameInput = document.getElementById("lastName");
+  const birthdateInput = document.getElementById("birthdate");
+  const addressInput = document.getElementById("address");
+  const phoneInput = document.getElementById("phone");
+  const ciInput = document.getElementById("ci");
+  const emailInput = document.getElementById("email");
+
+  if (
+    validateData(
+      emailInput,
+      ciInput,
+      phoneInput,
+      nameInput,
+      lastNameInput,
+      birthdateInput
+    )
+  ) {
     const url =
       "http://127.0.0.1:8080/funcionario/" +
       ciInput.value +
@@ -113,7 +147,7 @@ function registerFormHandler(event) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + tokenCache,
+        Authorization: "Bearer " + token,
       },
       body: JSON.stringify({
         Nombre: nameInput.value.trim(),
