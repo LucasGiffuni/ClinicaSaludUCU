@@ -1,9 +1,13 @@
-const documentationForm = document.getElementById("documentationForm").addEventListener("submit", sendFile);
+const documentationForm = document
+  .getElementById("documentationForm")
+  .addEventListener("submit", sendFile);
 
-function security(){
+security();
+
+function security() {
   const cedulaUsuario = localStorage.getItem("userData");
   const token = localStorage.getItem("token");
-  
+
   if (!cedulaUsuario || !token) {
     window.location.href = "index.html";
   }
@@ -66,7 +70,6 @@ async function fetchData(cedulaUsuario, token) {
 }
 
 async function fetchComprobante(comprobante, cedulaUsuario, token) {
-
   const carnetSaludBlob = new Blob([comprobante]);
   const carnetSaludbytes = new Uint8Array(carnetSaludBlob);
   console.log(carnetSaludBlob);
@@ -99,4 +102,3 @@ async function fetchComprobante(comprobante, cedulaUsuario, token) {
       console.error("Error:", error);
     });
 }
-

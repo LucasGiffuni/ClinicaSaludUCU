@@ -1,14 +1,17 @@
 document.addEventListener("DOMContentLoaded", function () {
   const agendaForm = document.getElementById("scheduleForm");
 
-  // Cache
-  const cedulaUsuario = localStorage.getItem("userData");
-  const token = localStorage.getItem("token");
+  security();
 
-  if (!cedulaUsuario || !token) {
-    window.location.href = "index.html";
-  } else {
-    fetchUpdatePeriod();
+  function security() {
+    const cedulaUsuario = localStorage.getItem("userData");
+    const token = localStorage.getItem("token");
+
+    if (!cedulaUsuario || !token) {
+      window.location.href = "index.html";
+    } else {
+      fetchUpdatePeriod();
+    }
   }
 
   agendaForm.addEventListener("submit", function (event) {
@@ -17,6 +20,8 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   function fetchUpdatePeriod() {
+    const token = localStorage.getItem("token");
+
     const url = "http://127.0.0.1:8080/agenda/obtenerPeriodosActualizacion";
 
     fetch(url, {
@@ -87,6 +92,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Función para agendar la consulta
   function agendarConsulta() {
+    const cedulaUsuario = localStorage.getItem("userData");
+    const token = localStorage.getItem("token");
+
     const scheduleSelect = document.getElementById("schedule");
     const selectedScheduleIndex = scheduleSelect.selectedIndex;
     const selectedSchedule = scheduleSelect.options[selectedScheduleIndex].text;
