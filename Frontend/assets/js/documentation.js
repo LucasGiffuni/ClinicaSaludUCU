@@ -12,18 +12,6 @@ if (!cedulaUsuario || !token) {
   window.location.href = "index.html";
 }
 
-/* name file */
-document
-  .getElementById("documentationFile")
-  .addEventListener("change", function (event) {
-    const fileName = event.target.files[0].name;
-    document.getElementById("nameFile").textContent = `${fileName}`;
-    // Verificar el tipo de archivo al cambio
-    isValidFileType(event.target.files[0].type)
-      ? console.log("Tipo de archivo válido.")
-      : alert("Por favor, seleccione un archivo PDF o JPEG.");
-  });
-
 /* funciones */
 function sendFile(event) {
   event.preventDefault();
@@ -44,17 +32,23 @@ function sendFile(event) {
   if (!isValidFileType(carnetSaludFile.type)) {
     alert("Por favor, seleccione un archivo PDF o JPEG.");
   } else {
-    const url =
+    const urlData =
       "http://127.0.0.1:8080/funcionario/" +
       cedulaUsuario +
       "/cargarCarnetSalud";
+
+    const urlBlob =
+      "http://127.0.0.1:8080/funcionario/" +
+      cedulaUsuario +
+      "/cargarCarnetSalud";
+
     const carnetSaludBlob = new Blob([carnetSaludFile]);
 
     console.log(carnetSaludBlob);
     console.log(fechaVencimiento.value);
     console.log(fechaEmision.value);
 
-    fetch(url, {
+    fetch(urlBlob, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -65,6 +59,32 @@ function sendFile(event) {
       },
       body: JSON.stringify({
         Comprobante: carnetSaludBlob,
+      }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Error en la solicitud");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("Respuesta del backend:", data);
+        alert("comprobante enviado bien");
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+
+    fetch(urlData, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers":
+          "Origin, X-Requested-With, Content-Type, Accept",
+        Authorization: "Bearer " + token,
+      },
+      body: JSON.stringify({
         Fch_Emision: fechaEmision.value,
         Fch_Vencimiento: fechaVencimiento.value,
       }),
@@ -77,7 +97,7 @@ function sendFile(event) {
       })
       .then((data) => {
         console.log("Respuesta del backend:", data);
-        alert("EXITO");
+        alert("data enviada bien");
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -85,7 +105,6 @@ function sendFile(event) {
   }
 }
 
-// Función para verificar el tipo de archivo
 function isValidFileType(fileType) {
   const allowedTypes = ["application/pdf", "image/jpeg"];
   return allowedTypes.includes(fileType);

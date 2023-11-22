@@ -69,10 +69,14 @@ document.addEventListener("DOMContentLoaded", function () {
         scheduleSelect.appendChild(option);
 
         while (fechaInicio <= fechaFin) {
+          let year = fechaInicio.getFullYear();
+          let month = fechaInicio.getMonth();
+          let day = fechaInicio.getDay();
+          let nuevaFechaInicio = year + "-" + month + "-" + day;
+
           let option = document.createElement("option");
-          option.text = fechaInicio
-            .toLocaleDateString("es-ES")
-            .replace(/\//g, "-");
+
+          option.text = nuevaFechaInicio;
           scheduleSelect.appendChild(option);
 
           fechaInicio.setDate(fechaInicio.getDate() + 1);
@@ -88,7 +92,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const selectedSchedule = scheduleSelect.options[selectedScheduleIndex].text;
 
     const url =
-      "http://127.0.0.1:5500/agenda/" +
+      "http://127.0.0.1:8080/agenda/" +
       cedulaUsuario +
       "/crearAgenda" +
       "?fecha=" +
@@ -98,6 +102,9 @@ document.addEventListener("DOMContentLoaded", function () {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers":
+          "Origin, X-Requested-With, Content-Type, Accept",
         Authorization: "Bearer " + token,
       },
     })
