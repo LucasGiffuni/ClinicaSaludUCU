@@ -86,13 +86,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Realiza una llamada al servidor para enviar datos relacionados con la documentacion blob
   async function fetchComprobante(comprobante, cedulaUsuario, token) {
-    // Convierte el archivo a un objeto Blob y luego a un array de bytes
     const carnetSaludBlob = new Blob([comprobante]);
-    const carnetSaludbytes = new Uint8Array(carnetSaludBlob);
-  
     const aux = await carnetSaludBlob.text();
-    console.log(aux);
-
+    /*     console.log(aux);
+     */
     const url =
       "http://127.0.0.1:8080/funcionario/" +
       cedulaUsuario +
@@ -116,7 +113,7 @@ document.addEventListener("DOMContentLoaded", function () {
       })
       .then((data) => {
         console.log("Respuesta del backend:", data);
-        swal("Su documentacion ha sido ingresa con exito", "success");
+        swal("Su documentacion ha sido ingresa con exito", "", "success");
       })
       .catch((error) => {
         console.error("Error:", error);

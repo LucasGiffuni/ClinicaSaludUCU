@@ -14,3 +14,8 @@ document.addEventListener("DOMContentLoaded", function () {
           );
     });
 });
+
+function isValidFileType(fileType) {
+  const allowedTypes = ["application/pdf", "image/jpeg"];
+  return allowedTypes.includes(fileType);
+}

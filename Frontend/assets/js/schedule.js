@@ -12,17 +12,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function validateForm() {
     const periodoSelect = document.getElementById("periodo");
-    const scheduleSelect = document.getElementById("schedule");
-    const selectedScheduleIndex = scheduleSelect.selectedIndex;
     const selectedPeriodIndex = periodoSelect.selectedIndex;
 
     if (selectedPeriodIndex <= 0) {
       swal("Error", "Por favor, seleccione un periodo", "error");
       return false;
     }
-    if (selectedScheduleIndex <= 0) {
-      swal("Error", "Por favor, seleccione una fecha.", "error");
-      return false;
+
+    const selectedDate = flatpickrInstance.selectedDates[0];
+    if (!selectedDate) {
+        swal("Error", "Por favor, seleccione una fecha", "error");
+        return false;
     }
 
     return true;
@@ -72,10 +72,12 @@ document.addEventListener("DOMContentLoaded", function () {
         );
       });
   }
+  // Declara una variable global para almacenar la instancia de Flatpickr
+  let flatpickrInstance;
 
   function setPeriodo(data) {
     const periodoSelect = document.getElementById("periodo");
-    const scheduleSelect = document.getElementById("schedule");
+    const scheduleContainer = document.getElementById("scheduleContainer");
 
     data.forEach((periodo) => {
       let option = document.createElement("option");
@@ -87,30 +89,30 @@ document.addEventListener("DOMContentLoaded", function () {
       const selectedPeriodoIndex = periodoSelect.selectedIndex;
       const selectedPeriodo = data[selectedPeriodoIndex];
 
-      // Limpiar las opciones anteriores
-      scheduleSelect.innerHTML = "";
-
       if (selectedPeriodo) {
         const fechaInicio = new Date(selectedPeriodo.fch_Inicio);
         const fechaFin = new Date(selectedPeriodo.fch_Fin);
 
-        let option = document.createElement("option");
-        option.text = "Fecha";
-        scheduleSelect.appendChild(option);
-
-        while (fechaInicio <= fechaFin) {
-          let year = fechaInicio.getFullYear();
-          let month = fechaInicio.getMonth();
-          let day = fechaInicio.getDay();
-          let nuevaFechaInicio = year + "-" + month + "-" + day;
-
-          let option = document.createElement("option");
-
-          option.text = nuevaFechaInicio;
-          scheduleSelect.appendChild(option);
-
-          fechaInicio.setDate(fechaInicio.getDate() + 1);
+        if (flatpickrInstance) {
+          flatpickrInstance.destroy();
         }
+
+        const existingInputElement = document.getElementById("schedule");
+        if (existingInputElement) {
+          scheduleContainer.removeChild(existingInputElement);
+        }
+
+        let inputElement = document.createElement("input");
+        inputElement.type = "text";
+        inputElement.id = "schedule";
+        inputElement.required = true;
+        scheduleContainer.appendChild(inputElement);
+
+        flatpickrInstance = flatpickr(inputElement, {
+          dateFormat: "Y-m-d",
+          minDate: fechaInicio,
+          maxDate: fechaFin,
+        });
       }
     });
   }
@@ -120,16 +122,19 @@ document.addEventListener("DOMContentLoaded", function () {
     const cedulaUsuario = localStorage.getItem("userData");
     const token = localStorage.getItem("token");
 
-    const scheduleSelect = document.getElementById("schedule");
-    const selectedScheduleIndex = scheduleSelect.selectedIndex;
-    const selectedSchedule = scheduleSelect.options[selectedScheduleIndex].text;
+    // Obtiene la fecha seleccionada de la instancia de Flatpickr
+    const selectedDate = flatpickrInstance.selectedDates[0];
+    const formattedDate = selectedDate
+      ? flatpickrInstance.formatDate(selectedDate, "Y-m-d")
+      : "";
 
+    console.log(formattedDate);
     const url =
       "http://127.0.0.1:8080/agenda/" +
       cedulaUsuario +
       "/crearAgenda" +
       "?fecha=" +
-      selectedSchedule;
+      formattedDate;
 
     fetch(url, {
       method: "POST",
@@ -150,7 +155,7 @@ document.addEventListener("DOMContentLoaded", function () {
       .then((data) => {
         swal(
           "Agenda realizada",
-          "Usted quedo agendado para el: " + selectedSchedule,
+          "Usted quedo agendado para el: " + formattedDate,
           "success"
         );
       })
