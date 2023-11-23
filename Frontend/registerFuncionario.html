@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link id="icon" rel="icon" href="assets/img/icon.png">
+  <link rel="stylesheet" href="assets/styles/registerFuncionario.css">
+  <link rel="stylesheet" href="assets/styles/navbar.css">
+  <title>Clinica UCU | Registro de usuario</title>
+</head>
+<body>
+
+  <header class="header">
+    <nav>
+      <ul class="nav-links">
+           <li><a href="index.html">Inicio sesion</a></li>
+           <li><a href="#">Registro de usuario</a></li>
+      </ul>            
+   </nav>
+  </header>
+
+  <main class="main-conteiner">
+
+    <h2>Registrarse</h2>
+    <form id="register-form">
+        <div class="gridClass">
+            <input type="text" id="name" placeholder="Nombre" required>
+            <input type="text" id="lastName" placeholder="Apellido" required>
+        </div>
+
+        <div id="birthdate-div">
+            <label for="birthdate">Fecha de nacimiento</label>
+            <input type="date" id="birthdate" required>
+        </div>
+
+        <input type="text" id="address" placeholder="Direccion" required>
+
+        <div class="gridClass">
+            <input type="text" id="phone" placeholder="Telefono" required>
+            <input type="text" id="ci" placeholder="Cedula" required>
+        </div>
+
+        <input type="email" id="email" placeholder="Correo electronico" required>
+
+        <button type="submit"  id="register-btn">Registrarse</button>
+    </form>
+  </main>
+  
+  <script src="assets/js/registerFuncionario.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</body>
+</html>

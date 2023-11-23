@@ -5,6 +5,7 @@ public class Agenda {
     private String Nro;
     private String Ci;
     private String Fch_Agenda;
+    
     public String getNro() {
         return Nro;
     }

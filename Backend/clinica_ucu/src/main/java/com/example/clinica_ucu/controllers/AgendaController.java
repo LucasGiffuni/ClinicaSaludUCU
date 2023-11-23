@@ -11,11 +11,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.clinica_ucu.model.Agenda;
+import com.example.clinica_ucu.model.Cupos;
+import com.example.clinica_ucu.model.Funcionario;
 import com.example.clinica_ucu.model.PeriodosActualizacion;
 import com.example.clinica_ucu.model.response.DefaultResponse;
+import com.example.clinica_ucu.model.response.InitCuposResponse;
+import com.example.clinica_ucu.model.response.NewAgendaResponse;
 import com.example.clinica_ucu.service.impl.AgendaServiceImpl;
 import com.example.clinica_ucu.service.impl.FuncionarioServiceImpl;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
@@ -44,20 +49,42 @@ public class AgendaController {
         return ResponseEntity.ok(agendaService.obtenerPeriodosDeActualizacion());
     }
 
-    @PostMapping(value = "/agenda/{CI}/crearAgenda", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<DefaultResponse> agendar(@RequestBody String agenda,
-            @PathVariable(value = "CI") String CI)
-            throws JsonMappingException, JsonProcessingException {
+    @GetMapping(value = "/agenda/obtenerFechasAgenda", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Cupos>> obtenerFechasAgenda(@RequestParam String anio, @RequestParam String semestre)
+            throws JsonMappingException, JsonProcessingException, ClassNotFoundException, SQLException {
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
         mapper.setVisibility(
                 VisibilityChecker.Std.defaultInstance().withFieldVisibility(JsonAutoDetect.Visibility.ANY));
-        Agenda data = mapper.readValue(agenda, Agenda.class);
 
-        data.setCi(CI);
+        return ResponseEntity.ok(agendaService.obtenerFechasAgenda(anio, semestre));
+    }
 
-        return ResponseEntity.ok(agendaService.crearAgenda(data));
+    @PostMapping(value = "/agenda/{CI}/crearAgenda", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<NewAgendaResponse> agendar(@RequestParam String fecha,
+            @PathVariable(value = "CI") String CI)
+            throws JsonMappingException, JsonProcessingException, NumberFormatException, SQLException {
+
+        NewAgendaResponse response = agendaService.crearAgenda(CI, fecha);
+        if (response.getResponse().getCode().equals("400")) {
+            return ResponseEntity.status(400).body(response);
+        } else {
+            return ResponseEntity.ok(response);
+        }
+
+    }
+
+    @PostMapping(value = "/agenda/cargarPeriodoActualizacion", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<InitCuposResponse> cargarPeriodoActualizacion(@RequestBody String periodo)
+            throws JsonMappingException, JsonProcessingException, ClassNotFoundException, SQLException {
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+        mapper.setVisibility(
+                VisibilityChecker.Std.defaultInstance().withFieldVisibility(JsonAutoDetect.Visibility.ANY));
+        PeriodosActualizacion data = mapper.readValue(periodo, PeriodosActualizacion.class);
+        return ResponseEntity.ok(agendaService.inicializarPeriodo(data));
     }
 
 }

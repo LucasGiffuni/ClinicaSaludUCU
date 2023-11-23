@@ -1,0 +1,134 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    background-image: url(/assets/img/background.jpeg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.navbar {
+    background-color: #1e3264;
+    color: white;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    height: 50px;
+}
+
+.navbar div {
+    padding: 14px 40px;
+    font-size: 14px;
+    background: transparent;
+    font-weight: 600;
+    cursor: pointer;
+    color: white;
+    outline: none;
+    transition: all 300ms;
+    box-sizing: border-box;
+}
+
+.navbar div:hover {
+    background-color: #132552;
+    padding: 16px 40px;
+}
+
+.main-conteiner {
+    width: 450px;
+    background-color: rgb(28, 40, 94, 0.6);
+    padding: 30px;
+    margin: auto;
+    margin-top: 100px;
+    border-radius: 4px;
+    color: white;
+}
+
+.main-conteiner a {
+    display: flex;
+    color: white;
+    text-decoration: none;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.main-conteiner h2 {
+    display: flex;
+    color: white;
+    text-decoration: none;
+    justify-content: center;
+    margin-bottom: 20px;
+    font-size: 25px;
+}
+
+
+#documentationForm p {
+    margin-top: 8px;
+}
+
+
+#documentationForm form h2 {
+    font-size: 30px;
+    text-align: center;
+    margin-bottom: 20px;
+    color: rgb(28, 40, 94);
+}
+
+#file-div input {
+    display: none;
+}
+
+#file-div label {
+    display: block;
+    padding: 8px 21px;
+    border: 1px solid #132552;
+    border-radius: 6px;
+    border-color: #eee;
+    cursor: pointer;
+}
+
+#documentationForm input {
+    width: 100%;
+    margin-top: 20px;
+    padding: 10px;
+    border: none;
+    font-size: 16px;
+    outline: none;
+}
+
+#documentationForm button {
+
+    display: flex;
+    align-items: center;
+    margin: auto;
+    
+    padding: 10px 40px;
+    margin-top: 20px;
+    border: none;
+    font-size: 14px;
+    background: rgb(28, 40, 94);
+    font-weight: 600;
+    cursor: pointer;
+    color: white;
+    outline: none;
+}
+
+.gridClass {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 5px;
+    
+}
+
+.gridClass input {
+    width: 50%;
+}

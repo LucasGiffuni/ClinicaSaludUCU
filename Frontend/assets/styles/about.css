@@ -1,0 +1,64 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    background-color: #f0f0f0;
+    /* Color de respaldo */
+    background-image: url(/assets/img/background.jpeg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    margin: 0;
+}
+
+.main-conteiner {
+    background-color: rgba(28, 40, 94, 0.6);
+    margin: auto;
+    margin-top: 100px;
+    color: white;
+    overflow-y: scroll;
+
+    position: relative;
+    width: 60%;
+    height: 100%;
+    max-width: 100%;
+    min-height: 30%;
+
+    display: flex;
+
+    border-radius: 0px;
+
+}
+
+section {
+    flex: 1;
+    margin: 0px;
+}
+
+#text {
+    margin: 50px 100px 50px 100px;
+
+}
+
+
+
+#map {
+    height: 50%;
+    width: 80%;
+
+    margin-top: 10%;
+}
+
+section div img {
+    max-width: 80%;
+    height: auto;
+
+    margin-top: 2%;
+    margin-bottom: 20px;
+}

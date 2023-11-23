@@ -1,9 +1,14 @@
 jwtSecurity:
   JWT_SECRET_KEY: "b0KuPuLw77Z0hQhCsK-GTHoEx_kethtn357V7iqwEpCTIsLgqbBC_vQBTGC6M5rINl0FrqHK-D3cbOsMOlfyVKuQPvpyGcLcxAoLOTpYXc28nVwB7iBq2oKj9G9lHkFOUKn"
   encryptedPassword: "$2a$10$56VCAiApLO8NQYeOPiu2De/EBC5RWrTZvLl7uoeC3r7iXinRR1iiq"
-  users:
-    user1: "kleis"
-    user2: "admin"
+
 spring:
+  http:
+    multipart:
+      enabled: false
   datasource:
     driver-class-name: "com.mysql.cj.jdbc.Driver"
+    databaseName: "ClinicaUCUSalud"
+    connectionString: "jdbc:mysql://localhost:3306/"
+    databaseUsername: "root"
+    databasePassword: "bernardo"

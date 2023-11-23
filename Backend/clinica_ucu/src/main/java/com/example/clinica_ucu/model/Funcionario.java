@@ -21,6 +21,7 @@ public class Funcionario {
 
     @JsonProperty(value = "Telefono")
     private String Telefono;
+    
     @JsonProperty(value = "Email")
     private String Email;
 

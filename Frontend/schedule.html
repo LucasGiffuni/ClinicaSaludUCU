@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link id="icon" rel="icon" href="assets/img/icon.png">
+    <link rel="stylesheet" href="assets/styles/schedule.css">
+    <link rel="stylesheet" href="assets/styles/navbar.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <title>Clinica UCU | Agenda consulta medica</title>
+</head>
+
+<body>
+
+    <header class="header">
+        <nav>
+            <ul class="nav-links">
+                 <li><a href="#">Agenda Consulta</a></li>
+                 <li><a href="documentation.html">Carnet de salud</a></li>
+                 <li><a href="about.html">Sobre nosotros</a></li>
+                 <li id="logOut"><a href="index.html">log out</a></li>
+            </ul>            
+         </nav>
+    </header>
+
+    
+    <main class="main-conteiner">
+        
+        <h2>Agenda</h2>
+        
+        <form id="scheduleForm">
+            
+            <p for="periodo">Selecciona un periodo:</p>
+            <select id="periodo" required>
+                <option value="default">Periodo</option>
+            </select>
+
+            <p for="schedule">Selecciona una fecha:</p>
+            <div id="scheduleContainer"></div>
+
+            <button type="submit" id="schedule-btn">Agendar</button>
+
+        </form>
+
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+    <script src="assets/js/utils/localStorage.js"></script>
+    <script src="assets/js/schedule.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</body>
+
+</html>

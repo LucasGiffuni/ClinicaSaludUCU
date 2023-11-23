@@ -1,0 +1,93 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    background-color: #f0f0f0;
+    /* Color de respaldo */
+    background-image: url(/assets/img/background.jpeg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.main-conteiner {
+    width: 400px;
+    background-color: rgb(28, 40, 94, 0.6);
+    padding: 30px;
+    margin: auto;
+    margin-top: 100px;
+    border-radius: 4px;
+    color: white;
+}
+
+.main-conteiner h2 {
+    display: flex;
+    color: white;
+    text-decoration: none;
+    justify-content: center;
+    margin-bottom: 20px;
+    font-size: 25px;
+    margin-top: 20px;
+}
+
+#register-form p {
+    margin-top: 8px;
+}
+
+#register-form input,
+#birthdate p {
+    width: 100%;
+    margin-top: 20px;
+    padding: 10px;
+    border: none;
+    font-size: 16px;
+    outline: none;
+}
+
+#birthdate-div input {
+    margin-top: 8px;
+}
+
+.gridClass {
+    display: flex;
+    gap: 10px;
+}
+
+.gridClass input {
+    width: 50%;
+}
+
+#register-form button {
+    display: flex;
+    align-items: center;
+    margin: auto;
+
+    padding: 10px 40px;
+    margin-top: 20px;
+    border: none;
+    font-size: 14px;
+    background: rgb(28, 40, 94);
+    font-weight: 600;
+    cursor: pointer;
+    color: white;
+    outline: none;
+}
+
+/* Media Queries for responsiveness */
+@media screen and (max-width: 600px) {
+    .main-conteiner {
+        width: 90%;
+        /* Adjusted width for smaller screens */
+    }
+
+    #register-form button {
+        margin-top: 20px;
+        /* Adjusted margin for smaller screens */
+    }
+}

@@ -45,6 +45,8 @@ import com.example.clinica_ucu.model.Funcionario;
 import com.example.clinica_ucu.model.PeriodosActualizacion;
 import com.example.clinica_ucu.model.TokenInfo;
 import com.example.clinica_ucu.model.response.DefaultResponse;
+import com.example.clinica_ucu.model.response.LoginResponse;
+import com.example.clinica_ucu.model.response.RegisterResponse;
 import com.example.clinica_ucu.security.JwtUtilService;
 import com.example.clinica_ucu.service.impl.UserServiceImpl;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
@@ -63,18 +65,18 @@ public class UserController {
 
     private static final Logger logger = LoggerFactory.getLogger(ClinicaUcuApplication.class);
 
-    @PostMapping("/public/createUser")
-    public ResponseEntity<DefaultResponse> createUser(@RequestParam String user, @RequestParam String clave)
+    @PostMapping("/public/login")
+    public ResponseEntity<LoginResponse> validateUser(@RequestParam String user, @RequestParam String clave)
             throws NoSuchAlgorithmException {
 
-        return ResponseEntity.ok(userService.createUser(user, clave));
+        return ResponseEntity.ok(userService.login(user, clave));
     }
 
-    @GetMapping("/public/validateUser")
-    public ResponseEntity<DefaultResponse> validateUser(@RequestParam String user, @RequestParam String clave)
+    @PostMapping("/public/register")
+    public ResponseEntity<RegisterResponse> createUser(@RequestParam String user, @RequestParam String clave)
             throws NoSuchAlgorithmException {
 
-        return ResponseEntity.ok(userService.validateUser(user, clave));
+        return ResponseEntity.ok(userService.register(user, clave));
     }
 
 }

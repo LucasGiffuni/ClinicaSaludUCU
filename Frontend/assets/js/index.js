@@ -1,106 +1,57 @@
-const form_login_register = document.querySelector("#forms-login-register");
-const form_login = document.querySelector("#login-form");
-const form_register = document.querySelector("#register-form");
-const background_login = document.querySelector("#button-inicio-sesion");
-const background_register = document.querySelector("#button-register");
+document.addEventListener("DOMContentLoaded", function () {
+  document
+    .getElementById("login-form")
+    .addEventListener("submit", loginFormHandler);
 
-let registerbtn = document.getElementById("registerbtn");
+  function loginFormHandler(event) {
+    event.preventDefault();
 
-let nameInput = document.getElementById("name");
-let lastNameInput = document.getElementById("lastiname");
-let birthdateInput = document.getElementById("birthdate");
-let addressInput = document.getElementById("address");
-let phoneInput = document.getElementById("phone");
-let ciInput = document.getElementById("ci");
-let passwordInput = document.getElementById("password");
-let emaiInput = document.getElementById("email");
+    const loginIdInput = document.getElementById("loginId");
+    const passwordInput = document.getElementById("password");
 
-const showPasswordBtn = document
-  .getElementById("showPasswordBtn")
-  .addEventListener("click", showPassword);
+    const url =
+      "http://127.0.0.1:8080/public/login?user=" +
+      loginIdInput.value.trim() +
+      "&clave=" +
+      passwordInput.value.trim();
 
-registerbtn.addEventListener("click", verifyData);
-background_login.addEventListener("click", inicioSesionSwap);
-background_register.addEventListener("click", registerSwap);
-window.addEventListener("resize", redimention);
-
-redimention();
-
-/* animations */
-function registerSwap() {
-  if (window.innerWidth > 850) {
-    form_register.style.display = "block";
-    form_login_register.style.left = "410px";
-    form_login.style.display = "none";
-    background_register.style.opacity = "0";
-    background_login.style.opacity = "1";
-  } else {
-    form_register.style.display = "block";
-    form_login_register.style.left = "0px";
-    form_login.style.display = "none";
-    background_register.style.display = "none";
-    background_login.style.display = "block";
-    background_login.style.opacity = "1";
+    fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers":
+          "Origin, X-Requested-With, Content-Type, Accept",
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Error en la solicitud");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        if (data && data.jwt) {
+          localStorage.setItem("token", data.jwt);
+          localStorage.setItem("userData", data.cedula);
+          console.log("Respuesta del backend:", data);
+          window.location.href = "schedule.html";
+        } else {
+          console.error("Error: Token JWT no válido.");
+          swal(
+            "Datos invalidos",
+            "Ingrese un Login id y contraseña valida",
+            "error"
+          );
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        swal(
+          "Datos invalidos",
+          "Ingrese un Login id y contraseña valida",
+          "error"
+        );
+      });
   }
-}
-
-function inicioSesionSwap() {
-  if (window.innerWidth > 850) {
-    form_login.style.display = "block";
-    form_login_register.style.left = "10px";
-    form_register.style.display = "none";
-    background_register.style.opacity = "1";
-    background_login.style.opacity = "0";
-  } else {
-    form_login.style.display = "block";
-    form_login_register.style.left = "0px";
-    form_register.style.display = "none";
-    background_login.style.display = "none";
-  }
-}
-
-function redimention() {
-  if (window.innerWidth > 850) {
-    background_register.style.display = "block";
-    background_login.style.display = "block";
-  } else {
-    background_register.style.display = "block";
-    background_register.style.opacity = "1";
-    background_login.style.display = "none";
-    form_login.style.display = "block";
-    form_login_register.style.left = "0px";
-    form_register.style.display = "none";
-  }
-}
-
-/* password show */
-function showPassword() {
-  passwordInput.type = passwordInput.type === "password" ? "text" : "password";
-}
-
-//totalmente roto
-
-/* data checks */
-function verifyData() {
-  const regexEmail =
-    /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g;
-  const regexPassword = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm;
-
-  if (
-    nameInput.value.trim() !== "" &&
-    lastNameInput.value.trim() !== "" &&
-    birthdateInput.value.trim() !== "" &&
-    addressInput.value.trim() !== "" &&
-    phoneInput.value.trim() !== "" &&
-    ciInput.value.trim() !== "" &&
-    emaiInput.value.trim() !== "" &&
-    passwordInput.value.trim() !== "" &&
-    regexEmail.test(email) &&
-    regexPassword.test(password)
-  ) {
-    // Todos los datos son válidos y no están vacíos
-    // enviar el formulario
-  } else {
-    alert("Por favor, completa todos los campos correctamente.");
-  }
-}
+});

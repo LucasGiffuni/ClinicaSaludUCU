@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link id="icon" rel="icon" href="assets/img/icon.png">
-  <link rel="stylesheet" href="assets/styles/index.css">
+  <link rel="stylesheet" href="assets/styles/RegisterUser.css">
   <link rel="stylesheet" href="assets/styles/navbar.css">
-  <title>Clinica UCU | Inicicio de sesion</title>
+  <title>Clinica UCU | Registro de usuario</title>
 </head>
 
 <body>
@@ -14,36 +14,37 @@
   <header class="header">
     <nav>
       <ul class="nav-links">
-           <li><a href="#">Inicio sesion</a></li>
-           <li><a href="/RegisterUser.html">Registro de usuario</a></li>
+           <li><a href="/index.html">Inicio sesion</a></li>
+           <li><a href="#">Registro de usuario</a></li>
       </ul>            
    </nav>
   </header>
 
   <main class="main-conteiner">
 
-    <h2>Iniciar sesion</h2>
+    <h2>Registro de usuario</h2>
 
-    <form id="login-form">
+    <form id="register-form">
 
         <input type="text" id="loginId" placeholder="LoginId" required>
 
         <div class="flexClass">
           <input type="password" id="password" placeholder="Contraseña" required>
-          <img src="assets/img/show.png" class="icon" id="showPassword">
+          <img src="./assets/img/show.png" class="icon" id="showPassword">
           </img>
         </div>
 
-        <button type="submit" id="login-btn">Entrar</button>
+        <button type="submit" id="register-btn">Entrar</button>
 
     </form>
 
-    <p><a href="registerUser.html">¿Todavia no tiene una cuenta?</a></p>
+    <p><a href="index.html">¿Ya tiene una cuenta?</a></p>
 
   </main>
-
-  <script src="assets/js/index.js"></script>
+  
+  <script src="assets/js/registerUser.js"></script>
   <script src="assets/js/utils/passwordVisibility.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 </body>
 </html>
