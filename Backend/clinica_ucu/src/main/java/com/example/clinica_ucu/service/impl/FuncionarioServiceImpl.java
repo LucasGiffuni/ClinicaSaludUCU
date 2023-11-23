@@ -1,11 +1,13 @@
 package com.example.clinica_ucu.service.impl;
 
+import java.io.IOException;
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 
 import javax.sql.rowset.serial.SerialBlob;
 
@@ -75,7 +77,7 @@ public class FuncionarioServiceImpl {
 
     }
 
-    public DefaultResponse cargarCarnetSalud(CarnetSalud carnetSalud) {
+    public DefaultResponse cargarCarnetSalud(CarnetSalud carnetSalud) throws SQLIntegrityConstraintViolationException {
         try {
             createConection();
             String sql = " insert into Carnet_Salud (Ci, Fch_Emision, Fch_Vencimiento  )"
@@ -101,16 +103,16 @@ public class FuncionarioServiceImpl {
         return response;
     }
 
-    public DefaultResponse cargarComprobante(String cI, byte[] file)
-            throws ClassNotFoundException, SQLException {
+    public DefaultResponse cargarComprobante(String cI, String file)
+            throws ClassNotFoundException, SQLException, IOException {
         createConection();
         String sql = " UPDATE Carnet_Salud set Comprobante = ? where Ci = ?";
-        Blob blob = new SerialBlob(file);
-        System.out.println(blob);
+        byte[] byteData = file.getBytes();// Better to specify encoding
+        Blob docInBlob = new SerialBlob(byteData);
 
         PreparedStatement preparedStmt = con.prepareStatement(sql);
-        preparedStmt.setInt(1, Integer.parseInt(cI));
-        preparedStmt.setBlob(2, blob);
+        preparedStmt.setBlob(1, docInBlob);
+        preparedStmt.setInt(2, Integer.parseInt(cI));
 
         preparedStmt.execute();
 

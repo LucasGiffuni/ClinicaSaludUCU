@@ -3,6 +3,9 @@ jwtSecurity:
   encryptedPassword: "$2a$10$56VCAiApLO8NQYeOPiu2De/EBC5RWrTZvLl7uoeC3r7iXinRR1iiq"
 
 spring:
+  http:
+    multipart:
+      enabled: false
   datasource:
     driver-class-name: "com.mysql.cj.jdbc.Driver"
     databaseName: "ClinicaUCUSalud"

@@ -26,15 +26,15 @@
 
         <h2>Entrega de Documentación</h2>
 
-        <form id="documentationForm">            
+        <form id="documentationForm" action="submit" method="post" enctype="multipart/form-data">            
             
             <h4>Seleccione su archivo:</h4>
             
             <div id="file-div">
                 <p id="nameFile"></p>
                 <label for="documentationFile">
-                    Archivo (PDF, JPEG):
-                    <input accept=".pdf, .jpg" type="file" id="documentationFile">
+                    Archivo (PDF, JPG, PNG):
+                        <input accept=".pdf, .jpg, .png" type="file" id="documentationFile">
                 </label>
             </div>
             

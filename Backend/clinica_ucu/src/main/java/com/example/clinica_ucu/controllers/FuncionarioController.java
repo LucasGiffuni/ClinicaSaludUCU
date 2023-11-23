@@ -1,6 +1,9 @@
 package com.example.clinica_ucu.controllers;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -48,20 +52,19 @@ public class FuncionarioController {
         return ResponseEntity.ok(funcionarioService.createFuncionario(data));
     }
 
-    @PostMapping(value = "/funcionario/{CI}/cargarComprobante", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
-    public ResponseEntity<DefaultResponse> subirComprobante(@RequestParam byte[] blob,
+    @PostMapping(value = "/funcionario/{CI}/cargarComprobante")
+    public ResponseEntity<DefaultResponse> subirComprobante(@RequestBody String file,
             @PathVariable(value = "CI") String CI)
-            throws JsonMappingException, JsonProcessingException, ClassNotFoundException, SQLException {
+            throws ClassNotFoundException, SQLException, IOException {
 
-  
 
-        return ResponseEntity.ok(funcionarioService.cargarComprobante(CI,blob));
+        return ResponseEntity.ok(funcionarioService.cargarComprobante(CI, file));
     }
 
     @PostMapping(value = "/funcionario/{CI}/cargarCarnetSalud", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<DefaultResponse> cargarCarnetSalud(@RequestBody String carnetSalud,
             @PathVariable(value = "CI") String CI)
-            throws JsonMappingException, JsonProcessingException {
+            throws JsonMappingException, JsonProcessingException, SQLIntegrityConstraintViolationException {
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);

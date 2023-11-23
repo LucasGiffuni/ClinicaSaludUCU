@@ -89,10 +89,9 @@ document.addEventListener("DOMContentLoaded", function () {
     // Convierte el archivo a un objeto Blob y luego a un array de bytes
     const carnetSaludBlob = new Blob([comprobante]);
     const carnetSaludbytes = new Uint8Array(carnetSaludBlob);
-
-    //logs
-    console.log(carnetSaludBlob);
-    console.log(carnetSaludbytes);
+  
+    const aux = await carnetSaludBlob.text();
+    console.log(aux);
 
     const url =
       "http://127.0.0.1:8080/funcionario/" +
@@ -100,14 +99,14 @@ document.addEventListener("DOMContentLoaded", function () {
       "/cargarComprobante";
     fetch(url, {
       method: "POST",
+      body: JSON.stringify(aux),
       headers: {
-        "Content-Type": "application/blob",
+        "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Headers":
           "Origin, X-Requested-With, Content-Type, Accept",
         Authorization: "Bearer " + token,
       },
-      body: { blob: carnetSaludbytes },
     })
       .then((response) => {
         if (!response.ok) {
