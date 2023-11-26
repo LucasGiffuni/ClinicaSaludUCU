@@ -21,22 +21,17 @@ document.addEventListener("DOMContentLoaded", function () {
     switch (true) {
       case !isValidLogIdInput:
         swal("Login ID invalido", "Ingrese un Login ID valido", "error");
-        return;
+        return false;
 
       case !isValidPasswordInput:
         swal(
           "Contrasena invalida",
-          "Ingrese una contraseña con 8 caracteres, una mayuscula y un numero como minimo.",
+          "Ingrese una contraseña con 8 caracteres, una minucula, una mayuscula y un numero como minimo.",
           "error"
         );
-        return;
+        return false;
 
       default: {
-        swal(
-          "Registro existoso",
-          "presione aceptar para iniciar sesion",
-          "success"
-        );
         return true;
       }
     }
