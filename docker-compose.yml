@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  frontend:
+    container_name: front
+    depends_on:
+      - backend
+    build: .
+    restart: on-failure
+    ports:
+      - 5500:5500
+  backend:
+    container_name: backend
+    depends_on:
+      - database
+    build: /Backend/clinica_ucu/.
+    restart: on-failure
+    ports:
+      - 8080:8080
+    environment:
+      SPRING_APPLICATION_JSON: '{
+        "spring.datasource.driver-class-name"  : "com.mysql.cj.jdbc.Driver",
+        "spring.datasource.databaseName" : "ClinicaUCUSalud?useSSL=false",
+        "spring.datasource.connectionString" : "jdbc:mysql://database:3306/",
+        "spring.datasource.databaseUsername" : "root",
+        "spring.datasource.databasePassword" : "1234"
+        }'
+    volumes:
+      - .m2:/root/.m2
+    networks:
+      - microservices-network
+
+  database:
+    container_name: database
+    image: mysql:latest
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    ports:
+    - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+    networks:
+      - microservices-network
+
+networks:
+   microservices-network:   
+   
+
+
+volumes:
+  db:
