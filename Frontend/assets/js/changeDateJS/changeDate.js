@@ -7,8 +7,6 @@ document
     }
   });
 
-security();
-
 function validateForm() {
   const periodoSelect = document.getElementById("periodo");
   const selectedPeriodIndex = periodoSelect.selectedIndex;
@@ -39,15 +37,6 @@ function validateForm() {
   }
 
   return true;
-}
-
-function security() {
-  const cedulaUsuario = localStorage.getItem("userData");
-  const token = localStorage.getItem("token");
-  const logId = localStorage.getItem("logId");
-  if (!cedulaUsuario || !token || logId !== "admin") {
-    window.location.href = "index.html";
-  }
 }
 
 function fetchAgregarDate() {
