@@ -1,6 +1,7 @@
 package com.example.clinica_ucu.controllers;
 
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -55,13 +56,9 @@ public class FuncionarioController {
             @PathVariable(value = "CI") String CI)
             throws JsonMappingException, JsonProcessingException, ClassNotFoundException, SQLException {
 
-<<<<<<< Updated upstream
   
 
         return ResponseEntity.ok(funcionarioService.cargarComprobante(CI,blob));
-=======
-        return ResponseEntity.ok(funcionarioService.cargarComprobante(CI, file));
->>>>>>> Stashed changes
     }
 
     @PostMapping(value = "/funcionario/{CI}/cargarCarnetSalud", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -79,9 +76,6 @@ public class FuncionarioController {
 
         return ResponseEntity.ok(funcionarioService.cargarCarnetSalud(data));
     }
-<<<<<<< Updated upstream
-}
-=======
 
     @GetMapping(value = "/funcionario/obtenerReporte", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ObtenerReporteResponse> obtenerReporte()
@@ -90,4 +84,3 @@ public class FuncionarioController {
         return ResponseEntity.ok(funcionarioService.obtenerReporte());
     }
 }
->>>>>>> Stashed changes

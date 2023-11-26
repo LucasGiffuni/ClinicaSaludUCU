@@ -7,12 +7,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-<<<<<<< Updated upstream
-=======
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
->>>>>>> Stashed changes
 
 import javax.sql.rowset.serial.SerialBlob;
 
@@ -125,9 +122,6 @@ public class FuncionarioServiceImpl {
         con.close();
         return response;
     }
-<<<<<<< Updated upstream
-}
-=======
 
     public ObtenerReporteResponse obtenerReporte() {
 
@@ -167,4 +161,3 @@ public class FuncionarioServiceImpl {
         return response;
     }
 }
->>>>>>> Stashed changes
