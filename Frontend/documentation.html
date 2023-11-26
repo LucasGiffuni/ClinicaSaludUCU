@@ -12,7 +12,7 @@
 
     <header class="header">
         <nav>
-          <ul class="nav-links">
+          <ul id="nav-links">
                <li><a href="schedule.html">Agenda Consulta</a></li>
                <li><a href="#">Carnet de salud</a></li>
                <li><a href="about.html">Sobre nosotros</a></li>
@@ -40,15 +40,15 @@
             
             <div class="gridClass">
                 <ul>
-                    <p for="fechaVencimiento">Fecha de vencimiento:</p>
-                    <li><input type="date" id="fechaVencimiento" required></li>
-                </ul>
-
-                <ul>
                     <p for="fechaEmision">Fecha de emision:</p>
                     <li><input type="date" id="fechaEmision" required></li>
                 </ul>
+                <ul>
+                    <p for="fechaVencimiento">Fecha de vencimiento:</p>
+                    <li><input type="date" id="fechaVencimiento" required></li>
+                </ul>
             </div>
+
 
             <button rype="submit" id="documentation-btn">Enviar</button>
 
@@ -57,6 +57,7 @@
 
     </main>
     <script src="assets/js/utils/localStorage.js"></script>
+    <script src="assets/js/utils/navbar.js"></script>
     <script src="assets/js/documentation.js"></script>
     <script src="assets/js/utils/documentationCSS.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>

@@ -7,16 +7,19 @@
 }
 
 body {
+    background-color: #f0f0f0;
+    /* Color de respaldo */
     background-image: url(/assets/img/background.jpeg);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
     background-attachment: fixed;
+    margin: 0;
 }
 
 .main-conteiner {
     width: 400px;
-    background-color: rgb(28, 40, 94, 0.6);
+    background-color: rgba(28, 40, 94, 0.6);
     padding: 30px;
     margin: auto;
     margin-top: 100px;
@@ -32,6 +35,12 @@ body {
     margin-top: 20px;
 }
 
+.flexClass {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
 .main-conteiner h2 {
     display: flex;
     color: white;
@@ -42,19 +51,19 @@ body {
 }
 
 
-#scheduleForm p {
+#date-form p {
     margin-top: 8px;
 }
 
 
-#scheduleForm form h2 {
+#date-form form h2 {
     font-size: 30px;
     text-align: center;
     margin-bottom: 20px;
     color: rgb(28, 40, 94);
 }
 
-#scheduleForm input, select {
+#date-form input, select {
     width: 100%;
     margin-top: 20px;
     padding: 10px;
@@ -63,7 +72,7 @@ body {
     outline: none;
 }
 
-#scheduleForm button {
+#date-form button {
 
     display: flex;
     align-items: center;
@@ -80,3 +89,16 @@ body {
     outline: none;
 }
 
+
+/* Media Queries for responsiveness */
+@media screen and (max-width: 600px) {
+    .main-conteiner {
+        width: 90%;
+        /* Adjusted width for smaller screens */
+    }
+
+    #date-form button {
+        margin-top: 20px;
+        /* Adjusted margin for smaller screens */
+    }
+}

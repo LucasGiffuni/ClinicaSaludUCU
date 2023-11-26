@@ -24,6 +24,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Maneja el evento de envío del formulario, procesa los archivos y realiza llamadas asincrónicas al servidor
   async function sendFileHandler(event) {
+    let fechaVencimiento = document.getElementById("fechaVencimiento").value;
+    let fechaEmision = document.getElementById("fechaEmision").value;
+
+    fechaVencimiento = new Date(fechaVencimiento);
+    fechaEmision = new Date(fechaEmision);
+
     event.preventDefault();
     const cedulaUsuario = localStorage.getItem("userData");
     const token = localStorage.getItem("token");
@@ -36,11 +42,20 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!carnetSaludFile || !isValidFileType(carnetSaludFile.type)) {
       swal("Error", "Por favor, seleccione un archivo PDF o JPEG.", "error");
       return;
-    } else {
-      // Realiza llamadas asincrónicas para enviar datos y archivos al servidor
-      await fetchData(cedulaUsuario, token);
-      await fetchComprobante(carnetSaludFile, cedulaUsuario, token);
     }
+
+    if (fechaVencimiento < fechaEmision) {
+      swal(
+        "Error",
+        "La fecha de vencimiento es anterior a la de emisión",
+        "error"
+      );
+      return;
+    }
+
+    // Realiza llamadas asincrónicas para enviar datos y archivos al servidor
+    await fetchData(cedulaUsuario, token);
+    await fetchComprobante(carnetSaludFile, cedulaUsuario, token);
   }
 
   // Realiza una llamada al servidor para enviar datos relacionados con la Fch_Emision y Fch_Vencimiento

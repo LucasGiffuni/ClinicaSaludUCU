@@ -21,8 +21,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const selectedDate = flatpickrInstance.selectedDates[0];
     if (!selectedDate) {
-        swal("Error", "Por favor, seleccione una fecha", "error");
-        return false;
+      swal("Error", "Por favor, seleccione una fecha", "error");
+      return false;
     }
 
     return true;
@@ -31,12 +31,12 @@ document.addEventListener("DOMContentLoaded", function () {
   function security() {
     const cedulaUsuario = localStorage.getItem("userData");
     const token = localStorage.getItem("token");
-
     if (!cedulaUsuario || !token) {
       window.location.href = "index.html";
     } else {
       fetchUpdatePeriod();
     }
+
   }
 
   function fetchUpdatePeriod() {

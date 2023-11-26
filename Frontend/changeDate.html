@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link id="icon" rel="icon" href="assets/img/icon.png">
+  <link rel="stylesheet" href="assets/styles/changeDate.css">
+  <link rel="stylesheet" href="assets/styles/navbar.css">
+  <title>Clinica UCU | Inicicio de sesion</title>
+</head>
+
+<body>
+
+  <header class="header">
+    <nav> 
+      <ul id="nav-links">
+           <li><a href="schedule.html">Agenda Consulta</a></li>
+           <li><a href="documentation.html">Carnet de salud</a></li>
+           <li><a href="about.html">Sobre nosotros</a></li>
+           <li><a id="logOut" href="index.html">log out</a></li>
+      </ul>            
+   </nav>
+  </header>
+
+  <main class="main-conteiner">
+
+    <h2>Cambiar proceso</h2>
+    
+    <form id="date-form">
+      
+      <p for="periodo">Selecciona un periodo:</p>
+      <select id="periodo" required>
+        <option value="default">Periodo</option>
+        <option value="1">1er semestre</option>
+        <option value="2">2do semestre</option>
+      </select>
+
+      <p for="inicialDate">Selecciona una fecha inicial:</p>
+      <input type="date" name="" id="inicialDate" placeholder="Fecha de inicio">
+
+      <p for="finalDate">Selecciona una fecha final:</p>
+      <input type="date" name="" id="finalDate" placeholder="Fecha final">
+      
+      <button type="submit" id="date-btn">Subir</button>
+    </form>
+    
+  </main>
+
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script src="assets/js/changeDate.js"></script>
+  <script src="assets/js/utils/navbar.js"></script>
+</body>
+</html>
