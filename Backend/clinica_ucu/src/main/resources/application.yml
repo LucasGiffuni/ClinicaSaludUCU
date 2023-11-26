@@ -8,4 +8,4 @@ spring:
     databaseName: "ClinicaUCUSalud"
     connectionString: "jdbc:mysql://localhost:3306/"
     databaseUsername: "root"
-    databasePassword: "bernardo"
+    databasePassword: "1234"

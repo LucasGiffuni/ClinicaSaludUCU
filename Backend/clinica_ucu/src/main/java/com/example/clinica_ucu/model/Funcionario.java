@@ -28,6 +28,22 @@ public class Funcionario {
     @JsonProperty(value = "LogId")
     private String LogId;
 
+
+    
+    public Funcionario(String cI, String nombre, String apellido, String fch_Nacimiento, String direccion,
+            String telefono, String email) {
+        CI = cI;
+        Nombre = nombre;
+        Apellido = apellido;
+        Fch_Nacimiento = fch_Nacimiento;
+        Direccion = direccion;
+        Telefono = telefono;
+        Email = email;
+    }
+
+    public Funcionario() {
+    }
+
     public String getCI() {
         return CI;
     }
