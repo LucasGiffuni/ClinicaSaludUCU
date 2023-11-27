@@ -23,7 +23,7 @@ CREATE TABLE Funcionarios
 
 CREATE TABLE Agenda
 (
-    Nro        INT PRIMARY KEY NOT NULL,
+    Nro        INT PRIMARY KEY NOT NULL AUTOINCREMENT,
     Ci         INT(8) UNIQUE   NOT NULL,
     Fch_Agenda DATE            NOT NULL,
     FOREIGN KEY (Ci) REFERENCES Funcionarios (Ci)
