@@ -24,14 +24,6 @@ body {
     color: white;
 }
 
-.main-conteiner a {
-    display: flex;
-    color: white;
-    text-decoration: none;
-    justify-content: center;
-    margin-top: 20px;
-}
-
 .main-conteiner h2 {
     display: flex;
     color: white;

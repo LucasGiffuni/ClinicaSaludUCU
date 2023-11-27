@@ -3,18 +3,13 @@ document.addEventListener("DOMContentLoaded", function () {
     try {
       const contenido = await fetchGeneratePeriod();
       if (contenido.length > 0) {
-        guardarArchivoDeTexto(JSON.stringify(contenido[0]), "reporte.txt");
+        guardarArchivoDeTexto(JSON.stringify(contenido), "reporte.txt");
       } else {
         console.warn("La respuesta del servidor está vacía");
-        // Puedes manejar el caso de respuesta vacía según tus necesidades
       }
     } catch (error) {
       console.error("Error al generar el reporte:", error);
-      swal(
-        "Error al generar el reporte",
-        "Pida ayuda a soporte",
-        "info"
-      );
+      swal("Error al generar el reporte", "Pida ayuda a soporte", "info");
     }
   };
 

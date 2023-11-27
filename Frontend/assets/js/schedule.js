@@ -86,7 +86,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     periodoSelect.addEventListener("change", function () {
       const selectedPeriodoIndex = periodoSelect.selectedIndex;
-      const selectedPeriodo = data[selectedPeriodoIndex];
+      const selectedPeriodo = data[selectedPeriodoIndex - 1];
 
       if (selectedPeriodo) {
         const fechaInicio = new Date(selectedPeriodo.fch_Inicio);

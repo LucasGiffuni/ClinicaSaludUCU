@@ -56,3 +56,7 @@ CREATE TABLE Cupos
     FOREIGN KEY (Año,Semestre) REFERENCES Periodos_Actualizacion (Año,Semestre),
      PRIMARY KEY (Fecha,Año, Semestre)
 );
+
+INSERT INTO Periodos_Actualizacion (Año, Semestre, Fch_Inicio, Fch_Fin)
+VALUES
+  (2023, '1', '2023-11-01', '2023-11-15');

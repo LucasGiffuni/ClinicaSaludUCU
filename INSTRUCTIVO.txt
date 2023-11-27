@@ -25,7 +25,11 @@ Para una correcta ejecucion del programa es necesario ejecutar secuencialmente l
 Esto habilitará las funcionalidades de cargar periodo y generar reporte.
 
 2- En caso de fallar los pasos 1 al 3 podemos independientemente lanzar los servicios, pero si es necesario lanzar independiente el docker de la base de datos.
-Para lanzar el backend simplemente entramos al main " Backend\clinica_ucu\src\main\java\com\example\clinica_ucu\ClinicaUcuApplication.java " y ejecutamos la aplicación.
-Para lanzar el frontend necesitaremos de un live server, recomendamos el Live Server que provee Visual Studio Code.
+
+ejercucion: 
+
+1- Para lanzar el backend simplemente entramos al main " Backend\clinica_ucu\src\main\java\com\example\clinica_ucu\ClinicaUcuApplication.java " y ejecutamos la aplicación.
+
+2- Para lanzar el frontend necesitaremos de un live server, recomendamos el Live Server que provee Visual Studio Code.
 
 
