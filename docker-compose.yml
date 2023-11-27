@@ -8,7 +8,8 @@ services:
     build: .
     restart: on-failure
     ports:
-      - 5500:5500
+      - 80:80
+
   backend:
     container_name: backend
     depends_on:
@@ -20,7 +21,7 @@ services:
     environment:
       SPRING_APPLICATION_JSON: '{
         "spring.datasource.driver-class-name"  : "com.mysql.cj.jdbc.Driver",
-        "spring.datasource.databaseName" : "ClinicaUCUSalud?useSSL=false",
+        "spring.datasource.databaseName" : "ClinicaUCUSalud",
         "spring.datasource.connectionString" : "jdbc:mysql://database:3306/",
         "spring.datasource.databaseUsername" : "root",
         "spring.datasource.databasePassword" : "1234"
