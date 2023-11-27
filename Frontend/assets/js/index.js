@@ -32,6 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
       })
       .then((data) => {
         if (data && data.jwt) {
+          localStorage.setItem("logId", loginIdInput.value);
           localStorage.setItem("token", data.jwt);
           localStorage.setItem("userData", data.cedula);
           console.log("Respuesta del backend:", data);

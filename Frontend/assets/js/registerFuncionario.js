@@ -104,11 +104,6 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
 
       default: {
-        swal(
-          "Registro existoso",
-          "presione aceptar para iniciar sesion",
-          "success"
-        );
         return true;
       }
     }
@@ -172,6 +167,7 @@ document.addEventListener("DOMContentLoaded", function () {
             "presione aceptar para iniciar sesion",
             "success"
           );
+          localStorage.removeItem("logId");
           window.location.href = "index.html";
         })
         .catch((error) => {

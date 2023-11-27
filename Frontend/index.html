@@ -13,7 +13,7 @@
 
   <header class="header">
     <nav>
-      <ul class="nav-links">
+      <ul id="nav-links">
            <li><a href="#">Inicio sesion</a></li>
            <li><a href="/RegisterUser.html">Registro de usuario</a></li>
       </ul>            
@@ -26,10 +26,10 @@
 
     <form id="login-form">
 
-        <input type="text" id="loginId" placeholder="LoginId" required>
+        <input type="text" id="loginId" placeholder="LoginId" required autocomplete="current-LoginId">
 
         <div class="flexClass">
-          <input type="password" id="password" placeholder="Contraseña" required>
+          <input type="password" id="password" placeholder="Contraseña" required autocomplete="current-password">
           <img src="assets/img/show.png" class="icon" id="showPassword">
           </img>
         </div>

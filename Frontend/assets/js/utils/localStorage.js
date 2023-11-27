@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (willLogOut) {
         localStorage.removeItem("userData");
         localStorage.removeItem("token");
+        localStorage.removeItem("logId");
         window.location.href = "index.html";
       }
     });

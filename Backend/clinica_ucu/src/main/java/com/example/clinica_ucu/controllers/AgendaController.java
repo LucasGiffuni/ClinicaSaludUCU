@@ -87,4 +87,12 @@ public class AgendaController {
         return ResponseEntity.ok(agendaService.inicializarPeriodo(data));
     }
 
+    @PostMapping(value = "/agenda/eliminarPeriodoActualizacion", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<InitCuposResponse> eliminarPeriodoActualizacion(@RequestParam String anio,
+            @RequestParam String semestre, @RequestParam String fecha_inicio, @RequestParam String fecha_fin)
+            throws JsonMappingException, JsonProcessingException, ClassNotFoundException, SQLException {
+
+        return ResponseEntity.ok(agendaService.eliminarPeriodo(anio, semestre, fecha_inicio, fecha_fin));
+    }
+
 }

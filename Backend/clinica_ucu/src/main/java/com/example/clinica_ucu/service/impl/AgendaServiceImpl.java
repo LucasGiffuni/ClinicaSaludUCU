@@ -199,4 +199,31 @@ public class AgendaServiceImpl {
 
     }
 
+    public InitCuposResponse eliminarPeriodo(String anio, String semestre, String fecha_inicio, String fecha_fin) {
+        try {
+            createConection();
+
+            String sql = "DELETE FROM Periodos_Actualizacion WHERE Año = ? and Semestre = ? and Fch_Inicio = ? and Fch_Fin = ?";
+            PreparedStatement preparedStmt = con.prepareStatement(sql);
+            preparedStmt.setInt(1, Integer.parseInt(anio));
+            preparedStmt.setString(2, semestre);
+            preparedStmt.setDate(3, Date.valueOf(fecha_inicio));
+            preparedStmt.setDate(4, Date.valueOf(fecha_fin));
+            preparedStmt.execute();
+            con.close();
+
+            DefaultResponse defaultResponse = new DefaultResponse("200", "OK");
+            InitCuposResponse response = new InitCuposResponse(defaultResponse,
+                    "Periodo y cupos eliminado correctamente");
+            return response;
+
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+            DefaultResponse defaultResponse = new DefaultResponse("400", "ERROR");
+            InitCuposResponse response = new InitCuposResponse(defaultResponse,
+                    "Error");
+            return response;
+        }
+    }
+
 }

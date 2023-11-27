@@ -79,7 +79,7 @@ public class UserServiceImpl {
         logger.info(connectionString + databaseName
                 + databaseUser + databasePassword);
         this.con = DriverManager.getConnection(
-                connectionString + databaseName, databaseUser, databasePassword);
+                connectionString + databaseName +" ?enabledTLSProtocols=TLSv1.2", databaseUser, databasePassword);
     }
 
     public List<DatabaseUser> getAllUsers() throws SQLException, ClassNotFoundException {
