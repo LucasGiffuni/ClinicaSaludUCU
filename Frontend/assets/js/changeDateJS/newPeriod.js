@@ -7,6 +7,17 @@ document
     }
   });
 
+  security();
+
+function security() {
+  const cedulaUsuario = localStorage.getItem("userData");
+  const token = localStorage.getItem("token");
+  const admin = localStorage.getItem("logId");
+  if (!cedulaUsuario || !token || admin !== "admin") {
+    window.location.href = "index.html";
+  }
+}
+
 function validateForm() {
   const periodoSelect = document.getElementById("periodo");
   const selectedPeriodIndex = periodoSelect.selectedIndex;

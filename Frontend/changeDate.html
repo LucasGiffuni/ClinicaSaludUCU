@@ -26,7 +26,7 @@
 
     <section id="text">
 
-      <h2>Agregar proceso</h2>
+      <h2>Agregar proceso:</h2>
       
       <form id="date-form">
         
@@ -48,30 +48,15 @@
   </section>
 
   <section id="list">
-    <h2>Modificar proceso</h2>
-  
-    <form id="update-form">
-      <p for="periodo2">Selecciona un periodo:</p>
-      <select id="periodo2" required>
-          <option value="default">Periodo</option>
-      </select>
-          
-          <p for="inicialDate2">Selecciona una nueva fecha de inicial:</p>
-          <input type="date" id="inicialDate2" placeholder="Fecha de inicio">
-  
-          <p for="finalDate2">Selecciona una nueva fecha de final:</p>
-          <input type="date" id="finalDate2" placeholder="Fecha final">
-          
-          <button type="submit" id="update-btn">Cambiar</button>
-    </form>
-
+    <h2>Generar reporte:</h2>
+      <button id="report-btn">Generar Reporte</button>
   </section>
 
   </main>
 
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <script src="assets/js/changeDateJS/newPeriod.js"></script>
-  <script src="assets/js/changeDateJS/updatePeriod.js"></script>
+  <script src="assets/js/changeDateJS/report.js"></script>
   <script src="assets/js/utils/navbar.js"></script>
 </body>
 </html>

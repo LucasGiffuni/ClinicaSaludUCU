@@ -36,7 +36,6 @@ document.addEventListener("DOMContentLoaded", function () {
     } else {
       fetchUpdatePeriod();
     }
-
   }
 
   function fetchUpdatePeriod() {
