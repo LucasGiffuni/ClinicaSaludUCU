@@ -14,7 +14,7 @@ services:
     container_name: backend
     depends_on:
       - database
-    build: /Backend/clinica_ucu/.
+    build: Backend/clinica_ucu/.
     restart: on-failure
     ports:
       - 8080:8080
